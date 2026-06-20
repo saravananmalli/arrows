@@ -12553,11 +12553,38 @@ tbody {
     padding: 24px 20px;
   }
 
-  // ── Page description card → stack, button full-width ────
-  .page-desc-card {
+  // ── Page description cards → stack, button full-width ──
+  .page-desc-card,
+  .cand-desc-top {
     flex-direction: column;
     align-items:    stretch;
+    gap:            12px;
     button { width: 100%; justify-content: center; }
+  }
+
+  // ── Interview Group → stack left/right panels vertically ─
+  .ig-wrap {
+    flex-direction: column;
+    overflow:       visible;
+  }
+  .ig-left-panel {
+    width:         100%;
+    border-right:  none;
+    border-bottom: 1px solid var(--border);
+    max-height:    240px;
+  }
+  .ig-left-header {
+    flex-direction: column;
+    align-items:    stretch;
+    gap:            8px;
+    .ig-create-btn { width: 100%; justify-content: center; }
+  }
+  .ig-right-panel {
+    overflow: visible;
+  }
+  .ig-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   // ── Pagination compact ───────────────────────────────────
