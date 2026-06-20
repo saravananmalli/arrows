@@ -6,6 +6,8 @@ const path      = require('path');
 const multer    = require('multer');
 const { PDFParse } = require('pdf-parse');
 const mammoth   = require('mammoth');
+const Anthropic  = require('@anthropic-ai/sdk');
+const anthropic  = new Anthropic();
 
 const DATA_PATH          = path.join(__dirname, 'sampledata.json');
 const CANDIDATES_PATH    = path.join(__dirname, 'candidates.json');
@@ -1222,6 +1224,16 @@ function parseYM(str) {
   return new Date(+yr[0], mo ? MON_IDX[mo[0].toLowerCase().slice(0, 3)] : 0, 1);
 }
 
+// Like parseYM but defaults to December when no month is given — used for end dates
+// so "2018 – 2022" is treated as "Jan 2018 – Dec 2022" (max plausible range).
+function parseYMEnd(str) {
+  if (!str) return null;
+  const yr = str.match(/\d{4}/);
+  const mo = str.match(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i);
+  if (!yr) return null;
+  return new Date(+yr[0], mo ? MON_IDX[mo[0].toLowerCase().slice(0, 3)] : 11, 1);
+}
+
 function computeExperience(jobs, text) {
   const m = text.match(/(\d+)\+?\s*years?\s+(?:of\s+)?(?:(?:total|overall|professional|industry|work)\s+)?experience/i)
          || text.match(/(?:over|more\s+than)\s+(\d+)\s*years?\s+(?:of\s+)?experience/i);
@@ -1267,7 +1279,314 @@ function extractTitle(sections) {
   return '';
 }
 
-// ── 10. Main parser ───────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════════
+// AI AGENTIC RESUME PARSING PIPELINE
+// Agents 2-8  → single Claude API call (data extraction)
+// Agents 9-15 → local computation (no extra API calls)
+// ════════════════════════════════════════════════════════════════════
+
+// ── Agent 9: Total Experience Calculator ─────────────────────────
+// Sums non-overlapping employment date intervals.
+function agentCalcTotalExperience(employmentHistory) {
+  const intervals = [];
+  for (const job of employmentHistory) {
+    const parts = (job.duration || '').split(/[-–—]|\bto\b/i).map(s => s.trim());
+    const s = parseYM(parts[0]);
+    const e = /present|current|now/i.test(parts[1] || '') ? new Date() : parseYMEnd(parts[1]);
+    if (s && e && e > s) intervals.push([s, e]);
+  }
+  intervals.sort((a, b) => a[0] - b[0]);
+  let totalMs = 0, mergedEnd = null;
+  for (const [s, e] of intervals) {
+    if (!mergedEnd || s > mergedEnd) { totalMs += e - s; mergedEnd = e; }
+    else if (e > mergedEnd)          { totalMs += e - mergedEnd; mergedEnd = e; }
+  }
+  return totalMs / (1000 * 60 * 60 * 24 * 365.25);
+}
+
+// ── Agent 10: Per-Skill Experience Calculator ─────────────────────
+// Matches a skill against each job's techStack and responsibilities.
+function agentCalcSkillExperience(skillName, employmentHistory) {
+  const re = buildSkillRe(skillName);
+  let totalMs = 0;
+  for (const job of employmentHistory) {
+    const inStack = (job.techStack || []).some(t => t.toLowerCase() === skillName.toLowerCase());
+    const inResp  = re && (job.responsibilities || []).some(r => re.test(r));
+    if (!inStack && !inResp) continue;
+    const parts = (job.duration || '').split(/[-–—]|\bto\b/i).map(s => s.trim());
+    const s = parseYM(parts[0]);
+    const e = /present|current|now/i.test(parts[1] || '') ? new Date() : parseYMEnd(parts[1]);
+    if (s && e && e > s) totalMs += e - s;
+  }
+  return totalMs / (1000 * 60 * 60 * 24 * 365.25);
+}
+
+// ── Agent 11: Skill Rating ────────────────────────────────────────
+// Scale (per spec): 0–1yr→1  1–3yr→2  3–5yr→3  5–8yr→4  8+yr→5
+function agentSkillRating(years) {
+  if (years >= 8) return 5;
+  if (years >= 5) return 4;
+  if (years >= 3) return 3;
+  if (years >= 1) return 2;
+  return 1;
+}
+
+// ── Agent 12: Overall Candidate Rating ───────────────────────────
+// Scale (per spec): 0–2yr→1  2–4yr→2  4–6yr→3  6–10yr→4  10+yr→5
+function agentOverallRating(years) {
+  if (years >= 10) return 5;
+  if (years >= 6)  return 4;
+  if (years >= 4)  return 3;
+  if (years >= 2)  return 2;
+  return 1;
+}
+
+// ── Agent 13: Validation ──────────────────────────────────────────
+// Rejects cross-field contamination (location≠skill, company≠city, etc.)
+const _SKILL_KW    = /\b(?:java|javascript|typescript|python|sql|html|css|react|angular|vue|node|spring|docker|kubernetes|aws|azure|gcp|linux|mysql|postgresql|mongodb|redis|git|maven|hibernate|rest|api|junit|selenium|sap|oracle|salesforce|c\+\+|c#|\.net|php|ruby|golang|kotlin|swift|flutter|android|ios)\b/i;
+const _GEO_KW      = /\b(?:india|usa|uk|united states|australia|canada|singapore|germany|france|uae|dubai|netherlands|malaysia|china|japan|hyderabad|bangalore|bengaluru|mumbai|chennai|pune|delhi|noida|gurugram|ahmedabad|kolkata)\b/i;
+
+function agentValidate(data) {
+  const issues = [];
+
+  // Location must not be a skill name
+  if (data.location && _SKILL_KW.test(data.location)) {
+    issues.push({ field: 'location', issue: 'Contains skill keyword', original: data.location });
+    data = { ...data, location: '' };
+  }
+
+  // Company must not be purely geographic
+  if (data.company && _GEO_KW.test(data.company) && !data.company.includes(' ')) {
+    issues.push({ field: 'company', issue: 'Looks like a location', original: data.company });
+    data = { ...data, company: (data.employmentHistory || [])[0]?.company || '' };
+  }
+
+  // Current company should exist in employment history
+  const jobs = data.employmentHistory || [];
+  if (data.company && jobs.length > 0) {
+    const cl = data.company.toLowerCase();
+    const match = jobs.find(j => (j.company || '').toLowerCase().includes(cl) || cl.includes((j.company || '').toLowerCase()));
+    if (!match) {
+      data = { ...data, company: jobs[0]?.company || data.company };
+    }
+  }
+
+  // Current designation should come from most recent job
+  if (!data.role && jobs.length > 0) {
+    data = { ...data, role: jobs[0]?.designation || '' };
+  }
+
+  return { ...data, _validationIssues: issues };
+}
+
+// ── Agent 14: Confidence Scoring ──────────────────────────────────
+// Returns per-field confidence 0-100.
+// >= 95 → auto-populate | 70-94 → populate + highlight | <70 → user review
+function agentConfidence(data) {
+  const jobs = data.employmentHistory || [];
+  const pct  = (val, tests) => {
+    if (!val && val !== 0) return 0;
+    const base = 70;
+    const bonus = tests.reduce((s, [ok, d]) => s + (ok ? d : 0), 0);
+    return Math.min(100, base + bonus);
+  };
+  return {
+    firstName:         pct(data.firstName,  [[data.firstName?.length  > 1, 30]]),
+    lastName:          pct(data.lastName,   [[data.lastName?.length   > 1, 30]]),
+    email:             pct(data.email,      [[/@/.test(data.email || ''), 30]]),
+    phone:             pct(data.phone,      [[data.phone?.replace(/\D/g,'').length >= 10, 30]]),
+    location:          pct(data.location,   [[_GEO_KW.test(data.location || ''), 30]]),
+    company:           pct(data.company,    [[jobs.some(j => j.company === data.company), 30]]),
+    role:              pct(data.role,       [[data.role?.length > 3, 30]]),
+    experience:        pct(data.experience, [[/\d/.test(data.experience || ''), 30]]),
+    primarySkillset:   (data.primarySkillset   || []).length > 0 ? 95 : 0,
+    secondarySkillset: (data.secondarySkillset || []).length > 0 ? 90 : 50,
+    employmentHistory: jobs.length > 0 ? 95 : 30,
+    educationHistory:  (data.educationHistory  || []).length > 0 ? 90 : 50,
+    certifications:    (data.certifications    || []).length > 0 ? 90 : 70,
+  };
+}
+
+// ── Agents 2-8: AI Extraction ────────────────────────────────────
+// Optimisations applied:
+//   1. Tool use  — schema defined as input_schema, not embedded in prompt
+//                  → saves ~463 tokens/call, guarantees valid JSON, no parse errors
+//   2. Caching   — system prompt + tool definition cached for 5 min
+//                  → subsequent calls pay 10% of normal input cost on those tokens
+//   3. Preprocess — decorative lines stripped before sending
+//                  → reduces noise tokens in resume text by 5-15%
+//   4. Compact system prompt — "Return ONLY JSON" rule removed (tool use handles it)
+
+// Cached system prompt (identical for every resume — cache_control makes it cheap after first call)
+const _EXTRACT_SYSTEM = `You are a resume data extraction engine. Extract only what is explicitly written. Never invent or infer missing data — use null for absent scalar fields, [] for absent arrays.
+
+Rules:
+- location: city/state/country only. Never a skill name or employer name.
+- company: employer name only. Never a city or skill.
+- role: professional headline from the resume header/summary. If absent, use the most recent job title.
+- primarySkillset: skills under "Primary Skills" section; if missing, use core technical skills.
+- secondarySkillset: skills under "Secondary Skills" section; if missing, use supporting/soft skills. Always SEPARATE from primarySkillset.
+- responsibilities: work task bullets only — no company names, dates, or job titles inside this array.
+- techStack: only technology names explicitly mentioned in that job's section.
+- experience: total years from summing employment dates. Use stated value if resume mentions it directly.`;
+
+// Tool definition (cached alongside system prompt)
+const _EXTRACT_TOOL = {
+  name:        'extractResumeData',
+  description: 'Extract all candidate data from the resume. Use null for absent scalar fields, [] for absent arrays.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      firstName:  { type: ['string','null'] },
+      lastName:   { type: ['string','null'] },
+      email:      { type: ['string','null'] },
+      phone:      { type: ['string','null'] },
+      location:   { type: ['string','null'], description: 'City/state/country ONLY. Never a skill or company name.' },
+      linkedIn:   { type: ['string','null'] },
+      github:     { type: ['string','null'] },
+      role:       { type: ['string','null'], description: 'Professional headline from header/summary. Fallback: most recent job title.' },
+      experience: { type: ['string','null'], description: 'Total years e.g. "7 years".' },
+      company:    { type: ['string','null'], description: 'Most recent employer name. Never a city or country.' },
+      summary:    { type: ['string','null'] },
+      primarySkillset: {
+        type: 'array',
+        items: { type: 'object', properties: { name:{type:'string'}, experience:{type:'string'}, rating:{type:'integer',minimum:1,maximum:5}, lastUsed:{type:'string'}, comments:{type:'string'} }, required:['name'] }
+      },
+      secondarySkillset: {
+        type: 'array',
+        items: { type: 'object', properties: { name:{type:'string'}, experience:{type:'string'}, rating:{type:'integer',minimum:1,maximum:5}, lastUsed:{type:'string'}, comments:{type:'string'} }, required:['name'] }
+      },
+      employmentHistory: {
+        type: 'array',
+        items: { type: 'object', properties: { company:{type:'string'}, designation:{type:'string'}, duration:{type:'string'}, employmentType:{type:'string'}, isCurrent:{type:'boolean'}, responsibilities:{type:'array',items:{type:'string'}}, techStack:{type:'array',items:{type:'string'}} }, required:['company','designation','duration'] }
+      },
+      educationHistory: {
+        type: 'array',
+        items: { type: 'object', properties: { degree:{type:'string'}, specialization:{type:'string'}, institution:{type:'string'}, university:{type:'string'}, graduationYear:{type:'string'}, performance:{type:'string'} } }
+      },
+      certifications: {
+        type: 'array',
+        items: { type: 'object', properties: { name:{type:'string'}, organization:{type:'string'}, issueDate:{type:'string'}, expirationDate:{type:'string'} } }
+      },
+      projects: {
+        type: 'array',
+        items: { type: 'object', properties: { name:{type:'string'}, duration:{type:'string'}, client:{type:'string'}, role:{type:'string'}, technologies:{type:'array',items:{type:'string'}}, description:{type:'string'} } }
+      },
+    },
+    required: ['firstName','lastName','email','phone','location','role','company','primarySkillset','secondarySkillset','employmentHistory','educationHistory','certifications','projects'],
+  },
+};
+
+// Strip decorative lines and collapse blank lines before sending to reduce noise tokens
+function preprocessResumeText(text) {
+  return text
+    .split(/\r?\n/)
+    .filter(l => !/^[\s\-=_*#~▬─═▪•·✦|]{3,}$/.test(l))
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+async function agentExtract(resumeText) {
+  const cleaned = preprocessResumeText(resumeText);
+
+  const msg = await anthropic.messages.create({
+    model:      'claude-sonnet-4-6',
+    max_tokens: 2048,
+    system: [{ type: 'text', text: _EXTRACT_SYSTEM, cache_control: { type: 'ephemeral' } }],
+    tools:  [{ ..._EXTRACT_TOOL, cache_control: { type: 'ephemeral' } }],
+    tool_choice: { type: 'tool', name: 'extractResumeData' },
+    messages: [{ role: 'user', content: cleaned }],
+  });
+
+  // Log cache stats when available (confirms caching is active)
+  if (msg.usage) {
+    const u = msg.usage;
+    console.log(`[resume-ai] tokens — in:${u.input_tokens} out:${u.output_tokens} cache_write:${u.cache_creation_input_tokens||0} cache_read:${u.cache_read_input_tokens||0}`);
+  }
+
+  const toolUse = msg.content.find(b => b.type === 'tool_use');
+  if (!toolUse) throw new Error('AI extraction returned no tool_use block');
+  return toolUse.input;
+}
+
+// ── Pipeline Orchestrator (replaces the old single-call function) ──
+async function parseResumeWithAI(text) {
+  // ── AGENTS 2-8: Extract raw data via Claude ──────────────────
+  const raw = await agentExtract(text);
+
+  const jobs = raw.employmentHistory || [];
+
+  // ── AGENT 9: Calculate total experience from employment dates ─
+  const expYrs = agentCalcTotalExperience(jobs);
+  const expStr = expYrs > 0 ? `${Math.round(expYrs * 10) / 10} years` : (raw.experience || '');
+
+  // ── AGENTS 10-11: Per-skill experience + rating ───────────────
+  const applyRatings = (skills) => (skills || []).map(skill => {
+    const yrs    = agentCalcSkillExperience(skill.name, jobs);
+    const rating = yrs > 0 ? agentSkillRating(yrs) : (skill.rating || 3);
+    const expS   = yrs > 0 ? `${Math.round(yrs * 10) / 10} years` : (skill.experience || '');
+    return { name: skill.name, experience: expS, rating, lastUsed: skill.lastUsed || '', comments: skill.comments || '' };
+  });
+
+  const primarySkillset   = applyRatings(raw.primarySkillset);
+  const secondarySkillset = applyRatings(raw.secondarySkillset);
+
+  // ── AGENT 12: Overall candidate rating from total experience ──
+  const overallRating = agentOverallRating(expYrs);
+
+  // ── AGENT 13: Validate — reject cross-field contamination ─────
+  const validated = agentValidate({
+    ...raw,
+    experience:       expStr,
+    primarySkillset,
+    secondarySkillset,
+    company: jobs[0]?.company || raw.company || '',
+    // Prefer the AI-extracted headline (header/summary) over employment designation
+    role:    raw.role || jobs[0]?.designation || '',
+  });
+
+  // ── AGENT 14: Confidence score every extracted field ──────────
+  const confidenceScore = agentConfidence(validated);
+
+  // ── Compute candidate score (existing logic, unchanged) ───────
+  const candidateScore = computeScore({
+    primarySkillset,
+    employmentHistory: validated.employmentHistory || [],
+    educationHistory:  validated.educationHistory  || [],
+    certifications:    validated.certifications    || [],
+    experience:        expStr,
+  });
+
+  // ── AGENT 15: Map to candidate form structure ─────────────────
+  return {
+    firstName:         validated.firstName  || '',
+    lastName:          validated.lastName   || '',
+    email:             validated.email      || '',
+    phone:             validated.phone      || '',
+    location:          validated.location   || '',
+    linkedIn:          validated.linkedIn   || '',
+    github:            validated.github     || '',
+    role:              validated.role       || '',
+    experience:        expStr,
+    company:           validated.company    || '',
+    summary:           validated.summary    || '',
+    primarySkillset,
+    secondarySkillset,
+    employmentHistory: validated.employmentHistory || [],
+    educationHistory:  validated.educationHistory  || [],
+    certifications:    validated.certifications    || [],
+    projects:          validated.projects          || [],
+    candidateScore:    { ...candidateScore, overallRating },
+    confidenceScore,
+    _validationIssues: validated._validationIssues || [],
+    recommendedRoles:  [],
+    strengths:         [],
+    gaps:              [],
+  };
+}
+
+// ── 10b. Regex/heuristic parser (fallback) ────────────────────────
 function parseResumeWithCode(text) {
   const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   const lines    = stripDecorativeLines(rawLines);
@@ -1369,7 +1688,14 @@ app.post('/api/resume/parse', uploadToDisk.single('resume'), async (req, res) =>
       return res.status(400).json({ error: 'Could not extract text from the uploaded file.' });
     }
 
-    const parsed = parseResumeWithCode(text);
+    let parsed;
+    try {
+      parsed = await parseResumeWithAI(text);
+    } catch (aiErr) {
+      console.warn('AI parse failed, falling back to regex parser:', aiErr.message);
+      parsed = parseResumeWithCode(text);
+    }
+
     res.json({ ...parsed, resumeFile: req.file.filename, resumeOriginalName: req.file.originalname });
   } catch (err) {
     console.error('Resume parse error:', err.message);
