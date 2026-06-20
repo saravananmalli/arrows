@@ -826,9 +826,15 @@
   .topbar-search { display: none; }
 
   // Title group fills remaining space
-  .topbar-spacer    { display: none; }
-  .topbar-title-wrap { flex: 1; min-width: 0; }
-  .topbar-title     { font-size: 17px; @include truncate; }
+  .topbar-spacer      { display: none; }
+  .topbar-title-wrap  { flex: 1; min-width: 0; overflow: hidden; }
+  .topbar-title       { font-size: 17px; @include truncate; display: block; }
+  .topbar-subtitle    { display: none; }
+
+  // Profile: show avatar only, hide name + role + chevron
+  .topbar-user-info   { display: none; }
+  .topbar-user svg    { display: none; }
+  .topbar-user        { padding: 4px; }
 
   // Content padding
   .content { padding: 10px 12px; }

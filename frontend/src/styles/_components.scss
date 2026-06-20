@@ -12553,6 +12553,13 @@ tbody {
     padding: 24px 20px;
   }
 
+  // ── Page description card → stack, button full-width ────
+  .page-desc-card {
+    flex-direction: column;
+    align-items:    stretch;
+    button { width: 100%; justify-content: center; }
+  }
+
   // ── Pagination compact ───────────────────────────────────
   .pagination { gap: 4px; font-size: 12px; }
 
