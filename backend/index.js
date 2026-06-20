@@ -1,13 +1,16 @@
 require('dotenv').config();
-const express    = require('express');
-const cors       = require('cors');
-const fs         = require('fs');
-const path       = require('path');
-const multer     = require('multer');
-const { PDFParse } = require('pdf-parse');
-const mammoth    = require('mammoth');
-const Anthropic  = require('@anthropic-ai/sdk');
-const mongoose   = require('mongoose');
+const express       = require('express');
+const cors          = require('cors');
+const helmet        = require('helmet');
+const rateLimit     = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const fs            = require('fs');
+const path          = require('path');
+const multer        = require('multer');
+const { PDFParse }  = require('pdf-parse');
+const mammoth       = require('mammoth');
+const Anthropic     = require('@anthropic-ai/sdk');
+const mongoose      = require('mongoose');
 
 const anthropic  = new Anthropic();
 
@@ -26,7 +29,7 @@ if (!MONGO_URI) {
 }
 
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('MongoDB connected:', MONGO_URI))
+  .then(() => console.log('MongoDB connected:', MONGO_URI.replace(/:([^@]+)@/, ':***@')))
   .catch(err => { console.error('MongoDB connection error:', err.message); process.exit(1); });
 
 const flex = { strict: false, versionKey: false };
@@ -117,16 +120,53 @@ async function createNotification(type, candidateId, message) {
 // ── Express app ───────────────────────────────────────────────────
 const app = express();
 
+// Security middleware
+app.use(helmet());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    /\.vercel\.app$/,
+    /\.onrender\.com$/,
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+app.use(express.json({ limit: '1mb' }));
+app.use(mongoSanitize());  // strips $ and . from req.body/params — blocks NoSQL injection
+
+// Rate limiter for login endpoint only
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many login attempts, please try again later' },
+});
+
+// Allowed file types for uploads (resume + documents)
+const ALLOWED_MIME = new Set([
+  'application/pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'text/plain',
+]);
+const ALLOWED_EXT = new Set(['.pdf', '.docx', '.txt']);
+
+function uploadFilter(_req, file, cb) {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (!ALLOWED_MIME.has(file.mimetype) || !ALLOWED_EXT.has(ext)) {
+    return cb(Object.assign(new Error('Only PDF, DOCX and TXT files are allowed'), { status: 400 }));
+  }
+  cb(null, true);
+}
+
 const uploadToDisk = multer({
   storage: multer.diskStorage({
     destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
     filename:    (_req, file,  cb) => cb(null, `resume_${Date.now()}${path.extname(file.originalname)}`),
   }),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits:     { fileSize: 5 * 1024 * 1024 },
+  fileFilter: uploadFilter,
 });
-
-app.use(cors());
-app.use(express.json());
 
 // ── Pipeline helpers ──────────────────────────────────────────────
 
@@ -197,7 +237,7 @@ function enrichPipelineCandidates(pipeline, candMap) {
 app.get('/api/masters', async (req, res) => {
   try {
     res.json(await Masters.findOne({}, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Dashboard ─────────────────────────────────────────────────────
@@ -206,28 +246,28 @@ app.get('/api/dashboard/stats', async (req, res) => {
   try {
     const d = await Dashboard.findOne({}, PROJ).lean();
     res.json(d?.stats || {});
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/dashboard/recruitment', async (req, res) => {
   try {
     const d = await Dashboard.findOne({}, PROJ).lean();
     res.json(d?.recruitment || {});
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/dashboard/tasks', async (req, res) => {
   try {
     const d = await Dashboard.findOne({}, PROJ).lean();
     res.json(d?.tasks || []);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/dashboard/hiring-metrics', async (req, res) => {
   try {
     const d = await Dashboard.findOne({}, PROJ).lean();
     res.json(d?.hiringMetrics || {});
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/dashboard/candidates', async (req, res) => {
@@ -237,7 +277,7 @@ app.get('/api/dashboard/candidates', async (req, res) => {
     const list  = await DashboardCandidate.find({}, PROJ).lean();
     const start = (page - 1) * size;
     res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Jobs ──────────────────────────────────────────────────────────
@@ -250,7 +290,7 @@ app.get('/api/jobs', async (req, res) => {
       ...j, pipeline: enrichPipelineCandidates(j.pipeline, candMap),
     }));
     res.json(jobs);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/jobs/:id', async (req, res) => {
@@ -260,7 +300,7 @@ app.get('/api/jobs/:id', async (req, res) => {
     const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
     if (!job) return res.status(404).json({ error: 'Job not found' });
     res.json({ ...job, pipeline: enrichPipelineCandidates(job.pipeline, candMap) });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Normalize a skill string for comparison (strip spaces/dots, lowercase)
@@ -336,7 +376,7 @@ app.post('/api/jobs', async (req, res) => {
     const newJob = { id: jobId, ...req.body, status: req.body.status || 'Active', candidates: [] };
     const saved  = await new Job(newJob).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Parse "8 yrs", "5 Years", "10 years", "7 yr", "3" → number (null if unparseable)
@@ -381,7 +421,7 @@ app.get('/api/jobs/:id/candidates/match', async (req, res) => {
       .map(({ _meta, ...c }) => c);
 
     res.json(scored);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/jobs/:id', async (req, res) => {
@@ -391,7 +431,7 @@ app.put('/api/jobs/:id', async (req, res) => {
     const { id: _keep, ...updates } = req.body;
     await Job.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await Job.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/jobs/:id', async (req, res) => {
@@ -400,7 +440,7 @@ app.delete('/api/jobs/:id', async (req, res) => {
     if (!job) return res.status(404).json({ error: 'Job not found' });
     await Job.deleteOne({ id: req.params.id });
     res.json(job);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/jobs/:id/pipeline', async (req, res) => {
@@ -448,7 +488,7 @@ app.put('/api/jobs/:id/pipeline', async (req, res) => {
     }
 
     res.json({ ok: true });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Candidates ────────────────────────────────────────────────────
@@ -481,7 +521,7 @@ app.get('/api/candidates/list', async (req, res) => {
     const total = list.length;
     const start = (page - 1) * size;
     res.json({ total, page, size, data: list.slice(start, start + size) });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/candidates/list/:id', async (req, res) => {
@@ -491,7 +531,7 @@ app.get('/api/candidates/list/:id', async (req, res) => {
     if (!raw) return res.status(404).json({ error: 'Candidate not found' });
     const p = pipelineMap[String(raw.id)];
     res.json(p ? { ...raw, stage: p.stage, status: p.status, subStatus: p.subStatus } : raw);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/candidates', async (req, res) => {
@@ -503,7 +543,7 @@ app.post('/api/candidates', async (req, res) => {
     };
     const saved = await new Candidate(newCandidate).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/candidates/:id', async (req, res) => {
@@ -516,7 +556,7 @@ app.put('/api/candidates/:id', async (req, res) => {
       { $set: { ...updates, modified: new Date().toISOString().split('T')[0] } }
     );
     res.json(await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/candidates/:id', async (req, res) => {
@@ -525,7 +565,7 @@ app.delete('/api/candidates/:id', async (req, res) => {
     if (!cand) return res.status(404).json({ error: 'Candidate not found' });
     await Candidate.deleteOne({ id: String(req.params.id) });
     res.json(cand);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Legacy dashboard widget endpoint
@@ -536,7 +576,7 @@ app.get('/api/candidates', async (req, res) => {
     const list  = await Candidate.find({}, PROJ).lean();
     const start = (page - 1) * size;
     res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Clients ───────────────────────────────────────────────────────
@@ -556,7 +596,7 @@ app.get('/api/clients', async (req, res) => {
       );
     }
     res.json(list);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/clients/:id', async (req, res) => {
@@ -564,7 +604,7 @@ app.get('/api/clients/:id', async (req, res) => {
     const client = await Client.findOne({ id: req.params.id }, PROJ).lean();
     if (!client) return res.status(404).json({ error: 'Client not found' });
     res.json(client);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/clients', async (req, res) => {
@@ -573,7 +613,7 @@ app.post('/api/clients', async (req, res) => {
     const newClient = { id, ...req.body };
     const saved     = await new Client(newClient).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/clients/:id', async (req, res) => {
@@ -583,7 +623,7 @@ app.put('/api/clients/:id', async (req, res) => {
     const { id: _keep, ...updates } = req.body;
     await Client.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await Client.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/clients/:id', async (req, res) => {
@@ -592,7 +632,7 @@ app.delete('/api/clients/:id', async (req, res) => {
     if (!client) return res.status(404).json({ error: 'Client not found' });
     await Client.deleteOne({ id: req.params.id });
     res.json(client);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Users ─────────────────────────────────────────────────────────
@@ -614,21 +654,21 @@ app.get('/api/users', async (req, res) => {
       );
     }
     res.json(list);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/users/meta/roles', async (req, res) => {
   try {
     const users = await User.find({}, { role: 1, _id: 0 }).lean();
     res.json([...new Set(users.map(u => u.role).filter(Boolean))].sort());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/users/meta/departments', async (req, res) => {
   try {
     const users = await User.find({}, { department: 1, _id: 0 }).lean();
     res.json([...new Set(users.map(u => u.department).filter(Boolean))].sort());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/users/:id', async (req, res) => {
@@ -636,7 +676,7 @@ app.get('/api/users/:id', async (req, res) => {
     const user = await User.findOne({ id: req.params.id }, PROJ).lean();
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(user);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/users', async (req, res) => {
@@ -651,7 +691,7 @@ app.post('/api/users', async (req, res) => {
     };
     const saved = await new User(newUser).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/users/:id', async (req, res) => {
@@ -662,7 +702,7 @@ app.put('/api/users/:id', async (req, res) => {
     const { id: _id, employeeId: _eid, ...updates } = req.body;
     await User.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await User.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/users/:id', async (req, res) => {
@@ -671,7 +711,7 @@ app.delete('/api/users/:id', async (req, res) => {
     if (!user) return res.status(404).json({ error: 'User not found' });
     await User.deleteOne({ id: req.params.id });
     res.json(user);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Interviews ────────────────────────────────────────────────────
@@ -692,7 +732,7 @@ app.get('/api/interviews', async (req, res) => {
       );
     }
     res.json(list);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/interviews/:id', async (req, res) => {
@@ -700,7 +740,7 @@ app.get('/api/interviews/:id', async (req, res) => {
     const interview = await Interview.findOne({ id: req.params.id }, PROJ).lean();
     if (!interview) return res.status(404).json({ error: 'Interview not found' });
     res.json(interview);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/interviews', async (req, res) => {
@@ -709,7 +749,7 @@ app.post('/api/interviews', async (req, res) => {
     const newInterview = { id, ...req.body };
     const saved        = await new Interview(newInterview).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/interviews/:id', async (req, res) => {
@@ -719,7 +759,7 @@ app.put('/api/interviews/:id', async (req, res) => {
     const { id: _keep, ...updates } = req.body;
     await Interview.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await Interview.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/interviews/:id', async (req, res) => {
@@ -728,7 +768,7 @@ app.delete('/api/interviews/:id', async (req, res) => {
     if (!interview) return res.status(404).json({ error: 'Interview not found' });
     await Interview.deleteOne({ id: req.params.id });
     res.json(interview);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Interviewers ──────────────────────────────────────────────────
@@ -748,7 +788,7 @@ app.get('/api/interviewers', async (req, res) => {
       );
     }
     res.json(list);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/interviewers/:id', async (req, res) => {
@@ -756,7 +796,7 @@ app.get('/api/interviewers/:id', async (req, res) => {
     const iv = await Interviewer.findOne({ id: req.params.id }, PROJ).lean();
     if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
     res.json(iv);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/interviewers', async (req, res) => {
@@ -765,7 +805,7 @@ app.post('/api/interviewers', async (req, res) => {
     const item  = { id, ...req.body };
     const saved = await new Interviewer(item).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/interviewers/:id', async (req, res) => {
@@ -775,7 +815,7 @@ app.put('/api/interviewers/:id', async (req, res) => {
     const { id: _keep, ...updates } = req.body;
     await Interviewer.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await Interviewer.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/interviewers/:id', async (req, res) => {
@@ -784,7 +824,7 @@ app.delete('/api/interviewers/:id', async (req, res) => {
     if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
     await Interviewer.deleteOne({ id: req.params.id });
     res.json(iv);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Interview Groups ──────────────────────────────────────────────
@@ -792,7 +832,7 @@ app.delete('/api/interviewers/:id', async (req, res) => {
 app.get('/api/interview-groups', async (req, res) => {
   try {
     res.json(await InterviewGroup.find({}, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.get('/api/interview-groups/:id', async (req, res) => {
@@ -800,7 +840,7 @@ app.get('/api/interview-groups/:id', async (req, res) => {
     const group = await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean();
     if (!group) return res.status(404).json({ error: 'Interview group not found' });
     res.json(group);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.post('/api/interview-groups', async (req, res) => {
@@ -809,7 +849,7 @@ app.post('/api/interview-groups', async (req, res) => {
     const item  = { id, createdDate: new Date().toISOString().split('T')[0], ...req.body };
     const saved = await new InterviewGroup(item).save();
     res.status(201).json(stripMeta(saved));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/interview-groups/:id', async (req, res) => {
@@ -819,7 +859,7 @@ app.put('/api/interview-groups/:id', async (req, res) => {
     const { id: _keep, ...updates } = req.body;
     await InterviewGroup.updateOne({ id: req.params.id }, { $set: updates });
     res.json(await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.delete('/api/interview-groups/:id', async (req, res) => {
@@ -828,7 +868,7 @@ app.delete('/api/interview-groups/:id', async (req, res) => {
     if (!group) return res.status(404).json({ error: 'Interview group not found' });
     await InterviewGroup.deleteOne({ id: req.params.id });
     res.json(group);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Recruiters ────────────────────────────────────────────────────
@@ -836,7 +876,7 @@ app.delete('/api/interview-groups/:id', async (req, res) => {
 app.get('/api/recruiters', async (req, res) => {
   try {
     res.json(await Recruiter.find({}, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Resume Parsing ────────────────────────────────────────────────
@@ -1703,7 +1743,7 @@ const docStorage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS_DOCS_DIR),
   filename:    (_req, file,  cb) => cb(null, `doc_${Date.now()}_${Math.random().toString(36).slice(2)}${path.extname(file.originalname)}`),
 });
-const uploadDoc = multer({ storage: docStorage, limits: { fileSize: 5 * 1024 * 1024 } });
+const uploadDoc = multer({ storage: docStorage, limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: uploadFilter });
 
 // Create portal account when candidate moves to Pre-Screening
 app.post('/api/candidate-portal/create-account', async (req, res) => {
@@ -1733,28 +1773,33 @@ app.post('/api/candidate-portal/create-account', async (req, res) => {
       `Portal account created for candidate ${candidateId}. Credentials sent via email/SMS.`);
 
     res.json({ userId, password, email: candidate.email, phone: candidate.phone });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
-// Get portal credentials for a candidate (recruiter view)
+// Get portal credentials for a candidate (recruiter view) — password excluded
 app.get('/api/candidate-portal/credentials/:candidateId', async (req, res) => {
   try {
     const account = await PortalUser.findOne({ candidateId: String(req.params.candidateId) }, PROJ).lean();
     if (!account) return res.status(404).json({ error: 'No portal account found' });
     res.json({
       userId:    account.userId,
-      password:  account.password,
       email:     account.email,
       phone:     account.phone,
       createdAt: account.createdAt,
     });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) {
+    console.error('[API]', req.method, req.path, err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
-// Candidate portal login
-app.post('/api/candidate-portal/login', async (req, res) => {
+// Candidate portal login — rate limited, NoSQL injection safe (mongoSanitize strips $)
+app.post('/api/candidate-portal/login', loginLimiter, async (req, res) => {
   try {
     const { userId, password } = req.body;
+    if (!userId || !password || typeof userId !== 'string' || typeof password !== 'string') {
+      return res.status(400).json({ error: 'userId and password are required' });
+    }
     const user = await PortalUser.findOne({ userId, password }, PROJ).lean();
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
 
@@ -1765,7 +1810,10 @@ app.post('/api/candidate-portal/login', async (req, res) => {
     await createNotification('candidate_login', user.candidateId,
       `${candidateName} logged into the candidate portal.`);
     res.json({ userId: user.userId, candidateId: user.candidateId, candidate });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) {
+    console.error('[API]', req.method, req.path, err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Get candidate portal data
@@ -1795,7 +1843,7 @@ app.get('/api/candidate-portal/me/:candidateId', async (req, res) => {
       subStatus: pipelineEntry.subStatus ?? candidate.subStatus,
     } : {};
     res.json({ candidate: { ...candidate, ...overrides }, documents: docs });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Upload identity document
@@ -1841,7 +1889,7 @@ app.post('/api/candidate-portal/documents', uploadDoc.single('file'), async (req
     }
 
     res.status(201).json(docEntry);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Get documents for a candidate
@@ -1849,7 +1897,7 @@ app.get('/api/candidate-portal/documents/:candidateId', async (req, res) => {
   try {
     const docs = await Document.find({ candidateId: String(req.params.candidateId) }, PROJ).lean();
     res.json(docs);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Admin: verify a document
@@ -1873,7 +1921,7 @@ app.put('/api/candidate-portal/documents/:docId/verify', async (req, res) => {
       },
     });
     res.json(await Document.findOne({ id: req.params.docId }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Admin: set overall verification status for a candidate
@@ -1905,7 +1953,7 @@ app.put('/api/candidate-portal/verification/:candidateId', async (req, res) => {
     }
 
     res.json(await Candidate.findOne({ id: String(req.params.candidateId) }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Save pre-screening interview schedule and create portal account
@@ -1959,7 +2007,7 @@ app.post('/api/candidate-portal/schedule-interview', async (req, res) => {
 
     const updated = await Candidate.findOne({ id: String(candidateId) }, PROJ).lean();
     res.json({ ok: true, userId, password: tempPassword, accountCreated, interviewSchedule: updated?.interviewSchedule });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // Get interview schedule for a candidate (used by portal)
@@ -1968,7 +2016,7 @@ app.get('/api/candidate-portal/interview/:candidateId', async (req, res) => {
     const candidate = await Candidate.findOne({ id: String(req.params.candidateId) }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
     res.json(candidate.interviewSchedule || null);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Notifications ─────────────────────────────────────────────────
@@ -1977,7 +2025,7 @@ app.get('/api/notifications', async (req, res) => {
   try {
     // Newest first
     res.json(await Notification.find({}, PROJ).sort({ createdAt: -1 }).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/notifications/:id/read', async (req, res) => {
@@ -1986,14 +2034,14 @@ app.put('/api/notifications/:id/read', async (req, res) => {
     if (!notif) return res.status(404).json({ error: 'Not found' });
     await Notification.updateOne({ id: req.params.id }, { $set: { read: true } });
     res.json(await Notification.findOne({ id: req.params.id }, PROJ).lean());
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 app.put('/api/notifications/read-all', async (req, res) => {
   try {
     await Notification.updateMany({}, { $set: { read: true } });
     res.json({ ok: true });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 // ── Audit Trail ───────────────────────────────────────────────────
@@ -2003,7 +2051,7 @@ app.get('/api/candidates/:id/audit-trail', async (req, res) => {
     const candidate = await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
     res.json(candidate.auditTrail || []);
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
 const port = process.env.PORT || 4000;
