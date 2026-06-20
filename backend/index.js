@@ -18,7 +18,7 @@ if (!fs.existsSync(UPLOADS_DIR))      fs.mkdirSync(UPLOADS_DIR,      { recursive
 if (!fs.existsSync(UPLOADS_DOCS_DIR)) fs.mkdirSync(UPLOADS_DOCS_DIR, { recursive: true });
 
 // ── MongoDB / Mongoose ───────────────────────────────────────────
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/arrows';
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected:', MONGO_URI))

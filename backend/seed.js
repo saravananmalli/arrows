@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const fs       = require('fs');
 const path     = require('path');
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/arrows';
+const MONGO_URI = process.env.MONGO_URI;
 
 function load(file) {
   const p = path.join(__dirname, file);
