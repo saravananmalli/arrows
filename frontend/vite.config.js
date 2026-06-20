@@ -6,7 +6,6 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // Use the modern Dart Sass compiler API (eliminates legacy-js-api warning)
         api: 'modern-compiler'
       }
     }
@@ -15,6 +14,18 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': 'http://localhost:4000'
+    }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react':    ['react', 'react-dom', 'react-router-dom'],
+          'vendor-charts':   ['recharts'],
+          'vendor-query':    ['@tanstack/react-query'],
+        }
+      }
     }
   }
 })
