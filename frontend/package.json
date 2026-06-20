@@ -1,0 +1,29 @@
+{
+  "name": "arrows-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.{js,jsx,scss}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,scss}\""
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.56.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.16.0",
+    "recharts": "^2.10.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "playwright": "^1.60.0",
+    "prettier": "^3.3.0",
+    "sass": "^1.100.0",
+    "vite": "^5.0.0"
+  }
+}

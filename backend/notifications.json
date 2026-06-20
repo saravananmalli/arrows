@@ -1,0 +1,58 @@
+[
+  {
+    "id": "N1781538819061",
+    "type": "documents_submitted",
+    "candidateId": "C1765040000000",
+    "message": "Priya Sharma has submitted identity verification documents and is awaiting approval.",
+    "read": true,
+    "createdAt": "2026-06-15T15:51:07.200Z"
+  },
+  {
+    "id": "N1781538617070",
+    "type": "candidate_login",
+    "candidateId": "C1765040000000",
+    "message": "Priya Sharma logged into the candidate portal.",
+    "read": false,
+    "createdAt": "2026-06-15T15:50:17.070Z"
+  },
+  {
+    "id": "N1781538365707",
+    "type": "account_created",
+    "candidateId": "C1765040000000",
+    "message": "Portal account created for candidate C1765040000000. Credentials sent via email/SMS.",
+    "read": true,
+    "createdAt": "2026-06-15T15:46:05.707Z"
+  },
+  {
+    "id": "N1781537888065",
+    "type": "candidate_login",
+    "candidateId": "C1781368480316",
+    "message": "Saravanan Sundarrajan logged into the candidate portal.",
+    "read": false,
+    "createdAt": "2026-06-15T15:38:08.065Z"
+  },
+  {
+    "id": "N1781456907342",
+    "type": "verification_update",
+    "candidateId": "C1781368480316",
+    "message": "Verification for candidate C1781368480316 was updated to: Re-upload Required. Aadhaar image not in proper resend back",
+    "read": true,
+    "createdAt": "2026-06-14T17:08:27.342Z"
+  },
+  {
+    "id": "N1781456878129",
+    "type": "candidate_login",
+    "candidateId": "C1781368480316",
+    "message": "Saravanan Sundarrajan logged into the candidate portal.",
+    "read": false,
+    "createdAt": "2026-06-14T17:07:58.129Z"
+  },
+  {
+    "id": "N1781431652757",
+    "type": "account_created",
+    "candidateId": "C1781368480316",
+    "message": "Portal account created for candidate C1781368480316. Credentials sent via email/SMS.",
+    "read": true,
+    "createdAt": "2026-06-14T10:07:32.757Z"
+  }
+]

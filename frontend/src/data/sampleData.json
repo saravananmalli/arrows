@@ -1,0 +1,5872 @@
+{
+  "masters": {
+    "stages": [
+      {
+        "label": "Added",
+        "color": "#E13021"
+      },
+      {
+        "label": "Sourced",
+        "color": "#8A37E8"
+      },
+      {
+        "label": "Pre-Screening",
+        "color": "#F97316"
+      },
+      {
+        "label": "Assessment",
+        "color": "#22C55E"
+      },
+      {
+        "label": "Client Interview",
+        "color": "#111827"
+      },
+      {
+        "label": "Offer",
+        "color": "#3B82F6"
+      },
+      {
+        "label": "Rejected",
+        "color": "#DC2626"
+      }
+    ],
+    "pipelineTabs": [
+      "Map Candidates",
+      "Sourced",
+      "Pre-Screening",
+      "Assessment",
+      "Client Interview",
+      "Offer"
+    ],
+    "stageTransitions": {
+      "Sourced": "Pre-Screening",
+      "Pre-Screening": "Assessment",
+      "Assessment": "Client Interview",
+      "Client Interview": "Offer"
+    },
+    "sources": [
+      "Resume Inbox",
+      "Added by User",
+      "Seek",
+      "LinkedIn",
+      "Naukri"
+    ],
+    "ratings": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "statuses": [
+      "In Progress",
+      "Completed"
+    ],
+    "roles": [
+      "Senior Developer",
+      "Lead Developer",
+      "Full Stack Developer",
+      "React Developer",
+      "Backend Developer"
+    ],
+    "locations": [
+      "Bangalore",
+      "Mumbai",
+      "Hyderabad",
+      "Chennai",
+      "Pune"
+    ],
+    "positionLevels": [
+      "Junior",
+      "Mid-Level",
+      "Senior",
+      "Lead"
+    ],
+    "hiringTypes": [
+      "Direct Hire",
+      "Contract",
+      "Contract to Hire"
+    ],
+    "jobTypes": [
+      "Full Time Employment",
+      "Part Time",
+      "Contract",
+      "Internship"
+    ],
+    "clientIds": [
+      "CL001",
+      "CL002",
+      "CL003"
+    ],
+    "jobActivationStatuses": [
+      {
+        "val": "validity_upto",
+        "label": "Validity Upto"
+      },
+      {
+        "val": "hold_1month",
+        "label": "Hold after 1 Month"
+      },
+      {
+        "val": "hold",
+        "label": "Hold"
+      },
+      {
+        "val": "inactive",
+        "label": "In Active"
+      },
+      {
+        "val": "closed",
+        "label": "Closed"
+      }
+    ],
+    "availabilityOptions": [
+      {
+        "val": "immediate",
+        "label": "Immediate"
+      },
+      {
+        "val": "1week",
+        "label": "1 week"
+      },
+      {
+        "val": "2week",
+        "label": "2 week"
+      },
+      {
+        "val": "1month",
+        "label": "1 month"
+      },
+      {
+        "val": "2month",
+        "label": "2 month"
+      },
+      {
+        "val": "3month",
+        "label": "3 month"
+      }
+    ],
+    "skills": {
+      "technical": [
+        "Assembly",
+        "COBOL",
+        "Fortran",
+        "Pascal",
+        "BASIC",
+        "Ada",
+        "Lisp",
+        "Prolog",
+        "C",
+        "C++",
+        "C#",
+        "Java",
+        "Python",
+        "Ruby",
+        "PHP",
+        "Perl",
+        "Objective-C",
+        "JavaScript",
+        "JavaScript ES6",
+        "TypeScript",
+        "CoffeeScript",
+        "Scala",
+        "Groovy",
+        "Clojure",
+        "Go",
+        "Rust",
+        "Swift",
+        "Kotlin",
+        "Dart",
+        "Elixir",
+        "Erlang",
+        "Haskell",
+        "F#",
+        "OCaml",
+        "R",
+        "MATLAB",
+        "Julia",
+        "Lua",
+        "Nim",
+        "Zig",
+        "V",
+        "Solidity",
+        "Move",
+        "Cairo",
+        "Mojo",
+        "PL/SQL",
+        "T-SQL",
+        "HTML",
+        "HTML5",
+        "CSS",
+        "CSS3",
+        "SASS",
+        "SCSS",
+        "LESS",
+        "Tailwind CSS",
+        "Bootstrap",
+        "Material UI",
+        "Ant Design",
+        "Chakra UI",
+        "Shadcn UI",
+        "Radix UI",
+        "Headless UI",
+        "jQuery",
+        "Backbone.js",
+        "Ember.js",
+        "AngularJS",
+        "Angular",
+        "React JS",
+        "Vue.js",
+        "Vue 3",
+        "Svelte",
+        "SvelteKit",
+        "SolidJS",
+        "Qwik",
+        "Astro",
+        "Alpine.js",
+        "Lit",
+        "Preact",
+        "Next.js",
+        "Nuxt.js",
+        "Remix",
+        "Gatsby",
+        "Redux",
+        "Redux Toolkit",
+        "Zustand",
+        "MobX",
+        "Recoil",
+        "Jotai",
+        "TanStack Query",
+        "React Query",
+        "Webpack",
+        "Parcel",
+        "Rollup",
+        "Vite",
+        "Turbopack",
+        "esbuild",
+        "Babel",
+        "Storybook",
+        "Figma",
+        "Adobe XD",
+        "Node.js",
+        "Express.js",
+        "Fastify",
+        "NestJS",
+        "Hapi.js",
+        "Koa.js",
+        "Django",
+        "Flask",
+        "FastAPI",
+        "Tornado",
+        "Spring",
+        "Spring Boot",
+        "Spring MVC",
+        "Hibernate",
+        "ASP.NET",
+        "ASP.NET Core",
+        ".NET Core",
+        "Blazor",
+        "SignalR",
+        "Ruby on Rails",
+        "Sinatra",
+        "Laravel",
+        "Symfony",
+        "CodeIgniter",
+        "Go Fiber",
+        "Gin",
+        "Echo",
+        "Actix",
+        "Rocket",
+        "Axum",
+        "Phoenix",
+        "Plug",
+        "GraphQL",
+        "REST API",
+        "gRPC",
+        "SOAP",
+        "WebSockets",
+        "tRPC",
+        "Microservices",
+        "Serverless",
+        "Event-Driven Architecture",
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "Oracle DB",
+        "Microsoft SQL Server",
+        "MariaDB",
+        "DB2",
+        "MongoDB",
+        "CouchDB",
+        "Couchbase",
+        "DynamoDB",
+        "Firestore",
+        "ArangoDB",
+        "Redis",
+        "Memcached",
+        "Cassandra",
+        "HBase",
+        "ScyllaDB",
+        "Elasticsearch",
+        "OpenSearch",
+        "Solr",
+        "Neo4j",
+        "Amazon Neptune",
+        "InfluxDB",
+        "TimescaleDB",
+        "Prometheus",
+        "Snowflake",
+        "BigQuery",
+        "Amazon Redshift",
+        "Azure Synapse",
+        "Databricks",
+        "ClickHouse",
+        "DuckDB",
+        "PlanetScale",
+        "Neon",
+        "Supabase",
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM Cloud",
+        "Oracle Cloud",
+        "AWS EC2",
+        "AWS Lambda",
+        "AWS S3",
+        "AWS RDS",
+        "AWS EKS",
+        "AWS ECS",
+        "AWS CloudFormation",
+        "AWS CDK",
+        "AWS SageMaker",
+        "Azure Functions",
+        "Azure DevOps",
+        "Azure Kubernetes Service",
+        "Google Cloud Run",
+        "Google App Engine",
+        "Firebase",
+        "Vercel",
+        "Netlify",
+        "Cloudflare Workers",
+        "Railway",
+        "Render",
+        "Fly.io",
+        "DigitalOcean",
+        "Heroku",
+        "Git",
+        "GitHub",
+        "GitLab",
+        "Bitbucket",
+        "Docker",
+        "Docker Compose",
+        "Docker Swarm",
+        "Kubernetes",
+        "Helm",
+        "Istio",
+        "Linkerd",
+        "Argo CD",
+        "Flux CD",
+        "Terraform",
+        "Pulumi",
+        "Ansible",
+        "Chef",
+        "Puppet",
+        "CI/CD",
+        "Jenkins",
+        "GitHub Actions",
+        "GitLab CI",
+        "CircleCI",
+        "Travis CI",
+        "Nginx",
+        "Apache",
+        "HAProxy",
+        "Traefik",
+        "Linux",
+        "Ubuntu",
+        "CentOS",
+        "RHEL",
+        "Debian",
+        "Bash",
+        "Shell Scripting",
+        "PowerShell",
+        "Grafana",
+        "Datadog",
+        "New Relic",
+        "Splunk",
+        "ELK Stack",
+        "OpenTelemetry",
+        "Jaeger",
+        "SonarQube",
+        "Snyk",
+        "Trivy",
+        "Jest",
+        "Vitest",
+        "Mocha",
+        "Chai",
+        "Jasmine",
+        "React Testing Library",
+        "Enzyme",
+        "Cypress",
+        "Playwright",
+        "Selenium",
+        "WebdriverIO",
+        "Puppeteer",
+        "JUnit",
+        "TestNG",
+        "Mockito",
+        "PyTest",
+        "Unittest",
+        "Robot Framework",
+        "NUnit",
+        "xUnit",
+        "MSTest",
+        "Postman",
+        "Insomnia",
+        "k6",
+        "JMeter",
+        "Gatling",
+        "iOS",
+        "Android",
+        "SwiftUI",
+        "UIKit",
+        "Jetpack Compose",
+        "Android SDK",
+        "React Native",
+        "Flutter",
+        "Ionic",
+        "Xamarin",
+        "MAUI",
+        "Capacitor",
+        "SQL",
+        "Pandas",
+        "NumPy",
+        "Polars",
+        "Apache Spark",
+        "Apache Kafka",
+        "Apache Flink",
+        "Apache Airflow",
+        "Apache Hadoop",
+        "dbt",
+        "Tableau",
+        "Power BI",
+        "Looker",
+        "Metabase",
+        "Machine Learning",
+        "Deep Learning",
+        "NLP",
+        "Computer Vision",
+        "TensorFlow",
+        "Keras",
+        "PyTorch",
+        "JAX",
+        "Scikit-learn",
+        "XGBoost",
+        "LightGBM",
+        "CatBoost",
+        "Hugging Face",
+        "Transformers",
+        "PEFT",
+        "LoRA",
+        "OpenCV",
+        "NLTK",
+        "SpaCy",
+        "MLflow",
+        "Weights & Biases",
+        "DVC",
+        "Kubeflow",
+        "Ray",
+        "LangChain",
+        "LlamaIndex",
+        "Haystack",
+        "AutoGen",
+        "Vector Databases",
+        "RAG",
+        "Fine-tuning",
+        "Prompt Engineering",
+        "GPT-4",
+        "GPT-4o",
+        "Claude",
+        "Claude 3.5 Sonnet",
+        "Gemini",
+        "Llama",
+        "Llama 3",
+        "Mistral",
+        "OpenAI API",
+        "Anthropic API",
+        "Google AI API",
+        "Amazon Bedrock",
+        "Azure OpenAI",
+        "Vertex AI",
+        "Cybersecurity",
+        "Penetration Testing",
+        "Ethical Hacking",
+        "OWASP",
+        "SSL/TLS",
+        "OAuth",
+        "OAuth2",
+        "JWT",
+        "SAML",
+        "OpenID Connect",
+        "Kali Linux",
+        "Metasploit",
+        "Burp Suite",
+        "Wireshark",
+        "Zero Trust",
+        "IAM",
+        "PKI",
+        "SIEM",
+        "TCP/IP",
+        "DNS",
+        "HTTP/HTTPS",
+        "WebRTC",
+        "MQTT",
+        "VPN",
+        "Firewall",
+        "Load Balancing",
+        "CDN",
+        "Cloudflare",
+        "Blockchain",
+        "Ethereum",
+        "Web3.js",
+        "Ethers.js",
+        "Hardhat",
+        "Hyperledger",
+        "Smart Contracts",
+        "DeFi",
+        "NFT",
+        "IPFS",
+        "IoT",
+        "Arduino",
+        "Raspberry Pi",
+        "ESP32",
+        "Embedded C",
+        "FreeRTOS",
+        "Zigbee",
+        "ROS",
+        "ROS2",
+        "CUDA",
+        "OpenCL",
+        "FPGA",
+        "VHDL",
+        "Verilog",
+        "SAP",
+        "SAP HANA",
+        "SAP Fiori",
+        "Salesforce",
+        "Salesforce Apex",
+        "Salesforce LWC",
+        "ServiceNow",
+        "Workday",
+        "Oracle ERP",
+        "Microsoft Dynamics",
+        "SharePoint",
+        "Power Apps",
+        "Power Automate",
+        "Jira",
+        "Confluence",
+        "Trello",
+        "Notion",
+        "Stripe",
+        "Twilio",
+        "SendGrid",
+        "Auth0",
+        "Okta",
+        "System Design",
+        "Distributed Systems",
+        "Event Sourcing",
+        "CQRS",
+        "Domain-Driven Design",
+        "Clean Architecture",
+        "Hexagonal Architecture",
+        "Design Patterns",
+        "SOLID Principles",
+        "Agile",
+        "Scrum",
+        "Kanban",
+        "DevSecOps",
+        "SRE",
+        "Platform Engineering",
+        "FinOps",
+        "API Design",
+        "OpenAPI",
+        "Swagger",
+        "AsyncAPI",
+        "Message Queues",
+        "RabbitMQ",
+        "Amazon SQS",
+        "NATS",
+        "VS Code",
+        "IntelliJ IDEA",
+        "Eclipse",
+        "Xcode",
+        "Android Studio",
+        "Linux Administration",
+        "Windows Server",
+        "Active Directory",
+        "VMware"
+      ],
+      "soft": [
+        "Communication",
+        "Leadership",
+        "Teamwork",
+        "Problem Solving",
+        "Critical Thinking",
+        "Time Management",
+        "Adaptability",
+        "Creativity",
+        "Attention to Detail",
+        "Conflict Resolution",
+        "Emotional Intelligence",
+        "Decision Making",
+        "Collaboration",
+        "Presentation Skills",
+        "Negotiation",
+        "Mentoring",
+        "Strategic Thinking",
+        "Analytical Thinking",
+        "Active Listening",
+        "Organization",
+        "Project Management",
+        "Multitasking",
+        "Self-Motivation",
+        "Interpersonal Skills",
+        "Customer Focus",
+        "Stakeholder Management",
+        "Work Ethic",
+        "Flexibility",
+        "Accountability",
+        "Initiative"
+      ]
+    }
+  },
+  "teamMembers": [
+    {
+      "id": "A83261",
+      "name": "Rahul Mehta",
+      "email": "rahul.mehta@email.com",
+      "role": "Team Lead"
+    },
+    {
+      "id": "A83233",
+      "name": "Priya Sharma",
+      "email": "priya.sharma@email.com",
+      "role": "Team Lead"
+    },
+    {
+      "id": "A83290",
+      "name": "Arjun Nair",
+      "email": "arjun.nair@email.com",
+      "role": "Recruiter"
+    },
+    {
+      "id": "A83301",
+      "name": "Sneha Iyer",
+      "email": "sneha.iyer@email.com",
+      "role": "Recruiter"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "C001",
+      "name": "Rahul Mehta",
+      "email": "rahul.mehta@email.com",
+      "recruiter": "Parthiban",
+      "source": "Resume Inbox",
+      "rating": 4,
+      "stage": "Sourced",
+      "status": "In Progress",
+      "modified": "2025-11-25",
+      "role": "Senior Developer",
+      "experience": "8 yrs",
+      "score": 92,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Rahul Resume",
+          "type": "pdf",
+          "size": "12.24 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "5.45 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Core Java",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Strong Java fundamentals"
+        },
+        {
+          "id": 2,
+          "skill": "Spring Boot",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid Spring Boot knowledge"
+        },
+        {
+          "id": 3,
+          "skill": "Microservices",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good microservices design"
+        },
+        {
+          "id": 4,
+          "skill": "REST API",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2024",
+          "comments": "Excellent API design skills"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "5 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Clear communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Leadership",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Emerging leader"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Parthiban",
+          "date": "11/23/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Parthiban",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "P",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/26/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "R",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/20/2025 09:33 PM",
+            "rating": 3,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "M",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/23/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_1_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/23/2025",
+          "status": "Rejected",
+          "hiringManager": "Ravi"
+        },
+        {
+          "id": "ZR_7_JOB",
+          "title": "Lead Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/19/2025",
+          "status": "Assessment",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_3_JOB",
+          "title": "Product Manager",
+          "clientId": "C1298338",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/09/2025",
+          "status": "Client Interview",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C002",
+      "name": "Priya Sharma",
+      "email": "priya.sharma@email.com",
+      "recruiter": "Parthiban",
+      "source": "Added by User",
+      "rating": 3,
+      "stage": "Pre-Screening",
+      "status": "In Progress",
+      "modified": "2025-11-24",
+      "role": "Lead Developer",
+      "experience": "9 yrs",
+      "score": 90,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Priya Resume",
+          "type": "pdf",
+          "size": "14.53 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "8.21 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Saravanan",
+          "date": "11/21/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Saravanan",
+          "date": "11/25/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Saravanan",
+          "date": "11/25/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "M",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/27/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "P",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 4,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "R",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_6_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/23/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_4_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1292938",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/28/2025",
+          "status": "Client Interview",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C003",
+      "name": "Arjun Rao",
+      "email": "arjun.rao@email.com",
+      "recruiter": "Parthiban",
+      "source": "Seek",
+      "rating": 5,
+      "stage": "Assessment",
+      "status": "Completed",
+      "modified": "2025-11-23",
+      "role": "Full Stack Developer",
+      "experience": "7 yrs",
+      "score": 85,
+      "remarks": "Strong candidate",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Arjun Resume",
+          "type": "pdf",
+          "size": "8.45 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "19.91 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "React JS",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid frontend"
+        },
+        {
+          "id": 2,
+          "skill": "Node.js",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good backend"
+        },
+        {
+          "id": 3,
+          "skill": "MongoDB",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent DB skills"
+        },
+        {
+          "id": 4,
+          "skill": "Docker",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic containerization"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Adaptability",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Adapts across stack"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good collaborator"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Manigandan",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Manigandan",
+          "date": "11/25/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Manigandan",
+          "date": "11/25/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "M",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_3_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/06/2025",
+          "status": "Sourced",
+          "hiringManager": "Divya"
+        },
+        {
+          "id": "ZR_5_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/22/2025",
+          "status": "Assessment",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_4_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1298338",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/13/2025",
+          "status": "Assessment",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C004",
+      "name": "Sneha Iyer",
+      "email": "sneha.iyer@email.com",
+      "recruiter": "Priya",
+      "source": "LinkedIn",
+      "rating": 4,
+      "stage": "Pre-Screening",
+      "status": "In Progress",
+      "modified": "2025-11-22",
+      "role": "React Developer",
+      "experience": "6 yrs",
+      "score": 88,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Sneha Resume",
+          "type": "pdf",
+          "size": "5.82 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "15.37 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Divya",
+          "date": "11/27/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Divya",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Divya",
+          "date": "11/27/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        },
+        {
+          "id": 4,
+          "color": "#F97316",
+          "title": "Candidate Created",
+          "by": "Divya",
+          "date": "11/22/2025 09:33 PM",
+          "summary": null
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "S",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/28/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "R",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/24/2025 09:33 PM",
+            "rating": 5,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_7_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Divya",
+          "appliedDate": "12/12/2025",
+          "status": "Client Interview",
+          "hiringManager": "Saravanan"
+        },
+        {
+          "id": "ZR_9_JOB",
+          "title": "Product Manager",
+          "clientId": "C1292938",
+          "recruiter": "Divya",
+          "appliedDate": "12/25/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_3_JOB",
+          "title": "Lead Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Divya",
+          "appliedDate": "12/20/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Divya"
+        }
+      ]
+    },
+    {
+      "id": "C005",
+      "name": "Vikram Nair",
+      "email": "vikram.nair@email.com",
+      "recruiter": "Rahul",
+      "source": "Naukri",
+      "rating": 2,
+      "stage": "Added",
+      "status": "In Progress",
+      "modified": "2025-11-21",
+      "role": "Backend Developer",
+      "experience": "4 yrs",
+      "score": 74,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Vikram Resume",
+          "type": "pdf",
+          "size": "8.86 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "19.77 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Go",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good Go skills"
+        },
+        {
+          "id": 2,
+          "skill": "PostgreSQL",
+          "exp": "4 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Expert DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Redis",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good caching knowledge"
+        },
+        {
+          "id": 4,
+          "skill": "gRPC",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic RPC experience"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Problem Solving",
+          "exp": "4 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good problem solver"
+        },
+        {
+          "id": 2,
+          "skill": "Time Management",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Meets deadlines"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Ravi",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Ravi",
+          "date": "11/20/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Ravi",
+          "date": "11/21/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "M",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/24/2025 09:33 PM",
+            "rating": 4,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "D",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Divya",
+            "date": "11/22/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_5_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Ravi",
+          "appliedDate": "12/17/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Manigandan"
+        }
+      ]
+    },
+    {
+      "id": "C006",
+      "name": "Meera Patel",
+      "email": "meera.patel@email.com",
+      "recruiter": "Priya",
+      "source": "LinkedIn",
+      "rating": 5,
+      "stage": "Offer",
+      "status": "Completed",
+      "modified": "2025-11-20",
+      "role": "Senior Developer",
+      "experience": "10 yrs",
+      "score": 95,
+      "remarks": "Excellent fit",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Meera Resume",
+          "type": "pdf",
+          "size": "15.91 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "11.29 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Core Java",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Strong Java fundamentals"
+        },
+        {
+          "id": 2,
+          "skill": "Spring Boot",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid Spring Boot knowledge"
+        },
+        {
+          "id": 3,
+          "skill": "Microservices",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good microservices design"
+        },
+        {
+          "id": 4,
+          "skill": "REST API",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2024",
+          "comments": "Excellent API design skills"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "5 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Clear communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Leadership",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Emerging leader"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Parthiban",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Parthiban",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Parthiban",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_2_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1298338",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/08/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C007",
+      "name": "Karthik Raj",
+      "email": "karthik.raj@email.com",
+      "recruiter": "Parthiban",
+      "source": "Resume Inbox",
+      "rating": 3,
+      "stage": "Sourced",
+      "status": "In Progress",
+      "modified": "2025-11-19",
+      "role": "Full Stack Developer",
+      "experience": "5 yrs",
+      "score": 83,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Karthik Resume",
+          "type": "pdf",
+          "size": "11.20 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "7.72 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "React JS",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid frontend"
+        },
+        {
+          "id": 2,
+          "skill": "Node.js",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good backend"
+        },
+        {
+          "id": 3,
+          "skill": "MongoDB",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent DB skills"
+        },
+        {
+          "id": 4,
+          "skill": "Docker",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic containerization"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Adaptability",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Adapts across stack"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good collaborator"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Saravanan",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Saravanan",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "D",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Divya",
+            "date": "11/28/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_9_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/07/2025",
+          "status": "Offer",
+          "hiringManager": "Saravanan"
+        },
+        {
+          "id": "ZR_5_JOB",
+          "title": "Product Manager",
+          "clientId": "C1298338",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/15/2025",
+          "status": "Offer",
+          "hiringManager": "Divya"
+        }
+      ]
+    },
+    {
+      "id": "C008",
+      "name": "Anita Singh",
+      "email": "anita.singh@email.com",
+      "recruiter": "Rahul",
+      "source": "Seek",
+      "rating": 4,
+      "stage": "Client Interview",
+      "status": "In Progress",
+      "modified": "2025-11-18",
+      "role": "Lead Developer",
+      "experience": "8 yrs",
+      "score": 79,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Anita Resume",
+          "type": "pdf",
+          "size": "3.41 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "12.18 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Manigandan",
+          "date": "11/20/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Manigandan",
+          "date": "11/29/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Manigandan",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/23/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_1_JOB",
+          "title": "Lead Engineer",
+          "clientId": "C1292938",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/02/2025",
+          "status": "Assessment",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C009",
+      "name": "Rohit Desai",
+      "email": "rohit.desai@email.com",
+      "recruiter": "Rahul",
+      "source": "Naukri",
+      "rating": 2,
+      "stage": "Pre-Screening",
+      "status": "In Progress",
+      "modified": "2025-11-17",
+      "role": "Backend Developer",
+      "experience": "6 yrs",
+      "score": 77,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Rohit Resume",
+          "type": "pdf",
+          "size": "10.40 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "13.95 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Go",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good Go skills"
+        },
+        {
+          "id": 2,
+          "skill": "PostgreSQL",
+          "exp": "4 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Expert DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Redis",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good caching knowledge"
+        },
+        {
+          "id": 4,
+          "skill": "gRPC",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic RPC experience"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Problem Solving",
+          "exp": "4 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good problem solver"
+        },
+        {
+          "id": 2,
+          "skill": "Time Management",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Meets deadlines"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Divya",
+          "date": "11/23/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Divya",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Divya",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/27/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "D",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Divya",
+            "date": "11/23/2025 09:33 PM",
+            "rating": 3,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "P",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_6_JOB",
+          "title": "Product Manager",
+          "clientId": "C1290001",
+          "recruiter": "Divya",
+          "appliedDate": "12/15/2025",
+          "status": "Rejected",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_2_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1290001",
+          "recruiter": "Divya",
+          "appliedDate": "12/24/2025",
+          "status": "Assessment",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C010",
+      "name": "Sunita Bhatt",
+      "email": "sunita.bhatt@email.com",
+      "recruiter": "Priya",
+      "source": "Resume Inbox",
+      "rating": 5,
+      "stage": "Assessment",
+      "status": "Completed",
+      "modified": "2025-11-16",
+      "role": "React Developer",
+      "experience": "5 yrs",
+      "score": 91,
+      "remarks": "Recommended",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Sunita Resume",
+          "type": "pdf",
+          "size": "5.34 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "11.78 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Ravi",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Ravi",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Ravi",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "D",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Divya",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "S",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/28/2025 09:33 PM",
+            "rating": 3,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_9_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1292938",
+          "recruiter": "Ravi",
+          "appliedDate": "12/25/2025",
+          "status": "Client Interview",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C011",
+      "name": "Manoj Tiwari",
+      "email": "manoj.tiwari@email.com",
+      "recruiter": "Parthiban",
+      "source": "Seek",
+      "rating": 3,
+      "stage": "Sourced",
+      "status": "In Progress",
+      "modified": "2025-11-15",
+      "role": "Senior Developer",
+      "experience": "4 yrs",
+      "score": 82,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Manoj Resume",
+          "type": "pdf",
+          "size": "8.72 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "20.37 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Core Java",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Strong Java fundamentals"
+        },
+        {
+          "id": 2,
+          "skill": "Spring Boot",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid Spring Boot knowledge"
+        },
+        {
+          "id": 3,
+          "skill": "Microservices",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good microservices design"
+        },
+        {
+          "id": 4,
+          "skill": "REST API",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2024",
+          "comments": "Excellent API design skills"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "5 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Clear communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Leadership",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Emerging leader"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Parthiban",
+          "date": "11/20/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Parthiban",
+          "date": "11/22/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Parthiban",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "D",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Divya",
+            "date": "11/24/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_7_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/05/2025",
+          "status": "Client Interview",
+          "hiringManager": "Manigandan"
+        },
+        {
+          "id": "ZR_4_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1295500",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/24/2025",
+          "status": "Offer",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C012",
+      "name": "Kavya Reddy",
+      "email": "kavya.reddy@email.com",
+      "recruiter": "Priya",
+      "source": "LinkedIn",
+      "rating": 4,
+      "stage": "Pre-Screening",
+      "status": "In Progress",
+      "modified": "2025-11-14",
+      "role": "Full Stack Developer",
+      "experience": "3 yrs",
+      "score": 86,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Kavya Resume",
+          "type": "pdf",
+          "size": "13.50 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "6.16 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "React JS",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid frontend"
+        },
+        {
+          "id": 2,
+          "skill": "Node.js",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good backend"
+        },
+        {
+          "id": 3,
+          "skill": "MongoDB",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent DB skills"
+        },
+        {
+          "id": 4,
+          "skill": "Docker",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic containerization"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Adaptability",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Adapts across stack"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good collaborator"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Saravanan",
+          "date": "11/27/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Saravanan",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Saravanan",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        },
+        {
+          "id": 4,
+          "color": "#F97316",
+          "title": "Candidate Created",
+          "by": "Saravanan",
+          "date": "11/22/2025 09:33 PM",
+          "summary": null
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_2_JOB",
+          "title": "Lead Engineer",
+          "clientId": "C1290001",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/04/2025",
+          "status": "Offer",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C013",
+      "name": "Arun Kumar",
+      "email": "arun.kumar@email.com",
+      "recruiter": "Rahul",
+      "source": "Added by User",
+      "rating": 3,
+      "stage": "Added",
+      "status": "In Progress",
+      "modified": "2025-11-13",
+      "role": "React Developer",
+      "experience": "2 yrs",
+      "score": 71,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Arun Resume",
+          "type": "pdf",
+          "size": "11.86 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "6.89 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Manigandan",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Manigandan",
+          "date": "11/29/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/23/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "M",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 3,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "S",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/24/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_5_JOB",
+          "title": "Product Manager",
+          "clientId": "C1298338",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/25/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Parthiban"
+        }
+      ]
+    },
+    {
+      "id": "C014",
+      "name": "Divya Krishnan",
+      "email": "divya.krishnan@email.com",
+      "recruiter": "Parthiban",
+      "source": "Naukri",
+      "rating": 4,
+      "stage": "Assessment",
+      "status": "In Progress",
+      "modified": "2025-11-12",
+      "role": "Lead Developer",
+      "experience": "10 yrs",
+      "score": 89,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Divya Resume",
+          "type": "pdf",
+          "size": "9.89 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "8.19 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Divya",
+          "date": "11/23/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Divya",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Divya",
+          "date": "11/24/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        },
+        {
+          "id": 4,
+          "color": "#F97316",
+          "title": "Candidate Created",
+          "by": "Divya",
+          "date": "11/22/2025 09:33 PM",
+          "summary": null
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "P",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "S",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/22/2025 09:33 PM",
+            "rating": 4,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_5_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1295500",
+          "recruiter": "Divya",
+          "appliedDate": "12/01/2025",
+          "status": "Rejected",
+          "hiringManager": "Ravi"
+        },
+        {
+          "id": "ZR_5_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1292432",
+          "recruiter": "Divya",
+          "appliedDate": "12/09/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_9_JOB",
+          "title": "Lead Engineer",
+          "clientId": "C1298338",
+          "recruiter": "Divya",
+          "appliedDate": "12/10/2025",
+          "status": "Offer",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C015",
+      "name": "Sanjay Gupta",
+      "email": "sanjay.gupta@email.com",
+      "recruiter": "Priya",
+      "source": "Resume Inbox",
+      "rating": 2,
+      "stage": "Rejected",
+      "status": "Completed",
+      "modified": "2025-11-11",
+      "role": "Senior Developer",
+      "experience": "4 yrs",
+      "score": 65,
+      "remarks": "Not suitable",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Sanjay Resume",
+          "type": "pdf",
+          "size": "13.53 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "11.97 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Core Java",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Strong Java fundamentals"
+        },
+        {
+          "id": 2,
+          "skill": "Spring Boot",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid Spring Boot knowledge"
+        },
+        {
+          "id": 3,
+          "skill": "Microservices",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good microservices design"
+        },
+        {
+          "id": 4,
+          "skill": "REST API",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2024",
+          "comments": "Excellent API design skills"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "5 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Clear communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Leadership",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Emerging leader"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Ravi",
+          "date": "11/24/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Ravi",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Ravi",
+          "date": "11/27/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        },
+        {
+          "id": 4,
+          "color": "#F97316",
+          "title": "Candidate Created",
+          "by": "Ravi",
+          "date": "11/24/2025 09:33 PM",
+          "summary": null
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "P",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/26/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_1_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Ravi",
+          "appliedDate": "12/21/2025",
+          "status": "Assessment",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C016",
+      "name": "Pooja Menon",
+      "email": "pooja.menon@email.com",
+      "recruiter": "Rahul",
+      "source": "LinkedIn",
+      "rating": 5,
+      "stage": "Offer",
+      "status": "Completed",
+      "modified": "2025-11-10",
+      "role": "Backend Developer",
+      "experience": "5 yrs",
+      "score": 93,
+      "remarks": "Excellent",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Pooja Resume",
+          "type": "pdf",
+          "size": "13.66 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "18.81 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Go",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good Go skills"
+        },
+        {
+          "id": 2,
+          "skill": "PostgreSQL",
+          "exp": "4 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Expert DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Redis",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good caching knowledge"
+        },
+        {
+          "id": 4,
+          "skill": "gRPC",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic RPC experience"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Problem Solving",
+          "exp": "4 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good problem solver"
+        },
+        {
+          "id": 2,
+          "skill": "Time Management",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Meets deadlines"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Parthiban",
+          "date": "11/21/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Parthiban",
+          "date": "11/21/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "S",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/29/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "P",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/22/2025 09:33 PM",
+            "rating": 4,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "R",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/22/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_6_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1298338",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/07/2025",
+          "status": "Rejected",
+          "hiringManager": "Saravanan"
+        },
+        {
+          "id": "ZR_2_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1295500",
+          "recruiter": "Parthiban",
+          "appliedDate": "12/28/2025",
+          "status": "Sourced",
+          "hiringManager": "Ravi"
+        }
+      ]
+    },
+    {
+      "id": "C017",
+      "name": "Nikhil Joshi",
+      "email": "nikhil.joshi@email.com",
+      "recruiter": "Parthiban",
+      "source": "Seek",
+      "rating": 3,
+      "stage": "Client Interview",
+      "status": "In Progress",
+      "modified": "2025-11-09",
+      "role": "Full Stack Developer",
+      "experience": "3 yrs",
+      "score": 81,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Nikhil Resume",
+          "type": "pdf",
+          "size": "13.29 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "12.30 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "React JS",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid frontend"
+        },
+        {
+          "id": 2,
+          "skill": "Node.js",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good backend"
+        },
+        {
+          "id": 3,
+          "skill": "MongoDB",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent DB skills"
+        },
+        {
+          "id": 4,
+          "skill": "Docker",
+          "exp": "1 Year",
+          "rating": 3,
+          "lastUsed": "2024",
+          "comments": "Basic containerization"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Adaptability",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Adapts across stack"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good collaborator"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Saravanan",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Saravanan",
+          "date": "11/20/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "M",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/26/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_4_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/26/2025",
+          "status": "Rejected",
+          "hiringManager": "Parthiban"
+        },
+        {
+          "id": "ZR_7_JOB",
+          "title": "Senior Associate",
+          "clientId": "C1290001",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/08/2025",
+          "status": "Client Interview",
+          "hiringManager": "Divya"
+        },
+        {
+          "id": "ZR_6_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1292432",
+          "recruiter": "Saravanan",
+          "appliedDate": "12/08/2025",
+          "status": "Pre-Screening",
+          "hiringManager": "Saravanan"
+        }
+      ]
+    },
+    {
+      "id": "C018",
+      "name": "Swati Jain",
+      "email": "swati.jain@email.com",
+      "recruiter": "Priya",
+      "source": "Added by User",
+      "rating": 4,
+      "stage": "Pre-Screening",
+      "status": "In Progress",
+      "modified": "2025-11-08",
+      "role": "React Developer",
+      "experience": "2 yrs",
+      "score": 78,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Swati Resume",
+          "type": "pdf",
+          "size": "8.52 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "13.18 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Manigandan",
+          "date": "11/25/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Manigandan",
+          "date": "11/28/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        },
+        {
+          "id": 3,
+          "color": "#16A34A",
+          "title": "Technical Screening",
+          "by": "Manigandan",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Basic technical fundamentals and core skills evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/21/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "M",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/22/2025 09:33 PM",
+            "rating": 5,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "P",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Parthiban",
+            "date": "11/24/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_7_JOB",
+          "title": "Software Engineer",
+          "clientId": "C1298338",
+          "recruiter": "Manigandan",
+          "appliedDate": "12/14/2025",
+          "status": "Offer",
+          "hiringManager": "Ravi"
+        }
+      ]
+    },
+    {
+      "id": "C019",
+      "name": "Deepak Verma",
+      "email": "deepak.verma@email.com",
+      "recruiter": "Rahul",
+      "source": "Naukri",
+      "rating": 3,
+      "stage": "Sourced",
+      "status": "In Progress",
+      "modified": "2025-11-07",
+      "role": "Senior Developer",
+      "experience": "6 yrs",
+      "score": 80,
+      "remarks": "",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Deepak Resume",
+          "type": "pdf",
+          "size": "3.59 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "11.42 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "Core Java",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2025",
+          "comments": "Strong Java fundamentals"
+        },
+        {
+          "id": 2,
+          "skill": "Spring Boot",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Solid Spring Boot knowledge"
+        },
+        {
+          "id": 3,
+          "skill": "Microservices",
+          "exp": "2 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good microservices design"
+        },
+        {
+          "id": 4,
+          "skill": "REST API",
+          "exp": "3 Years",
+          "rating": 5,
+          "lastUsed": "2024",
+          "comments": "Excellent API design skills"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "5 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Clear communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Leadership",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Emerging leader"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Divya",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Divya",
+          "date": "11/20/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "R",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Ravi",
+            "date": "11/26/2025 09:33 PM",
+            "rating": 3,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "S",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 5,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "D",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Divya",
+            "date": "11/25/2025 09:33 PM",
+            "rating": 5,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_5_JOB",
+          "title": "DevOps Engineer",
+          "clientId": "C1298338",
+          "recruiter": "Divya",
+          "appliedDate": "12/22/2025",
+          "status": "Sourced",
+          "hiringManager": "Manigandan"
+        }
+      ]
+    },
+    {
+      "id": "C020",
+      "name": "Lakshmi Rao",
+      "email": "lakshmi.rao@email.com",
+      "recruiter": "Parthiban",
+      "source": "LinkedIn",
+      "rating": 5,
+      "stage": "Assessment",
+      "status": "Completed",
+      "modified": "2025-11-06",
+      "role": "Lead Developer",
+      "experience": "11 yrs",
+      "score": 94,
+      "remarks": "Top performer",
+      "resumes": [
+        {
+          "id": 1,
+          "name": "Lakshmi Resume",
+          "type": "pdf",
+          "size": "8.99 MB",
+          "color": "#3B82F6"
+        },
+        {
+          "id": 2,
+          "name": "Degree Certificate",
+          "type": "pdf",
+          "size": "14.80 MB",
+          "color": "#F97316"
+        }
+      ],
+      "primarySkills": [
+        {
+          "id": 1,
+          "skill": "JavaScript",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Good scripting"
+        },
+        {
+          "id": 2,
+          "skill": "SQL",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Basic DB skills"
+        },
+        {
+          "id": 3,
+          "skill": "Git",
+          "exp": "3 Years",
+          "rating": 4,
+          "lastUsed": "2025",
+          "comments": "Good version control"
+        }
+      ],
+      "secondarySkills": [
+        {
+          "id": 1,
+          "skill": "Communication",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Decent communicator"
+        },
+        {
+          "id": 2,
+          "skill": "Teamwork",
+          "exp": "2 Years",
+          "rating": 3,
+          "lastUsed": "2025",
+          "comments": "Works well in teams"
+        }
+      ],
+      "timeline": [
+        {
+          "id": 1,
+          "color": "#7C3AED",
+          "title": "System Design / Technical Deep Dive",
+          "by": "Ravi",
+          "date": "11/23/2025 09:33 PM",
+          "summary": "Architecture, scalability, best practices, and communication assessed."
+        },
+        {
+          "id": 2,
+          "color": "#4B5563",
+          "title": "Coding / Problem-Solving",
+          "by": "Ravi",
+          "date": "11/26/2025 09:33 PM",
+          "summary": "Coding challenge, logic, algorithms, debugging evaluated."
+        }
+      ],
+      "ratings": {
+        "rounds": [
+          {
+            "id": 1,
+            "initial": "D",
+            "color": "#7C3AED",
+            "title": "Round 1: Technical Screening / Fundamentals (Strong Hire)",
+            "by": "Divya",
+            "date": "11/29/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate demonstrated strong technical fundamentals, solid understanding of core concepts, and the ability to reason through problems clearly.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 2,
+            "initial": "S",
+            "color": "#374151",
+            "title": "Round 2: Coding / Problem-Solving Round (Strong Hire)",
+            "by": "Saravanan",
+            "date": "11/26/2025 09:33 PM",
+            "rating": 5,
+            "description": "Excellent problem-solving skills with clean, optimized, and structured code. Demonstrated good understanding of algorithms, data structures, and debugging.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          },
+          {
+            "id": 3,
+            "initial": "M",
+            "color": "#0F766E",
+            "title": "Round 3: System Design / Architecture (Strong Hire)",
+            "by": "Manigandan",
+            "date": "11/20/2025 09:33 PM",
+            "rating": 4,
+            "description": "The candidate showed strong system design capability, demonstrating clarity in scaling, architecture, APIs, data flow, performance, and reliability.",
+            "tags": [
+              "General Interview",
+              "Product Analyst (Sample)"
+            ]
+          }
+        ]
+      },
+      "jobApplications": [
+        {
+          "id": "ZR_4_JOB",
+          "title": "Product Manager",
+          "clientId": "C1295500",
+          "recruiter": "Ravi",
+          "appliedDate": "12/20/2025",
+          "status": "Rejected",
+          "hiringManager": "Manigandan"
+        },
+        {
+          "id": "ZR_8_JOB",
+          "title": "Product Manager",
+          "clientId": "C1290001",
+          "recruiter": "Ravi",
+          "appliedDate": "12/22/2025",
+          "status": "Client Interview",
+          "hiringManager": "Ravi"
+        }
+      ]
+    }
+  ],
+  "roleCandidatePool": {
+    "Senior Developer": [
+      {
+        "id": "SR001",
+        "name": "Amit Kumar",
+        "email": "amit.kumar@email.com",
+        "recruiter": "Parthiban",
+        "source": "LinkedIn",
+        "score": 91,
+        "position": "Senior Developer",
+        "experience": "7 yrs"
+      },
+      {
+        "id": "SR002",
+        "name": "Deepa Menon",
+        "email": "deepa.menon@email.com",
+        "recruiter": "Priya",
+        "source": "Naukri",
+        "score": 87,
+        "position": "Senior Developer",
+        "experience": "6 yrs"
+      },
+      {
+        "id": "SR003",
+        "name": "Karthik Raj",
+        "email": "karthik.raj@email.com",
+        "recruiter": "Parthiban",
+        "source": "Resume Inbox",
+        "score": 83,
+        "position": "Senior Developer",
+        "experience": "5 yrs"
+      },
+      {
+        "id": "SR004",
+        "name": "Anita Singh",
+        "email": "anita.singh@email.com",
+        "recruiter": "Rahul",
+        "source": "Seek",
+        "score": 79,
+        "position": "Senior Developer",
+        "experience": "8 yrs"
+      },
+      {
+        "id": "SR005",
+        "name": "Vivek Pandey",
+        "email": "vivek.pandey@email.com",
+        "recruiter": "Priya",
+        "source": "Added by User",
+        "score": 74,
+        "position": "Senior Developer",
+        "experience": "5 yrs"
+      }
+    ],
+    "Lead Developer": [
+      {
+        "id": "LD001",
+        "name": "Suresh Pillai",
+        "email": "suresh.pillai@email.com",
+        "recruiter": "Priya",
+        "source": "LinkedIn",
+        "score": 94,
+        "position": "Lead Developer",
+        "experience": "10 yrs"
+      },
+      {
+        "id": "LD002",
+        "name": "Meera Nair",
+        "email": "meera.nair@email.com",
+        "recruiter": "Parthiban",
+        "source": "Added by User",
+        "score": 89,
+        "position": "Lead Developer",
+        "experience": "9 yrs"
+      },
+      {
+        "id": "LD003",
+        "name": "Rajesh Iyer",
+        "email": "rajesh.iyer@email.com",
+        "recruiter": "Rahul",
+        "source": "Naukri",
+        "score": 82,
+        "position": "Lead Developer",
+        "experience": "8 yrs"
+      }
+    ],
+    "Full Stack Developer": [
+      {
+        "id": "FS001",
+        "name": "Pooja Reddy",
+        "email": "pooja.reddy@email.com",
+        "recruiter": "Parthiban",
+        "source": "Resume Inbox",
+        "score": 86,
+        "position": "Full Stack Developer",
+        "experience": "4 yrs"
+      },
+      {
+        "id": "FS002",
+        "name": "Nikhil Joshi",
+        "email": "nikhil.joshi@email.com",
+        "recruiter": "Priya",
+        "source": "LinkedIn",
+        "score": 81,
+        "position": "Full Stack Developer",
+        "experience": "3 yrs"
+      },
+      {
+        "id": "FS003",
+        "name": "Divya Krishnan",
+        "email": "divya.krishnan@email.com",
+        "recruiter": "Rahul",
+        "source": "Seek",
+        "score": 78,
+        "position": "Full Stack Developer",
+        "experience": "5 yrs"
+      },
+      {
+        "id": "FS004",
+        "name": "Sanjay Gupta",
+        "email": "sanjay.gupta@email.com",
+        "recruiter": "Parthiban",
+        "source": "Naukri",
+        "score": 75,
+        "position": "Full Stack Developer",
+        "experience": "4 yrs"
+      }
+    ],
+    "React Developer": [
+      {
+        "id": "RD001",
+        "name": "Kavya Patel",
+        "email": "kavya.patel@email.com",
+        "recruiter": "Priya",
+        "source": "LinkedIn",
+        "score": 93,
+        "position": "React Developer",
+        "experience": "3 yrs"
+      },
+      {
+        "id": "RD002",
+        "name": "Arun Verma",
+        "email": "arun.verma@email.com",
+        "recruiter": "Parthiban",
+        "source": "Added by User",
+        "score": 88,
+        "position": "React Developer",
+        "experience": "4 yrs"
+      },
+      {
+        "id": "RD003",
+        "name": "Swati Jain",
+        "email": "swati.jain@email.com",
+        "recruiter": "Rahul",
+        "source": "Naukri",
+        "score": 77,
+        "position": "React Developer",
+        "experience": "2 yrs"
+      }
+    ],
+    "Backend Developer": [
+      {
+        "id": "BD001",
+        "name": "Rohit Desai",
+        "email": "rohit.desai@email.com",
+        "recruiter": "Rahul",
+        "source": "Naukri",
+        "score": 85,
+        "position": "Backend Developer",
+        "experience": "6 yrs"
+      },
+      {
+        "id": "BD002",
+        "name": "Sunita Bhatt",
+        "email": "sunita.bhatt@email.com",
+        "recruiter": "Parthiban",
+        "source": "Resume Inbox",
+        "score": 80,
+        "position": "Backend Developer",
+        "experience": "5 yrs"
+      },
+      {
+        "id": "BD003",
+        "name": "Manoj Tiwari",
+        "email": "manoj.tiwari@email.com",
+        "recruiter": "Priya",
+        "source": "Seek",
+        "score": 76,
+        "position": "Backend Developer",
+        "experience": "4 yrs"
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "id": "ZR_4_JOB",
+      "postingTitle": "Senior Developer",
+      "experienceRequired": "5-10 yrs",
+      "clientId": "CL001",
+      "recruiter": "Parthiban",
+      "targetDate": "2025-12-31",
+      "status": "In Progress",
+      "city": "Chennai",
+      "hiringManager": "Rahul Mehta",
+      "candidates": [
+        {
+          "id": "C001",
+          "name": "Rahul Mehta",
+          "email": "rahul.mehta@email.com",
+          "modified": "2025-11-25",
+          "source": "Resume Inbox",
+          "rating": 4,
+          "stage": "Sourced",
+          "round": "1st",
+          "position": "Senior Developer",
+          "experience": "8 yrs"
+        },
+        {
+          "id": "C004",
+          "name": "Sneha Iyer",
+          "email": "sneha.iyer@email.com",
+          "modified": "2025-11-22",
+          "source": "LinkedIn",
+          "rating": 4,
+          "stage": "Pre-Screening",
+          "round": "1st",
+          "position": "Senior Developer",
+          "experience": "6 yrs"
+        },
+        {
+          "id": "C010",
+          "name": "Sunita Bhatt",
+          "email": "sunita.bhatt@email.com",
+          "modified": "2025-11-16",
+          "source": "Resume Inbox",
+          "rating": 5,
+          "stage": "Assessment",
+          "round": "2nd",
+          "position": "Backend Developer",
+          "experience": "5 yrs"
+        }
+      ],
+      "pipeline": {
+        "Map Candidates": [
+          {
+            "id": "C001",
+            "name": "Rahul Mehta",
+            "email": "rahul.mehta@email.com",
+            "recruiter": "Parthiban",
+            "source": "Resume Inbox",
+            "score": 92,
+            "stage": "Sourced",
+            "position": "Senior Developer",
+            "experience": "8 yrs"
+          },
+          {
+            "id": "C007",
+            "name": "Karthik Raj",
+            "email": "karthik.raj@email.com",
+            "recruiter": "Parthiban",
+            "source": "Resume Inbox",
+            "score": 83,
+            "stage": "Sourced",
+            "position": "Senior Developer",
+            "experience": "5 yrs"
+          },
+          {
+            "id": "C019",
+            "name": "Deepak Verma",
+            "email": "deepak.verma@email.com",
+            "recruiter": "Rahul",
+            "source": "Naukri",
+            "score": 80,
+            "stage": "Sourced",
+            "position": "Full Stack Developer",
+            "experience": "6 yrs"
+          }
+        ],
+        "Sourced": [],
+        "Pre-Screening": [
+          {
+            "id": "C004",
+            "name": "Sneha Iyer",
+            "email": "sneha.iyer@email.com",
+            "recruiter": "Priya",
+            "date": "2025-11-22",
+            "panel": "React JS",
+            "rating": 4,
+            "stage": "Pre-Screening",
+            "status": "In Progress"
+          }
+        ],
+        "Assessment": [],
+        "Client Interview": [],
+        "Offer": []
+      }
+    },
+    {
+      "id": "ZR_431212_JOB",
+      "postingTitle": "Lead Developer",
+      "experienceRequired": "8-12 yrs",
+      "clientId": "CL002",
+      "recruiter": "Priya",
+      "targetDate": "2025-12-15",
+      "status": "In Progress",
+      "city": "Bangalore",
+      "hiringManager": "Priya Sharma",
+      "candidates": [
+        {
+          "id": "C002",
+          "name": "Priya Sharma",
+          "email": "priya.sharma@email.com",
+          "modified": "2025-11-24",
+          "source": "Added by User",
+          "rating": 3,
+          "stage": "Pre-Screening",
+          "round": "1st",
+          "position": "Lead Developer",
+          "experience": "9 yrs"
+        },
+        {
+          "id": "C008",
+          "name": "Anita Singh",
+          "email": "anita.singh@email.com",
+          "modified": "2025-11-18",
+          "source": "Seek",
+          "rating": 4,
+          "stage": "Client Interview",
+          "round": "2nd",
+          "position": "Senior Developer",
+          "experience": "8 yrs"
+        },
+        {
+          "id": "C014",
+          "name": "Divya Krishnan",
+          "email": "divya.krishnan@email.com",
+          "modified": "2025-11-12",
+          "source": "Naukri",
+          "rating": 4,
+          "stage": "Assessment",
+          "round": "2nd",
+          "position": "Full Stack Developer",
+          "experience": "10 yrs"
+        }
+      ],
+      "pipeline": {
+        "Map Candidates": [
+          {
+            "id": "C001",
+            "name": "Rahul Mehta",
+            "email": "rahul.mehta@email.com",
+            "recruiter": "Parthiban",
+            "source": "Resume Inbox",
+            "score": 92,
+            "stage": "Sourced",
+            "position": "Senior Developer",
+            "experience": "8 yrs"
+          },
+          {
+            "id": "C002",
+            "name": "Priya Sharma",
+            "email": "priya.sharma@email.com",
+            "recruiter": "Parthiban",
+            "source": "Added by User",
+            "score": 90,
+            "stage": "Sourced",
+            "position": "Lead Developer",
+            "experience": "9 yrs"
+          },
+          {
+            "id": "C003",
+            "name": "Arjun Rao",
+            "email": "arjun.rao@email.com",
+            "recruiter": "Parthiban",
+            "source": "Seek",
+            "score": 85,
+            "stage": "Sourced",
+            "position": "Full Stack Developer",
+            "experience": "7 yrs"
+          }
+        ],
+        "Sourced": [],
+        "Pre-Screening": [
+          {
+            "id": "C00123341",
+            "name": "Priya Sharma",
+            "email": "priya.sharma@example.com",
+            "recruiter": "Parthiban",
+            "date": "11/25/2025",
+            "panel": "React JS",
+            "rating": 2,
+            "stage": "Pre-Screening",
+            "status": "In Progress"
+          },
+          {
+            "id": "C00123342",
+            "name": "Sneha Iyer",
+            "email": "sneha.iyer@example.com",
+            "recruiter": "Parthiban",
+            "date": "11/25/2025",
+            "panel": "Java",
+            "rating": 4,
+            "stage": "Pre-Screening",
+            "status": "In Progress"
+          }
+        ],
+        "Assessment": [],
+        "Client Interview": [],
+        "Offer": []
+      }
+    },
+    {
+      "id": "ZR_521_JOB",
+      "postingTitle": "Full Stack Developer",
+      "experienceRequired": "3-7 yrs",
+      "clientId": "CL003",
+      "recruiter": "Rahul",
+      "targetDate": "2026-01-15",
+      "status": "In Progress",
+      "city": "Mumbai",
+      "hiringManager": "Rahul Mehta",
+      "candidates": [
+        {
+          "id": "C003",
+          "name": "Arjun Rao",
+          "email": "arjun.rao@email.com",
+          "modified": "2025-11-23",
+          "source": "Seek",
+          "rating": 5,
+          "stage": "Assessment",
+          "round": "2nd",
+          "position": "Full Stack Developer",
+          "experience": "7 yrs"
+        },
+        {
+          "id": "C017",
+          "name": "Nikhil Joshi",
+          "email": "nikhil.joshi@email.com",
+          "modified": "2025-11-09",
+          "source": "Seek",
+          "rating": 3,
+          "stage": "Client Interview",
+          "round": "3rd",
+          "position": "Full Stack Developer",
+          "experience": "3 yrs"
+        }
+      ],
+      "pipeline": {
+        "Map Candidates": [],
+        "Sourced": [],
+        "Pre-Screening": [],
+        "Assessment": [],
+        "Client Interview": [],
+        "Offer": []
+      }
+    },
+    {
+      "id": "ZR_622_JOB",
+      "postingTitle": "React Developer",
+      "experienceRequired": "2-5 yrs",
+      "clientId": "CL001",
+      "recruiter": "Parthiban",
+      "targetDate": "2025-12-30",
+      "status": "Completed",
+      "city": "Hyderabad",
+      "hiringManager": "Priya Sharma",
+      "candidates": [
+        {
+          "id": "C006",
+          "name": "Meera Patel",
+          "email": "meera.patel@email.com",
+          "modified": "2025-11-20",
+          "source": "LinkedIn",
+          "rating": 5,
+          "stage": "Offer",
+          "round": "3rd",
+          "position": "React Developer",
+          "experience": "4 yrs"
+        },
+        {
+          "id": "C016",
+          "name": "Pooja Menon",
+          "email": "pooja.menon@email.com",
+          "modified": "2025-11-10",
+          "source": "LinkedIn",
+          "rating": 5,
+          "stage": "Offer",
+          "round": "3rd",
+          "position": "Backend Developer",
+          "experience": "5 yrs"
+        }
+      ],
+      "pipeline": {
+        "Map Candidates": [],
+        "Sourced": [],
+        "Pre-Screening": [],
+        "Assessment": [],
+        "Client Interview": [],
+        "Offer": []
+      }
+    },
+    {
+      "id": "ZR_733_JOB",
+      "postingTitle": "Backend Developer",
+      "experienceRequired": "4-8 yrs",
+      "clientId": "CL002",
+      "recruiter": "Priya",
+      "targetDate": "2026-02-28",
+      "status": "In Progress",
+      "city": "Pune",
+      "hiringManager": "Rahul Mehta",
+      "candidates": [
+        {
+          "id": "C009",
+          "name": "Rohit Desai",
+          "email": "rohit.desai@email.com",
+          "modified": "2025-11-17",
+          "source": "Naukri",
+          "rating": 2,
+          "stage": "Pre-Screening",
+          "round": "1st",
+          "position": "Backend Developer",
+          "experience": "6 yrs"
+        },
+        {
+          "id": "C016",
+          "name": "Pooja Menon",
+          "email": "pooja.menon@email.com",
+          "modified": "2025-11-10",
+          "source": "LinkedIn",
+          "rating": 5,
+          "stage": "Offer",
+          "round": "3rd",
+          "position": "Backend Developer",
+          "experience": "5 yrs"
+        }
+      ],
+      "pipeline": {
+        "Map Candidates": [],
+        "Sourced": [],
+        "Pre-Screening": [],
+        "Assessment": [],
+        "Client Interview": [],
+        "Offer": []
+      }
+    }
+  ],
+  "dashboard": {
+    "stats": {
+      "openPositions": {
+        "total": 186,
+        "inProgress": 98,
+        "yetToConfirm": 56,
+        "idle": 32,
+        "change": -5.02,
+        "period": "Projects this month"
+      },
+      "coreClients": {
+        "total": 94,
+        "logos": [
+          { "abbr": "TC", "color": "#4F46E5" },
+          { "abbr": "Inf", "color": "#3B82F6" },
+          { "abbr": "XY", "color": "#10B981" }
+        ]
+      },
+      "requirements": {
+        "total": 1200,
+        "logos": [
+          { "abbr": "TC", "color": "#4F46E5" },
+          { "abbr": "Inf", "color": "#3B82F6" },
+          { "abbr": "XY", "color": "#10B981" }
+        ],
+        "change": -10.35,
+        "period": "Work this month"
+      },
+      "newHire": {
+        "total": 210,
+        "avatars": [
+          { "initials": "RS", "color": "#4F46E5" },
+          { "initials": "DM", "color": "#EC4899" },
+          { "initials": "AK", "color": "#F59E0B" }
+        ],
+        "change": 3.58,
+        "period": "Hires this month"
+      }
+    },
+    "recruitment": {
+      "period": "This week",
+      "total": 140,
+      "breakdown": [
+        { "label": "Critical Roles",    "value": 94, "color": "#4F46E5" },
+        { "label": "Skilled Positions", "value": 50, "color": "#22C55E" },
+        { "label": "Support Roles",     "value": 45, "color": "#EAB308" },
+        { "label": "Entry-Level",       "value": 55, "color": "#F97316" }
+      ],
+      "topPerformer": {
+        "initials": "DE",
+        "name": "Daniel Esbella",
+        "role": "IOS Developer",
+        "performance": 99
+      }
+    },
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Review High Priority Role Applications",
+        "theme": "green",
+        "type": "progress",
+        "progress": 55,
+        "change": "+35%"
+      },
+      {
+        "id": 2,
+        "title": "Schedule Candidate Interviews",
+        "theme": "blue",
+        "type": "count"
+      },
+      {
+        "id": 3,
+        "title": "Update Recruitment Tracker",
+        "theme": "yellow",
+        "type": "progress",
+        "progress": 55,
+        "change": "+35%"
+      }
+    ],
+    "hiringMetrics": {
+      "selectedMonth": "Apr",
+      "data": [
+        { "month": "Jan", "openings": 280, "selected": 160 },
+        { "month": "Feb", "openings": 620, "selected": 390 },
+        { "month": "Mar", "openings": 380, "selected": 210 },
+        { "month": "Apr", "openings": 832, "selected": 789 },
+        { "month": "May", "openings": 680, "selected": 430 },
+        { "month": "Jun", "openings": 640, "selected": 400 },
+        { "month": "Jul", "openings": 430, "selected": 260 },
+        { "month": "Aug", "openings": 580, "selected": 360 },
+        { "month": "Sep", "openings": 580, "selected": 350 },
+        { "month": "Oct", "openings": 560, "selected": 340 },
+        { "month": "Nov", "openings": 540, "selected": 320 },
+        { "month": "Dec", "openings": 430, "selected": 250 }
+      ]
+    }
+  },
+  "dashboardCandidates": [
+    { "id": "DC001", "name": "Rohan Sharma",    "role": "Software Engineer",    "stage": "Interview Round 1", "status": "In Review",   "remarks": "Resume shortlisted" },
+    { "id": "DC002", "name": "Divya Mehta",     "role": "Marketing Executive",  "stage": "Screening",         "status": "Scheduled",   "remarks": "Awaiting candidate confirmation" },
+    { "id": "DC003", "name": "Ahmed Khan",      "role": "HR Generalist",        "stage": "Offer Discussion",  "status": "Offer Sent",  "remarks": "Expected response today" },
+    { "id": "DC004", "name": "Kunal Verma",     "role": "Data Analyst",         "stage": "Final Round",       "status": "In Progress", "remarks": "Panel interview scheduled" },
+    { "id": "DC005", "name": "Pooja Singh",     "role": "UI/UX Designer",       "stage": "Hired",             "status": "Closed",      "remarks": "Joining date: 20 Nov" },
+    { "id": "DC006", "name": "Sanjay Patel",    "role": "Sales Manager",        "stage": "Rejected",          "status": "Closed",      "remarks": "Not fit for role" },
+    { "id": "DC007", "name": "Meera Nair",      "role": "Product Manager",      "stage": "Interview Round 2", "status": "Scheduled",   "remarks": "Technical round cleared" },
+    { "id": "DC008", "name": "Arjun Singh",     "role": "DevOps Engineer",      "stage": "Assessment",        "status": "In Progress", "remarks": "Assignment submitted" },
+    { "id": "DC009", "name": "Nisha Kapoor",    "role": "Business Analyst",     "stage": "Offer Discussion",  "status": "Offer Sent",  "remarks": "Negotiation ongoing" },
+    { "id": "DC010", "name": "Vikram Rao",      "role": "Java Developer",       "stage": "Screening",         "status": "In Review",   "remarks": "Profile shortlisted" },
+    { "id": "DC011", "name": "Anita Desai",     "role": "QA Engineer",          "stage": "Interview Round 1", "status": "Scheduled",   "remarks": "Zoom link sent" },
+    { "id": "DC012", "name": "Rahul Gupta",     "role": "Cloud Architect",      "stage": "Final Round",       "status": "In Progress", "remarks": "Final decision pending" },
+    { "id": "DC013", "name": "Priya Iyer",      "role": "React Developer",      "stage": "Hired",             "status": "Closed",      "remarks": "Offer accepted" },
+    { "id": "DC014", "name": "Kiran Mehta",     "role": "Node.js Developer",    "stage": "Assessment",        "status": "In Review",   "remarks": "Coding test sent" },
+    { "id": "DC015", "name": "Sunita Verma",    "role": "HR Manager",           "stage": "Offer Discussion",  "status": "Offer Sent",  "remarks": "Package finalization" },
+    { "id": "DC016", "name": "Deepak Sharma",   "role": "Data Scientist",       "stage": "Rejected",          "status": "Closed",      "remarks": "Did not clear technical" },
+    { "id": "DC017", "name": "Rekha Joshi",     "role": "Content Writer",       "stage": "Screening",         "status": "Scheduled",   "remarks": "Portfolio under review" },
+    { "id": "DC018", "name": "Aakash Bose",     "role": "Python Developer",     "stage": "Interview Round 2", "status": "In Progress", "remarks": "Awaiting interviewer feedback" },
+    { "id": "DC019", "name": "Lavanya Reddy",   "role": "Android Developer",    "stage": "Assessment",        "status": "In Review",   "remarks": "Test result pending" },
+    { "id": "DC020", "name": "Manish Tiwari",   "role": "Full Stack Developer",  "stage": "Hired",             "status": "Closed",      "remarks": "Joining date: 15 Dec" }
+  ],
+  "interviews": [
+    {
+      "id": "C001",
+      "candidateName": "Arun Kumar",
+      "role": "UX Designer",
+      "dateTime": "29/12/2025 11:00 AM",
+      "company": "ABC Tech",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C002",
+      "candidateName": "Priya Sharma",
+      "role": "Frontend Developer",
+      "dateTime": "29/12/2025 04:00 PM",
+      "company": "XYZ Ltd",
+      "interviewType": "HR",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C003",
+      "candidateName": "Ravi Patel",
+      "role": "Product Manager",
+      "dateTime": "29/12/2025 05:30 PM",
+      "company": "Nova Corp",
+      "interviewType": "Managerial",
+      "mode": "Online",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C004",
+      "candidateName": "Sneha Iyer",
+      "role": "UI Designer",
+      "dateTime": "02/01/2026 11:30 AM",
+      "company": "PixelWorks",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C005",
+      "candidateName": "Vikram Singh",
+      "role": "Backend Developer",
+      "dateTime": "02/01/2026 02:15 PM",
+      "company": "CodeBase",
+      "interviewType": "Technical",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C006",
+      "candidateName": "Ananya Rao",
+      "role": "Data Analyst",
+      "dateTime": "02/01/2026 04:30 PM",
+      "company": "Insight Labs",
+      "interviewType": "HR",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C007",
+      "candidateName": "Karthik M",
+      "role": "QA Engineer",
+      "dateTime": "03/01/2026 10:00 AM",
+      "company": "TestPro",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C008",
+      "candidateName": "Neha Verma",
+      "role": "Digital Marketer",
+      "dateTime": "03/01/2026 11:30 AM",
+      "company": "BrandHive",
+      "interviewType": "HR",
+      "mode": "Online",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C009",
+      "candidateName": "Suresh Nair",
+      "role": "DevOps Engineer",
+      "dateTime": "03/01/2026 02:00 PM",
+      "company": "CloudNet",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C010",
+      "candidateName": "Pooja Mehta",
+      "role": "Business Analyst",
+      "dateTime": "03/01/2026 04:00 PM",
+      "company": "FinEdge",
+      "interviewType": "Managerial",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C011",
+      "candidateName": "Rohit Gupta",
+      "role": "React Developer",
+      "dateTime": "05/01/2026 09:30 AM",
+      "company": "TechNova",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C012",
+      "candidateName": "Divya Pillai",
+      "role": "HR Manager",
+      "dateTime": "05/01/2026 11:00 AM",
+      "company": "PeopleFirst",
+      "interviewType": "HR",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C013",
+      "candidateName": "Arjun Menon",
+      "role": "Cloud Architect",
+      "dateTime": "05/01/2026 02:30 PM",
+      "company": "CloudSoft",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C014",
+      "candidateName": "Lakshmi Priya",
+      "role": "Scrum Master",
+      "dateTime": "06/01/2026 10:00 AM",
+      "company": "AgileWorks",
+      "interviewType": "Managerial",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C015",
+      "candidateName": "Siddharth Jain",
+      "role": "Full Stack Developer",
+      "dateTime": "06/01/2026 12:00 PM",
+      "company": "DevHive",
+      "interviewType": "Technical",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C016",
+      "candidateName": "Meera Krishnan",
+      "role": "Content Strategist",
+      "dateTime": "06/01/2026 03:00 PM",
+      "company": "MediaPlex",
+      "interviewType": "HR",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C017",
+      "candidateName": "Nikhil Sharma",
+      "role": "Data Scientist",
+      "dateTime": "07/01/2026 09:00 AM",
+      "company": "DataMinds",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C018",
+      "candidateName": "Kavya Reddy",
+      "role": "Mobile Developer",
+      "dateTime": "07/01/2026 11:30 AM",
+      "company": "AppWave",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C019",
+      "candidateName": "Tarun Bose",
+      "role": "Security Analyst",
+      "dateTime": "07/01/2026 02:00 PM",
+      "company": "SecureNet",
+      "interviewType": "Technical",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C020",
+      "candidateName": "Isha Kapoor",
+      "role": "Project Manager",
+      "dateTime": "08/01/2026 10:00 AM",
+      "company": "ProManage",
+      "interviewType": "Managerial",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C021",
+      "candidateName": "Rahul Desai",
+      "role": "Python Developer",
+      "dateTime": "08/01/2026 11:30 AM",
+      "company": "ByteLogic",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C022",
+      "candidateName": "Anita Shah",
+      "role": "UI/UX Lead",
+      "dateTime": "08/01/2026 02:00 PM",
+      "company": "DesignHub",
+      "interviewType": "Technical",
+      "mode": "In-Person",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C023",
+      "candidateName": "Vivek Tiwari",
+      "role": "System Administrator",
+      "dateTime": "09/01/2026 09:30 AM",
+      "company": "SysAdmin Co",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C024",
+      "candidateName": "Preethi Rajan",
+      "role": "Talent Acquisition",
+      "dateTime": "09/01/2026 11:00 AM",
+      "company": "TalentBridge",
+      "interviewType": "HR",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C025",
+      "candidateName": "Manish Verma",
+      "role": "Node.js Developer",
+      "dateTime": "09/01/2026 02:30 PM",
+      "company": "ServerStack",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C026",
+      "candidateName": "Deepa Nair",
+      "role": "Operations Manager",
+      "dateTime": "10/01/2026 10:00 AM",
+      "company": "OpsFlow",
+      "interviewType": "Managerial",
+      "mode": "In-Person",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C027",
+      "candidateName": "Abhishek Roy",
+      "role": "Blockchain Developer",
+      "dateTime": "10/01/2026 12:00 PM",
+      "company": "ChainWorks",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C028",
+      "candidateName": "Swati Joshi",
+      "role": "Data Engineer",
+      "dateTime": "10/01/2026 02:00 PM",
+      "company": "DataPipe",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C029",
+      "candidateName": "Farhan Ahmed",
+      "role": "ML Engineer",
+      "dateTime": "11/01/2026 09:00 AM",
+      "company": "AILabs",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C030",
+      "candidateName": "Ritu Agarwal",
+      "role": "Finance Analyst",
+      "dateTime": "11/01/2026 11:00 AM",
+      "company": "FinServe",
+      "interviewType": "Managerial",
+      "mode": "In-Person",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C031",
+      "candidateName": "Aisha Nair",
+      "role": "React Developer",
+      "dateTime": "07/06/2026 09:30 AM",
+      "company": "iTest Factory",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C032",
+      "candidateName": "Karan Mehta",
+      "role": "UI/UX Designer",
+      "dateTime": "07/06/2026 11:00 AM",
+      "company": "Meta4Systems",
+      "interviewType": "HR",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C033",
+      "candidateName": "Priya Bose",
+      "role": "Backend Developer",
+      "dateTime": "07/06/2026 02:00 PM",
+      "company": "Nesta Technologies",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C034",
+      "candidateName": "Sameer Joshi",
+      "role": "Project Manager",
+      "dateTime": "07/06/2026 04:00 PM",
+      "company": "Arrows HR",
+      "interviewType": "Managerial",
+      "mode": "In-Person",
+      "status": "Rescheduled"
+    },
+    {
+      "id": "C035",
+      "candidateName": "Deepa Krishnan",
+      "role": "Data Engineer",
+      "dateTime": "09/06/2026 09:20 AM",
+      "company": "iTest Factory",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C036",
+      "candidateName": "Rahul Das",
+      "role": "QA Engineer",
+      "dateTime": "09/06/2026 02:30 PM",
+      "company": "CodeBase",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C037",
+      "candidateName": "Sneha Kulkarni",
+      "role": "Product Manager",
+      "dateTime": "12/06/2026 11:30 AM",
+      "company": "Meta4Systems",
+      "interviewType": "HR",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C038",
+      "candidateName": "Vivek Pandey",
+      "role": "DevOps Engineer",
+      "dateTime": "25/06/2026 02:00 PM",
+      "company": "Nesta Technologies",
+      "interviewType": "Technical",
+      "mode": "Online",
+      "status": "Upcoming"
+    },
+    {
+      "id": "C039",
+      "candidateName": "Lakshmi Menon",
+      "role": "Business Analyst",
+      "dateTime": "27/06/2026 03:45 PM",
+      "company": "Nesta Technologies",
+      "interviewType": "Managerial",
+      "mode": "In-Person",
+      "status": "Upcoming"
+    }
+  ],
+  "interviewers": [
+    {
+      "id": "IV001",
+      "name": "Priya Sharma",
+      "email": "priya.sharma@email.com",
+      "mobile": "+91770887243",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "Spring Boot",
+        "Microservices",
+        "Hibernate"
+      ],
+      "experience": 8,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV002",
+      "name": "Rahul Mehta",
+      "email": "rahul.mehta@email.com",
+      "mobile": "+91770887244",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "JEE",
+        "Kafka",
+        "Microservices"
+      ],
+      "experience": 10,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV003",
+      "name": "Vikram Singh",
+      "email": "vikram.singh@email.com",
+      "mobile": "+91770887245",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "Spring Boot",
+        "Cloud",
+        "Docker"
+      ],
+      "experience": 7,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV004",
+      "name": "Neha Verma",
+      "email": "neha.verma@email.com",
+      "mobile": "+91770887246",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "JUnit",
+        "REST API",
+        "Maven"
+      ],
+      "experience": 6,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV005",
+      "name": "Suresh Nair",
+      "email": "suresh.nair@email.com",
+      "mobile": "+91770887247",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "Spring MVC",
+        "Hibernate",
+        "SQL"
+      ],
+      "experience": 9,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV006",
+      "name": "Pooja Mehta",
+      "email": "pooja.mehta@email.com",
+      "mobile": "+91770887248",
+      "designation": "Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "Microservices",
+        "Kafka",
+        "Redis"
+      ],
+      "experience": 7,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV007",
+      "name": "Anand Krishnan",
+      "email": "anand.k@email.com",
+      "mobile": "+91770887249",
+      "designation": "Senior Panel",
+      "primarySkill": "Java",
+      "skills": [
+        "Java",
+        "Architecture",
+        "Design Patterns",
+        "Spring"
+      ],
+      "experience": 12,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV008",
+      "name": "Ravi Kumar",
+      "email": "ravi.kumar@email.com",
+      "mobile": "+91770887250",
+      "designation": "Panel",
+      "primarySkill": "Python",
+      "skills": [
+        "Python",
+        "Django",
+        "FastAPI",
+        "Pandas"
+      ],
+      "experience": 6,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV009",
+      "name": "Meena Reddy",
+      "email": "meena.reddy@email.com",
+      "mobile": "+91770887251",
+      "designation": "Panel",
+      "primarySkill": "Python",
+      "skills": [
+        "Python",
+        "Flask",
+        "SQLAlchemy",
+        "Celery"
+      ],
+      "experience": 5,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV010",
+      "name": "Arun Patel",
+      "email": "arun.patel@email.com",
+      "mobile": "+91770887252",
+      "designation": "Senior Panel",
+      "primarySkill": "Python",
+      "skills": [
+        "Python",
+        "Machine Learning",
+        "Scikit-learn",
+        "TensorFlow"
+      ],
+      "experience": 9,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV011",
+      "name": "Divya Iyer",
+      "email": "divya.iyer@email.com",
+      "mobile": "+91770887253",
+      "designation": "Panel",
+      "primarySkill": "Python",
+      "skills": [
+        "Python",
+        "Data Science",
+        "NumPy",
+        "Pandas"
+      ],
+      "experience": 7,
+      "available": false,
+      "active": true
+    },
+    {
+      "id": "IV012",
+      "name": "Kiran Bhat",
+      "email": "kiran.bhat@email.com",
+      "mobile": "+91770887254",
+      "designation": "Panel",
+      "primarySkill": "React JS",
+      "skills": [
+        "React JS",
+        "TypeScript",
+        "Redux",
+        "Next.js"
+      ],
+      "experience": 5,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV013",
+      "name": "Sneha Joshi",
+      "email": "sneha.joshi@email.com",
+      "mobile": "+91770887255",
+      "designation": "Panel",
+      "primarySkill": "React JS",
+      "skills": [
+        "React JS",
+        "JavaScript",
+        "CSS",
+        "GraphQL"
+      ],
+      "experience": 6,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV014",
+      "name": "Manish Gupta",
+      "email": "manish.gupta@email.com",
+      "mobile": "+91770887256",
+      "designation": "Senior Panel",
+      "primarySkill": "React JS",
+      "skills": [
+        "React JS",
+        "Vue.js",
+        "Angular",
+        "Node.js"
+      ],
+      "experience": 8,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV015",
+      "name": "Preethi Nair",
+      "email": "preethi.nair@email.com",
+      "mobile": "+91770887257",
+      "designation": "Panel",
+      "primarySkill": "DevOps",
+      "skills": [
+        "DevOps",
+        "Kubernetes",
+        "Docker",
+        "CI/CD"
+      ],
+      "experience": 7,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV016",
+      "name": "Rohan Desai",
+      "email": "rohan.desai@email.com",
+      "mobile": "+91770887258",
+      "designation": "Panel",
+      "primarySkill": "DevOps",
+      "skills": [
+        "DevOps",
+        "AWS",
+        "Terraform",
+        "Ansible"
+      ],
+      "experience": 6,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV017",
+      "name": "Usha Pillai",
+      "email": "usha.pillai@email.com",
+      "mobile": "+91770887259",
+      "designation": "Panel",
+      "primarySkill": "Node.js",
+      "skills": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "GraphQL"
+      ],
+      "experience": 5,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV018",
+      "name": "Sanjay Mishra",
+      "email": "sanjay.mishra@email.com",
+      "mobile": "+91770887260",
+      "designation": "Senior Panel",
+      "primarySkill": "Node.js",
+      "skills": [
+        "Node.js",
+        "Microservices",
+        "Redis",
+        "RabbitMQ"
+      ],
+      "experience": 8,
+      "available": false,
+      "active": true
+    },
+    {
+      "id": "IV019",
+      "name": "Tejal Shah",
+      "email": "tejal.shah@email.com",
+      "mobile": "+91770887261",
+      "designation": "Panel",
+      "primarySkill": "UI/UX",
+      "skills": [
+        "Figma",
+        "Adobe XD",
+        "CSS",
+        "HTML"
+      ],
+      "experience": 4,
+      "available": true,
+      "active": true
+    },
+    {
+      "id": "IV020",
+      "name": "Deepak Rao",
+      "email": "deepak.rao@email.com",
+      "mobile": "+91770887262",
+      "designation": "Panel",
+      "primarySkill": "QA",
+      "skills": [
+        "Selenium",
+        "JMeter",
+        "TestNG",
+        "JIRA"
+      ],
+      "experience": 5,
+      "available": true,
+      "active": false
+    }
+  ],
+  "interviewGroups": [
+    {
+      "id": "IG001",
+      "name": "JD1",
+      "primarySkill": "Java",
+      "description": "Java backend panel for senior developer interviews",
+      "minExperience": 5,
+      "members": [
+        {
+          "interviewerId": "IV001",
+          "round": "Round 1"
+        },
+        {
+          "interviewerId": "IV002",
+          "round": "Round 3"
+        },
+        {
+          "interviewerId": "IV003",
+          "round": "Round 2"
+        },
+        {
+          "interviewerId": "IV004",
+          "round": "Round 3"
+        },
+        {
+          "interviewerId": "IV005",
+          "round": "Round 1"
+        },
+        {
+          "interviewerId": "IV006",
+          "round": "Round 2"
+        }
+      ],
+      "createdDate": "2025-11-15",
+      "createdBy": "Divya Mehta"
+    },
+    {
+      "id": "IG002",
+      "name": "Python Team",
+      "primarySkill": "Python",
+      "description": "Python and data science interview panel",
+      "minExperience": 4,
+      "members": [
+        {
+          "interviewerId": "IV008",
+          "round": "Round 1"
+        },
+        {
+          "interviewerId": "IV009",
+          "round": "Round 1"
+        },
+        {
+          "interviewerId": "IV010",
+          "round": "Round 2"
+        }
+      ],
+      "createdDate": "2025-12-01",
+      "createdBy": "Divya Mehta"
+    }
+  ],
+  "clients": [
+    {
+      "id": "CL001",
+      "clientName": "ABC Technologies",
+      "companyName": "ABC Technologies Ltd",
+      "industry": "Information Technology",
+      "website": "www.abctech.com",
+      "companySize": "500-1000",
+      "contactPerson": "Rajesh Kumar",
+      "designation": "HR Manager",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "contact@abctech.com",
+      "altEmail": "",
+      "addressLine1": "123 Tech Park",
+      "addressLine2": "Whitefield",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560066",
+      "assignedRecruiter": "Neha Verma",
+      "accountManager": "Rahul Mehta",
+      "activeFrom": "2024-01-01",
+      "status": "Active",
+      "notes": "Long-term client",
+      "requirementsSummary": "Java & React JS developers",
+      "preferredHiringLocations": "Bangalore, Mumbai"
+    },
+    {
+      "id": "CL002",
+      "clientName": "Nova Solutions",
+      "companyName": "Nova Solutions Pvt Ltd",
+      "industry": "Software Services",
+      "website": "www.novasolutions.com",
+      "companySize": "200-500",
+      "contactPerson": "Priya Sharma",
+      "designation": "Talent Acquisition Lead",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@novasolutions.com",
+      "altEmail": "",
+      "addressLine1": "45 Business Hub",
+      "addressLine2": "Koramangala",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560034",
+      "assignedRecruiter": "Arun Kumar",
+      "accountManager": "Sneha Iyer",
+      "activeFrom": "2024-02-15",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Full stack developers",
+      "preferredHiringLocations": "Bangalore"
+    },
+    {
+      "id": "CL003",
+      "clientName": "PixelSoft Pvt Ltd",
+      "companyName": "PixelSoft Pvt Ltd",
+      "industry": "Product Development",
+      "website": "www.pixelsoft.com",
+      "companySize": "100-200",
+      "contactPerson": "Anil Mehta",
+      "designation": "CTO",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "careers@pixelsoft.com",
+      "altEmail": "",
+      "addressLine1": "7 Innovation Lane",
+      "addressLine2": "HSR Layout",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560102",
+      "assignedRecruiter": "Sneha Iyer",
+      "accountManager": "Priya Sharma",
+      "activeFrom": "2024-03-10",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Mobile developers",
+      "preferredHiringLocations": "Bangalore, Hyderabad"
+    },
+    {
+      "id": "CL004",
+      "clientName": "FinEdge Systems",
+      "companyName": "FinEdge Systems Inc",
+      "industry": "Financial Technology",
+      "website": "www.finedge.com",
+      "companySize": "1000+",
+      "contactPerson": "Kavita Rao",
+      "designation": "VP HR",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@finedge.com",
+      "altEmail": "",
+      "addressLine1": "88 Finance Tower",
+      "addressLine2": "BKC",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "postalCode": "400051",
+      "assignedRecruiter": "Vikram Singh",
+      "accountManager": "Arjun Nair",
+      "activeFrom": "2024-04-25",
+      "status": "On Hold",
+      "notes": "Requirement on hold",
+      "requirementsSummary": "DevOps and cloud engineers",
+      "preferredHiringLocations": "Mumbai, Pune"
+    },
+    {
+      "id": "CL005",
+      "clientName": "CloudNet Corp",
+      "companyName": "CloudNet Corp",
+      "industry": "Cloud Services",
+      "website": "www.cloudnet.com",
+      "companySize": "500-1000",
+      "contactPerson": "Suresh Nair",
+      "designation": "Recruitment Manager",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "contact@cloudnet.com",
+      "altEmail": "",
+      "addressLine1": "56 Cloud Park",
+      "addressLine2": "Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "postalCode": "500081",
+      "assignedRecruiter": "Karthik M",
+      "accountManager": "Rahul Mehta",
+      "activeFrom": "2024-05-05",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "AWS and Kubernetes specialists",
+      "preferredHiringLocations": "Hyderabad"
+    },
+    {
+      "id": "CL006",
+      "clientName": "Insight Labs",
+      "companyName": "Insight Labs LLP",
+      "industry": "Data Analytics",
+      "website": "www.insightlabs.com",
+      "companySize": "50-100",
+      "contactPerson": "Ananya Rao",
+      "designation": "HR Executive",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@insightlabs.com",
+      "altEmail": "",
+      "addressLine1": "12 Analytics Street",
+      "addressLine2": "Indiranagar",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560038",
+      "assignedRecruiter": "Pooja Mehta",
+      "accountManager": "Neha Verma",
+      "activeFrom": "2024-06-18",
+      "status": "Inactive",
+      "notes": "Currently no openings",
+      "requirementsSummary": "Python & ML engineers",
+      "preferredHiringLocations": "Bangalore"
+    },
+    {
+      "id": "CL007",
+      "clientName": "CodeBase Solutions",
+      "companyName": "CodeBase Solutions Pvt Ltd",
+      "industry": "IT Consulting",
+      "website": "www.codebase.com",
+      "companySize": "200-500",
+      "contactPerson": "Rohit Verma",
+      "designation": "Tech Recruiter",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "jobs@codebase.com",
+      "altEmail": "",
+      "addressLine1": "99 Code Avenue",
+      "addressLine2": "Sector 62",
+      "city": "Noida",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "postalCode": "201301",
+      "assignedRecruiter": "Ravi Patel",
+      "accountManager": "Arun Kumar",
+      "activeFrom": "2024-07-01",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Node.js and React JS developers",
+      "preferredHiringLocations": "Noida, Delhi"
+    },
+    {
+      "id": "CL008",
+      "clientName": "BrandHive Digital",
+      "companyName": "BrandHive Digital Pvt Ltd",
+      "industry": "Digital Marketing",
+      "website": "www.brandhive.com",
+      "companySize": "100-200",
+      "contactPerson": "Neha Gupta",
+      "designation": "HR Head",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hello@brandhive.com",
+      "altEmail": "",
+      "addressLine1": "22 Creative Hub",
+      "addressLine2": "Baner",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "postalCode": "411045",
+      "assignedRecruiter": "Sneha Iyer",
+      "accountManager": "Vikram Singh",
+      "activeFrom": "2024-08-12",
+      "status": "On Hold",
+      "notes": "Budget freeze",
+      "requirementsSummary": "UI/UX designers",
+      "preferredHiringLocations": "Pune, Mumbai"
+    },
+    {
+      "id": "CL009",
+      "clientName": "DataSphere Tech",
+      "companyName": "DataSphere Technologies",
+      "industry": "Big Data",
+      "website": "www.datasphere.com",
+      "companySize": "500-1000",
+      "contactPerson": "Amit Shah",
+      "designation": "Director HR",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "careers@datasphere.com",
+      "altEmail": "",
+      "addressLine1": "78 Data Drive",
+      "addressLine2": "Powai",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "postalCode": "400076",
+      "assignedRecruiter": "Arun Kumar",
+      "accountManager": "Pooja Mehta",
+      "activeFrom": "2024-09-20",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Data engineers and analysts",
+      "preferredHiringLocations": "Mumbai, Bangalore"
+    },
+    {
+      "id": "CL010",
+      "clientName": "NextGen Innovations",
+      "companyName": "NextGen Innovations Ltd",
+      "industry": "Research & Development",
+      "website": "www.nextgen.com",
+      "companySize": "200-500",
+      "contactPerson": "Pankaj Malhotra",
+      "designation": "Head Talent",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@nextgen.com",
+      "altEmail": "",
+      "addressLine1": "34 Innovation Park",
+      "addressLine2": "Electronic City",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560100",
+      "assignedRecruiter": "Priya Sharma",
+      "accountManager": "Rahul Mehta",
+      "activeFrom": "2024-10-05",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "AI/ML and fullstack",
+      "preferredHiringLocations": "Bangalore"
+    },
+    {
+      "id": "CL011",
+      "clientName": "Synapse Analytics",
+      "companyName": "Synapse Analytics Pvt Ltd",
+      "industry": "Analytics",
+      "website": "www.synapse.com",
+      "companySize": "100-200",
+      "contactPerson": "Meena Pillai",
+      "designation": "HR Manager",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@synapse.com",
+      "altEmail": "",
+      "addressLine1": "67 Analytics Park",
+      "addressLine2": "Whitefield",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560066",
+      "assignedRecruiter": "Neha Verma",
+      "accountManager": "Sneha Iyer",
+      "activeFrom": "2024-11-10",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Python developers",
+      "preferredHiringLocations": "Bangalore"
+    },
+    {
+      "id": "CL012",
+      "clientName": "TechBridge Corp",
+      "companyName": "TechBridge Corporation",
+      "industry": "Enterprise Software",
+      "website": "www.techbridge.com",
+      "companySize": "1000+",
+      "contactPerson": "Arjun Kapoor",
+      "designation": "Global HR",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "careers@techbridge.com",
+      "altEmail": "",
+      "addressLine1": "1 Enterprise Way",
+      "addressLine2": "Gachibowli",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "postalCode": "500032",
+      "assignedRecruiter": "Karthik M",
+      "accountManager": "Arun Kumar",
+      "activeFrom": "2024-12-01",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Java and microservices",
+      "preferredHiringLocations": "Hyderabad, Bangalore"
+    },
+    {
+      "id": "CL013",
+      "clientName": "Orbit Softworks",
+      "companyName": "Orbit Softworks Pvt Ltd",
+      "industry": "Software Products",
+      "website": "www.orbitsw.com",
+      "companySize": "50-100",
+      "contactPerson": "Kavya Reddy",
+      "designation": "Tech HR",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "jobs@orbitsw.com",
+      "altEmail": "",
+      "addressLine1": "45 Software Lane",
+      "addressLine2": "Kondapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "postalCode": "500084",
+      "assignedRecruiter": "Ravi Patel",
+      "accountManager": "Priya Sharma",
+      "activeFrom": "2025-01-15",
+      "status": "Inactive",
+      "notes": "Project on pause",
+      "requirementsSummary": "QA engineers",
+      "preferredHiringLocations": "Hyderabad"
+    },
+    {
+      "id": "CL014",
+      "clientName": "Vertex Networks",
+      "companyName": "Vertex Networks Ltd",
+      "industry": "Networking",
+      "website": "www.vertex.com",
+      "companySize": "500-1000",
+      "contactPerson": "Sunil Menon",
+      "designation": "Recruitment Lead",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@vertex.com",
+      "altEmail": "",
+      "addressLine1": "89 Network Plaza",
+      "addressLine2": "Andheri",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "postalCode": "400053",
+      "assignedRecruiter": "Vikram Singh",
+      "accountManager": "Rahul Mehta",
+      "activeFrom": "2025-02-01",
+      "status": "Active",
+      "notes": "",
+      "requirementsSummary": "Network and cloud engineers",
+      "preferredHiringLocations": "Mumbai"
+    },
+    {
+      "id": "CL015",
+      "clientName": "SparkMinds Tech",
+      "companyName": "SparkMinds Technologies",
+      "industry": "EdTech",
+      "website": "www.sparkminds.com",
+      "companySize": "200-500",
+      "contactPerson": "Divya Sharma",
+      "designation": "People Ops",
+      "contactNumber": "+91 9876543210",
+      "altContactNumber": "",
+      "email": "hr@sparkminds.com",
+      "altEmail": "",
+      "addressLine1": "23 Learning Hub",
+      "addressLine2": "MG Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "postalCode": "560001",
+      "assignedRecruiter": "Pooja Mehta",
+      "accountManager": "Neha Verma",
+      "activeFrom": "2025-03-10",
+      "status": "On Hold",
+      "notes": "Expansion delayed",
+      "requirementsSummary": "EdTech platform developers",
+      "preferredHiringLocations": "Bangalore, Chennai"
+    }
+  ],
+  "users": [
+    {
+      "id": "U001", "employeeId": "EMP001",
+      "name": "Arun Kumar", "email": "arun.kumar@company.com", "mobile": "+91 9876500001",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "designation": "Chief Executive Officer", "role": "CEO", "department": "Leadership",
+      "reportingManager": null, "team": "Executive", "status": "Active",
+      "permissions": {
+        "dashboard": ["view","create","edit","delete"],
+        "candidates": ["view","create","edit","delete"],
+        "jobOpenings": ["view","create","edit","delete"],
+        "interviews": ["view","create","edit","delete"],
+        "clients":    ["view","create","edit","delete"],
+        "reports":    ["view","export"],
+        "userManagement": ["view","create","edit","delete"]
+      }
+    },
+    {
+      "id": "U002", "employeeId": "EMP002",
+      "name": "Priya Sharma", "email": "priya.sharma@company.com", "mobile": "+91 9876500002",
+      "photo": "https://randomuser.me/api/portraits/women/44.jpg",
+      "designation": "Hiring Manager", "role": "Hiring Manager", "department": "Hiring",
+      "reportingManager": "U001", "team": "Hiring Team A", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit","delete"],
+        "jobOpenings": ["view","create","edit"],
+        "interviews": ["view","create","edit","delete"],
+        "clients":    ["view"],
+        "reports":    ["view","export"],
+        "userManagement": ["view"]
+      }
+    },
+    {
+      "id": "U003", "employeeId": "EMP003",
+      "name": "Ravi Patel", "email": "ravi.patel@company.com", "mobile": "+91 9876500003",
+      "photo": "https://randomuser.me/api/portraits/men/45.jpg",
+      "designation": "Hiring Manager", "role": "Hiring Manager", "department": "Hiring",
+      "reportingManager": "U001", "team": "Hiring Team B", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit","delete"],
+        "jobOpenings": ["view","create","edit"],
+        "interviews": ["view","create","edit","delete"],
+        "clients":    ["view"],
+        "reports":    ["view","export"],
+        "userManagement": ["view"]
+      }
+    },
+    {
+      "id": "U004", "employeeId": "EMP004",
+      "name": "Sneha Iyer", "email": "sneha.iyer@company.com", "mobile": "+91 9876500004",
+      "photo": "https://randomuser.me/api/portraits/women/55.jpg",
+      "designation": "Hiring Manager", "role": "Hiring Manager", "department": "Hiring",
+      "reportingManager": "U001", "team": "Hiring Team C", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view","create","edit"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U005", "employeeId": "EMP005",
+      "name": "Vikram Singh", "email": "vikram.singh@company.com", "mobile": "+91 9876500005",
+      "photo": "https://randomuser.me/api/portraits/men/67.jpg",
+      "designation": "Operations Manager", "role": "Operations Manager", "department": "Operations",
+      "reportingManager": "U001", "team": "Operations Team", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view","create","edit","delete"],
+        "reports":    ["view","export"],
+        "userManagement": ["view"]
+      }
+    },
+    {
+      "id": "U006", "employeeId": "EMP006",
+      "name": "Rajesh Kumar", "email": "rajesh.kumar@company.com", "mobile": "+91 9876500006",
+      "photo": "https://randomuser.me/api/portraits/women/28.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U002", "team": "Hiring Team A", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U007", "employeeId": "EMP007",
+      "name": "Anil Mehta", "email": "anil.mehta@company.com", "mobile": "+91 9876500007",
+      "photo": "https://randomuser.me/api/portraits/men/22.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U002", "team": "Hiring Team A", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U008", "employeeId": "EMP008",
+      "name": "Kavita Rao", "email": "kavita.rao@company.com", "mobile": "+91 9876500008",
+      "photo": "https://randomuser.me/api/portraits/men/48.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U002", "team": "Hiring Team A", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U009", "employeeId": "EMP009",
+      "name": "Suresh Nair", "email": "suresh.nair@company.com", "mobile": "+91 9876500009",
+      "photo": "https://randomuser.me/api/portraits/women/36.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U003", "team": "Hiring Team B", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U010", "employeeId": "EMP010",
+      "name": "Ananya Rao", "email": "ananya.rao@company.com", "mobile": "+91 9876500010",
+      "photo": "https://randomuser.me/api/portraits/women/62.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U003", "team": "Hiring Team B", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U011", "employeeId": "EMP011",
+      "name": "Rohit Verma", "email": "rohit.verma@company.com", "mobile": "+91 9876500011",
+      "photo": "https://randomuser.me/api/portraits/women/71.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U003", "team": "Hiring Team B", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U012", "employeeId": "EMP012",
+      "name": "Neha Gupta", "email": "neha.gupta@company.com", "mobile": "+91 9876500012",
+      "photo": "https://randomuser.me/api/portraits/men/79.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Hiring",
+      "reportingManager": "U003", "team": "Hiring Team B", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view","create","edit"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create","edit"],
+        "clients":    ["view"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U013", "employeeId": "EMP013",
+      "name": "Amit Shah", "email": "amit.shah@company.com", "mobile": "+91 9876500013",
+      "photo": "https://randomuser.me/api/portraits/women/33.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Operations",
+      "reportingManager": "U005", "team": "Operations Team", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create"],
+        "clients":    ["view","create","edit"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    },
+    {
+      "id": "U014", "employeeId": "EMP014",
+      "name": "Pankaj Malhotra", "email": "pankaj.malhotra@company.com", "mobile": "+91 9876500014",
+      "photo": "https://randomuser.me/api/portraits/men/56.jpg",
+      "designation": "Recruiter", "role": "Recruiter", "department": "Operations",
+      "reportingManager": "U005", "team": "Operations Team", "status": "Active",
+      "permissions": {
+        "dashboard": ["view"],
+        "candidates": ["view"],
+        "jobOpenings": ["view"],
+        "interviews": ["view","create"],
+        "clients":    ["view","create","edit"],
+        "reports":    ["view"],
+        "userManagement": []
+      }
+    }
+  ]
+}

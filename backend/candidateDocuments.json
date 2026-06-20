@@ -1,0 +1,54 @@
+[
+  {
+    "id": "DOC_1781457673490",
+    "candidateId": "C1781368480316",
+    "docType": "selfie",
+    "fileName": "doc_1781457673487_pr30c6fawp.jpg",
+    "originalName": "selfie_1781457670652.jpg",
+    "filePath": "/uploads/documents/doc_1781457673487_pr30c6fawp.jpg",
+    "uploadedAt": "2026-06-14T17:21:13.490Z",
+    "status": "Approved",
+    "comment": "",
+    "reviewedAt": "2026-06-15T15:33:59.522Z",
+    "reviewedBy": "Admin User"
+  },
+  {
+    "id": "DOC_1781457673503",
+    "candidateId": "C1781368480316",
+    "docType": "aadhaar_front",
+    "fileName": "doc_1781457673498_up4v7hadfu.jpg",
+    "originalName": "Saravanan E Aadhar.jpg",
+    "filePath": "/uploads/documents/doc_1781457673498_up4v7hadfu.jpg",
+    "uploadedAt": "2026-06-14T17:21:13.503Z",
+    "status": "Approved",
+    "comment": "",
+    "reviewedAt": "2026-06-15T15:34:02.744Z",
+    "reviewedBy": "Admin User"
+  },
+  {
+    "id": "DOC_1781538667103",
+    "candidateId": "C1765040000000",
+    "docType": "selfie",
+    "fileName": "doc_1781538667100_0gdqz9t2r9ic.jpg",
+    "originalName": "selfie_1781538655614.jpg",
+    "filePath": "/uploads/documents/doc_1781538667100_0gdqz9t2r9ic.jpg",
+    "uploadedAt": "2026-06-15T15:51:07.103Z",
+    "status": "Approved",
+    "comment": "",
+    "reviewedAt": "2026-06-15T16:01:06.117Z",
+    "reviewedBy": "Admin User"
+  },
+  {
+    "id": "DOC_1781538667117",
+    "candidateId": "C1765040000000",
+    "docType": "aadhaar_front",
+    "fileName": "doc_1781538667112_3d2qkt3iso3.jpg",
+    "originalName": "Saravanan E Aadhar.jpg",
+    "filePath": "/uploads/documents/doc_1781538667112_3d2qkt3iso3.jpg",
+    "uploadedAt": "2026-06-15T15:51:07.117Z",
+    "status": "Approved",
+    "comment": "",
+    "reviewedAt": "2026-06-15T16:01:08.075Z",
+    "reviewedBy": "Admin User"
+  }
+]

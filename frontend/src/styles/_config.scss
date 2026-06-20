@@ -1,0 +1,54 @@
+// ════════════════════════════════════════════════════════════
+//  CONFIG — SCSS compile-time variables  (no CSS output)
+// ════════════════════════════════════════════════════════════
+
+// ── Brand colours ────────────────────────────────────────────
+$primary:          #3F90F6;
+$primary-light:    #E0E8FD;
+$primary-dark:     #035297;
+$primary-light-blue: rgb(193, 210, 251, 0.7);  
+
+
+$green:            #22C55E;
+$green-dark:       #16A34A;
+$green-light:      #F0FDF4;
+
+$yellow:           #EAB308;
+$yellow-dark:      #A16207;
+$yellow-light:     #FEFCE8;
+
+$orange:           #F97316;
+$orange-dark:      #EA580C;
+$orange-light:     #FFF7ED;
+
+$red:              #EF4444;
+$purple:           #8B5CF6;
+$blue:             #3B82F6;
+$pink:             #EC4899;
+
+// ── Layout ───────────────────────────────────────────────────
+$sidebar-width:    90px;
+$topbar-height:    70px;
+$content-gap:      16px;
+$content-gap-sm:   12px;
+$content-padding:  10px 22px;
+
+// ── Shape ────────────────────────────────────────────────────
+$radius:           12px;
+$radius-md:        10px;
+$radius-sm:        8px;
+$radius-xs:        6px;
+$radius-full:      9999px;
+
+// ── Typography ───────────────────────────────────────────────
+$font:             poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+$font-size:        13px;
+
+// ── Motion ───────────────────────────────────────────────────
+$t-fast:           0.12s ease;
+$t-base:           0.2s  ease;
+$t-slow:           0.3s  ease;
+
+// ── Shadows ──────────────────────────────────────────────────
+$shadow-light:     0 1px 4px rgba(0,0,0,.07), 0 2px 10px rgba(0,0,0,.04);
+$shadow-dark:      0 2px 8px rgba(0,0,0,.35), 0 4px 20px rgba(0,0,0,.20);

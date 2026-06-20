@@ -1,0 +1,3164 @@
+[
+  {
+    "name": "Priya Nair",
+    "email": "priya.nair002@example.com",
+    "secondaryEmail": "",
+    "phone": "+91 9876543002",
+    "dob": "",
+    "gender": "Female",
+    "location": "Bengaluru",
+    "role": "Associate React Developer",
+    "experience": "3",
+    "source": "Naukri",
+    "stage": "Added",
+    "status": "In Progress",
+    "company": "DigitalWave Technologies",
+    "currentCTC": "10",
+    "expectedCTC": "13",
+    "offersInHand": "1",
+    "rating": 0,
+    "remarks": "Offer In Hand - Yes ₹12 LPA",
+    "summary": "",
+    "primarySkillset": [
+      {
+        "name": "React.js",
+        "experience": "2",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnp66eennhtkrq8xt"
+      },
+      {
+        "name": "JavaScript",
+        "experience": "2",
+        "rating": 5,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnpfn942sf6jg4bhe"
+      },
+      {
+        "name": "TypeScript",
+        "experience": "2",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnprn06niiew4i8cm"
+      },
+      {
+        "name": "Redux",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnpyqu9qp207jj6ki"
+      }
+    ],
+    "secondarySkillset": [
+      {
+        "name": "Node.js",
+        "experience": "1",
+        "rating": 3,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnqf8a913lgrmsrat"
+      },
+      {
+        "name": "HTML5",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnqndzo4oabtmv1c8"
+      },
+      {
+        "name": "CSS3",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnqwlsxcfkt8p2aak"
+      },
+      {
+        "name": "Material UI",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnr4uwh1rxbvilko"
+      },
+      {
+        "name": "Git",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnrek001onkeq5yau5"
+      }
+    ],
+    "employmentHistory": [
+      {
+        "company": "AppSphere Technologies",
+        "designation": "React Developer",
+        "duration": "2022 - 2023",
+        "responsibilities": [],
+        "techStack": [],
+        "_id": "mqdnsmp59d1niksjw2l"
+      },
+      {
+        "company": "DigitalWave Technologies",
+        "designation": "React Developer",
+        "duration": "2023 - Present",
+        "responsibilities": [],
+        "techStack": [],
+        "_id": "mqdnt67kvl72ch3yv"
+      }
+    ],
+    "educationHistory": [
+      {
+        "degree": "B.Tech Information Technology",
+        "institution": "Kerala Technological University",
+        "graduationYear": "2021",
+        "performance": "",
+        "_id": "mqdntncm2emd4jlytu1"
+      }
+    ],
+    "certifications": [],
+    "candidateScore": null,
+    "recommendedRoles": [],
+    "strengths": [],
+    "gaps": [],
+    "resumeFile": "",
+    "id": "C1781434032893",
+    "modified": "2026-06-14"
+  },
+  {
+    "name": "Arun Kumar",
+    "email": "arun.kumar001@example.com",
+    "secondaryEmail": "",
+    "phone": "+91 9876543001",
+    "dob": "",
+    "gender": "",
+    "location": "",
+    "role": "Junior Java Developer",
+    "experience": "1.5",
+    "source": "LinkedIn",
+    "stage": "Added",
+    "status": "In Progress",
+    "company": "TechNova Solutions Pvt Ltd",
+    "currentCTC": "5.20",
+    "expectedCTC": "6.50",
+    "offersInHand": "",
+    "rating": 3,
+    "remarks": "",
+    "summary": "",
+    "primarySkillset": [
+      {
+        "name": "Java",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnhr2eox0sl3r2z5a"
+      },
+      {
+        "name": "Spring Boot",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdni1g0do1liz5d7xm"
+      },
+      {
+        "name": "SQL",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdniazyarntkriouir"
+      },
+      {
+        "name": "REST API",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnim8q21ltt32b3p5"
+      }
+    ],
+    "secondarySkillset": [
+      {
+        "name": "HTML",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "",
+        "_id": "mqdniyl2i3wt6093mz"
+      },
+      {
+        "name": "CSS",
+        "experience": "1",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "",
+        "_id": "mqdnj91133wtnng4din"
+      },
+      {
+        "name": "JavaScript",
+        "experience": "1",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "",
+        "_id": "mqdnjj6ktdrpfb6fenc"
+      },
+      {
+        "name": "Git",
+        "experience": "1",
+        "rating": 3,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnjsuh35sq0h1edjv"
+      },
+      {
+        "name": "Maven",
+        "experience": "1",
+        "rating": 2,
+        "lastUsed": "2026",
+        "comments": "",
+        "_id": "mqdnk3m6mcua4yizfp"
+      }
+    ],
+    "employmentHistory": [
+      {
+        "company": "Junior Software Engineer",
+        "designation": "TechNova Solutions",
+        "duration": "Jan 2025 - Present",
+        "responsibilities": [],
+        "techStack": [],
+        "_id": "mqdnkyyk7ndx1ynywwb"
+      }
+    ],
+    "educationHistory": [
+      {
+        "degree": "B.E Computer Science",
+        "institution": "Anna University",
+        "graduationYear": "2024",
+        "performance": "",
+        "_id": "mqdnllfi9kv10vxyjb5"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Oracle Java Foundations",
+        "organization": "",
+        "issueDate": "",
+        "expirationDate": "",
+        "_id": "mqdnlxh1uvsq33caffd"
+      }
+    ],
+    "candidateScore": null,
+    "recommendedRoles": [],
+    "strengths": [],
+    "gaps": [],
+    "resumeFile": "",
+    "id": "C1781433668942",
+    "modified": "2026-06-14"
+  },
+  {
+    "id": "C1764580000000",
+    "name": "Rahul Mehta",
+    "email": "rahul.mehta@email.com",
+    "secondaryEmail": "rahul.mehta.alt@gmail.com",
+    "phone": "+91-9876543210",
+    "dob": "1992-04-15",
+    "gender": "Male",
+    "location": "Mumbai, Maharashtra",
+    "role": "Senior Developer",
+    "experience": "8 yrs",
+    "company": "Infosys Ltd",
+    "currentCTC": "22",
+    "expectedCTC": "28",
+    "offersInHand": "1",
+    "source": "LinkedIn",
+    "rating": 4,
+    "stage": "Sourced",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 92,
+    "remarks": "Strong Java + AWS background. Shortlist for client round.",
+    "modified": "2025-12-10",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Core Java",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Expert-level Java with Spring Boot"
+      },
+      {
+        "id": 2,
+        "skill": "Spring Boot",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Microservices, REST APIs"
+      },
+      {
+        "id": 3,
+        "skill": "AWS",
+        "exp": "3 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "EC2, S3, Lambda"
+      },
+      {
+        "id": 4,
+        "skill": "REST API",
+        "exp": "5 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Excellent API design"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "8 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Clear and concise"
+      },
+      {
+        "id": 2,
+        "skill": "Leadership",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Team lead of 5"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Rahul_Mehta_Resume.pdf",
+        "type": "pdf",
+        "size": "1.2 MB",
+        "color": "#3B82F6"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Screening",
+        "by": "Parthiban",
+        "date": "12/10/2025 10:00 AM",
+        "summary": "Strong Java fundamentals. Architecture knowledge solid."
+      },
+      {
+        "id": 2,
+        "color": "#4B5563",
+        "title": "HR Discussion",
+        "by": "Meena",
+        "date": "12/12/2025 03:00 PM",
+        "summary": "Candidate available in 30 days. CTC expectation aligned."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "P",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical Screening (Strong Hire)",
+          "by": "Parthiban",
+          "date": "12/10/2025 10:00 AM",
+          "rating": 4,
+          "description": "Excellent Java and system design.",
+          "tags": [
+            "Technical",
+            "Backend"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Senior Developer",
+        "clientId": "C1298338",
+        "recruiter": "Parthiban",
+        "appliedDate": "12/10/2025",
+        "status": "Sourced",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1765040000000",
+    "name": "Priya Sharma",
+    "email": "priya.sharma@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500001",
+    "dob": "1994-07-22",
+    "gender": "Female",
+    "location": "Bengaluru, Karnataka",
+    "role": "React Developer",
+    "experience": "5 yrs",
+    "company": "Wipro Technologies",
+    "currentCTC": "14",
+    "expectedCTC": "18",
+    "offersInHand": "",
+    "source": "Naukri",
+    "rating": 3,
+    "stage": "Pre-Screening",
+    "status": "In Progress",
+    "recruiter": "Meena",
+    "score": 78,
+    "remarks": "Good React skills. Needs assessment for Node.js.",
+    "modified": "2026-01-05",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Hooks, Redux, Context API"
+      },
+      {
+        "id": 2,
+        "skill": "JavaScript",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "ES6+, async/await"
+      },
+      {
+        "id": 3,
+        "skill": "HTML / CSS",
+        "exp": "5 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Responsive design"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Good written skills"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Priya_Sharma_CV.pdf",
+        "type": "pdf",
+        "size": "0.9 MB",
+        "color": "#8B5CF6"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "Initial Screening",
+        "by": "Meena",
+        "date": "01/05/2026 11:00 AM",
+        "summary": "React experience confirmed. Moving to pre-screening."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "M",
+          "color": "#4B5563",
+          "title": "Round 1: HR Screening (Hire)",
+          "by": "Meena",
+          "date": "01/05/2026 11:00 AM",
+          "rating": 3,
+          "description": "Good communication and React knowledge.",
+          "tags": [
+            "Frontend",
+            "React"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "React Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "01/05/2026",
+        "status": "Pre-Screening",
+        "hiringManager": "Saravanan"
+      }
+    ],
+    "auditTrail": [
+      {
+        "date": "2026-06-15T15:46:05.706Z",
+        "action": "Candidate Portal Account Created",
+        "actor": "System"
+      },
+      {
+        "date": "2026-06-15T15:50:17.069Z",
+        "action": "Candidate Portal Login",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-15T15:51:07.105Z",
+        "action": "Document Uploaded: selfie",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-15T15:51:07.118Z",
+        "action": "Document Uploaded: aadhaar_front",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-15T16:01:10.802Z",
+        "action": "Verification Approved",
+        "actor": "Admin User"
+      }
+    ],
+    "verificationStatus": "Approved",
+    "verificationComment": "",
+    "verifiedBy": "Admin User",
+    "verifiedAt": "2026-06-15T16:01:10.800Z"
+  },
+  {
+    "id": "C1765600000000",
+    "name": "Arjun Rao",
+    "email": "arjun.rao@email.com",
+    "secondaryEmail": "arjunr.alt@gmail.com",
+    "phone": "+91-9876500002",
+    "dob": "1990-11-03",
+    "gender": "Male",
+    "location": "Hyderabad, Telangana",
+    "role": "Full Stack Developer",
+    "experience": "10 yrs",
+    "company": "TCS",
+    "currentCTC": "28",
+    "expectedCTC": "35",
+    "offersInHand": "2",
+    "source": "Seek",
+    "rating": 5,
+    "stage": "Assessment",
+    "status": "Completed",
+    "recruiter": "Ravi",
+    "score": 95,
+    "remarks": "Exceptional candidate. Priority hire.",
+    "modified": "2026-01-15",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Node.js",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Expert in event-driven architecture"
+      },
+      {
+        "id": 2,
+        "skill": "React JS",
+        "exp": "5 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Full product builds"
+      },
+      {
+        "id": 3,
+        "skill": "PostgreSQL",
+        "exp": "7 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Complex queries, indexing"
+      },
+      {
+        "id": 4,
+        "skill": "Docker",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Container orchestration"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Problem Solving",
+        "exp": "10 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Exceptional analytical skills"
+      },
+      {
+        "id": 2,
+        "skill": "Agile / Scrum",
+        "exp": "6 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Certified Scrum Master"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Arjun_Rao_Resume.pdf",
+        "type": "pdf",
+        "size": "1.5 MB",
+        "color": "#22C55E"
+      },
+      {
+        "id": 2,
+        "name": "Arjun_Portfolio.pdf",
+        "type": "pdf",
+        "size": "2.1 MB",
+        "color": "#F97316"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Assessment",
+        "by": "Ravi",
+        "date": "01/15/2026 09:00 AM",
+        "summary": "Scored 95/100 in technical test. Outstanding."
+      },
+      {
+        "id": 2,
+        "color": "#22C55E",
+        "title": "System Design Round",
+        "by": "Ravi",
+        "date": "01/17/2026 11:00 AM",
+        "summary": "Excellent architecture discussion. Proceed to client interview."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical Assessment (Strong Hire)",
+          "by": "Ravi",
+          "date": "01/15/2026 09:00 AM",
+          "rating": 5,
+          "description": "Near-perfect technical assessment.",
+          "tags": [
+            "Full Stack",
+            "Assessment"
+          ]
+        },
+        {
+          "id": 2,
+          "initial": "R",
+          "color": "#22C55E",
+          "title": "Round 2: System Design (Strong Hire)",
+          "by": "Ravi",
+          "date": "01/17/2026 11:00 AM",
+          "rating": 5,
+          "description": "Exceptional system design skills.",
+          "tags": [
+            "Architecture"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Full Stack Developer",
+        "clientId": "C1298338",
+        "recruiter": "Ravi",
+        "appliedDate": "01/12/2026",
+        "status": "Assessment",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1766200000000",
+    "name": "Sneha Iyer",
+    "email": "sneha.iyer@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500003",
+    "dob": "1995-03-18",
+    "gender": "Female",
+    "location": "Chennai, Tamil Nadu",
+    "role": "Backend Developer",
+    "experience": "4 yrs",
+    "company": "HCL Technologies",
+    "currentCTC": "10",
+    "expectedCTC": "14",
+    "offersInHand": "",
+    "source": "LinkedIn",
+    "rating": 4,
+    "stage": "Pre-Screening",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 80,
+    "remarks": "Python specialist. Good communication.",
+    "modified": "2026-01-22",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Python",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "FastAPI, Django REST"
+      },
+      {
+        "id": 2,
+        "skill": "MySQL",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Query optimization"
+      },
+      {
+        "id": 3,
+        "skill": "AWS Lambda",
+        "exp": "2 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Serverless functions"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Strong presenter"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Sneha_Iyer_Resume.pdf",
+        "type": "pdf",
+        "size": "0.8 MB",
+        "color": "#EC4899"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "HR Screening",
+        "by": "Parthiban",
+        "date": "01/22/2026 02:00 PM",
+        "summary": "Good Python skills. Moving to pre-screening stage."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "P",
+          "color": "#4B5563",
+          "title": "Round 1: Screening (Hire)",
+          "by": "Parthiban",
+          "date": "01/22/2026 02:00 PM",
+          "rating": 4,
+          "description": "Strong Python background.",
+          "tags": [
+            "Backend",
+            "Python"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Parthiban",
+        "appliedDate": "01/20/2026",
+        "status": "Pre-Screening",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1766900000000",
+    "name": "Vikram Nair",
+    "email": "vikram.nair@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500004",
+    "dob": "1997-09-25",
+    "gender": "Male",
+    "location": "Kochi, Kerala",
+    "role": "React Developer",
+    "experience": "2 yrs",
+    "company": "Freshworks",
+    "currentCTC": "6",
+    "expectedCTC": "9",
+    "offersInHand": "",
+    "source": "Naukri",
+    "rating": 2,
+    "stage": "Added",
+    "status": "In Progress",
+    "recruiter": "Meena",
+    "score": 55,
+    "remarks": "Junior candidate. Needs more assessment.",
+    "modified": "2026-02-05",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "2 Years",
+        "rating": 2,
+        "lastUsed": "2025",
+        "comments": "Basic components and hooks"
+      },
+      {
+        "id": 2,
+        "skill": "JavaScript",
+        "exp": "2 Years",
+        "rating": 2,
+        "lastUsed": "2025",
+        "comments": "ES6 basics"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "2 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Adequate"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Vikram_Nair_CV.pdf",
+        "type": "pdf",
+        "size": "0.5 MB",
+        "color": "#6B7280"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "Resume Added",
+        "by": "Meena",
+        "date": "02/05/2026 09:00 AM",
+        "summary": "Junior profile added to pipeline. Needs screening."
+      }
+    ],
+    "ratings": {
+      "rounds": []
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "React Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "02/05/2026",
+        "status": "Added",
+        "hiringManager": "Saravanan"
+      }
+    ]
+  },
+  {
+    "id": "C1767500000000",
+    "name": "Meera Patel",
+    "email": "meera.patel@email.com",
+    "secondaryEmail": "meera.p@gmail.com",
+    "phone": "+91-9876500005",
+    "dob": "1991-06-10",
+    "gender": "Female",
+    "location": "Ahmedabad, Gujarat",
+    "role": "Lead Developer",
+    "experience": "9 yrs",
+    "company": "Cognizant",
+    "currentCTC": "30",
+    "expectedCTC": "38",
+    "offersInHand": "1",
+    "source": "LinkedIn",
+    "rating": 5,
+    "stage": "Offer",
+    "status": "Completed",
+    "recruiter": "Ravi",
+    "score": 97,
+    "remarks": "Top performer. Offer letter dispatched.",
+    "modified": "2026-02-20",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Java",
+        "exp": "9 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Master-level Java developer"
+      },
+      {
+        "id": 2,
+        "skill": "Spring Boot",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Architect of 3 enterprise systems"
+      },
+      {
+        "id": 3,
+        "skill": "Microservices",
+        "exp": "5 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Led migration of monolith to microservices"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Leadership",
+        "exp": "5 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Leads a team of 10"
+      },
+      {
+        "id": 2,
+        "skill": "Agile / Scrum",
+        "exp": "7 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Certified SAFe Agilist"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Meera_Patel_Resume.pdf",
+        "type": "pdf",
+        "size": "1.8 MB",
+        "color": "#22C55E"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Round",
+        "by": "Ravi",
+        "date": "02/10/2026 10:00 AM",
+        "summary": "Exceptional performance. Highest scorer this quarter."
+      },
+      {
+        "id": 2,
+        "color": "#22C55E",
+        "title": "Client Interview",
+        "by": "Ravi",
+        "date": "02/15/2026 11:00 AM",
+        "summary": "Client loved the candidate. Offer approved."
+      },
+      {
+        "id": 3,
+        "color": "#F97316",
+        "title": "Offer Dispatched",
+        "by": "Meena",
+        "date": "02/20/2026 04:00 PM",
+        "summary": "Offer letter sent. Joining date: Mar 10, 2026."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical (Strong Hire)",
+          "by": "Ravi",
+          "date": "02/10/2026 10:00 AM",
+          "rating": 5,
+          "description": "Perfect technical round.",
+          "tags": [
+            "Java",
+            "Architecture"
+          ]
+        },
+        {
+          "id": 2,
+          "initial": "R",
+          "color": "#22C55E",
+          "title": "Round 2: Client Interview (Strong Hire)",
+          "by": "Ravi",
+          "date": "02/15/2026 11:00 AM",
+          "rating": 5,
+          "description": "Client extremely impressed.",
+          "tags": [
+            "Client",
+            "Leadership"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Lead Developer",
+        "clientId": "C1298338",
+        "recruiter": "Ravi",
+        "appliedDate": "02/08/2026",
+        "status": "Offer",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1768200000000",
+    "name": "Karthik Raj",
+    "email": "karthik.raj@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500006",
+    "dob": "1993-02-28",
+    "gender": "Male",
+    "location": "Pune, Maharashtra",
+    "role": "Backend Developer",
+    "experience": "6 yrs",
+    "company": "Tech Mahindra",
+    "currentCTC": "18",
+    "expectedCTC": "24",
+    "offersInHand": "",
+    "source": "Resume Inbox",
+    "rating": 3,
+    "stage": "Sourced",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 72,
+    "remarks": "Average coding skills. Good database knowledge.",
+    "modified": "2026-03-01",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Node.js",
+        "exp": "4 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "REST APIs, Express"
+      },
+      {
+        "id": 2,
+        "skill": "MongoDB",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Aggregation pipelines"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Problem Solving",
+        "exp": "6 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Adequate"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Karthik_Resume.pdf",
+        "type": "pdf",
+        "size": "0.7 MB",
+        "color": "#F97316"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#3B82F6",
+        "title": "Sourced",
+        "by": "Parthiban",
+        "date": "03/01/2026 09:30 AM",
+        "summary": "Resume received from job board. Added to pipeline."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "P",
+          "color": "#3B82F6",
+          "title": "Round 1: Initial Screen (Consider)",
+          "by": "Parthiban",
+          "date": "03/01/2026 09:30 AM",
+          "rating": 3,
+          "description": "Average but steady profile.",
+          "tags": [
+            "Backend",
+            "Node.js"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Parthiban",
+        "appliedDate": "02/28/2026",
+        "status": "Sourced",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1768900000000",
+    "name": "Anita Singh",
+    "email": "anita.singh@email.com",
+    "secondaryEmail": "anitas.personal@gmail.com",
+    "phone": "+91-9876500007",
+    "dob": "1989-12-05",
+    "gender": "Female",
+    "location": "Delhi, NCR",
+    "role": "Senior Developer",
+    "experience": "11 yrs",
+    "company": "IBM India",
+    "currentCTC": "32",
+    "expectedCTC": "40",
+    "offersInHand": "2",
+    "source": "Seek",
+    "rating": 4,
+    "stage": "Client Interview",
+    "status": "In Progress",
+    "recruiter": "Ravi",
+    "score": 88,
+    "remarks": "Senior profile. Client meeting scheduled for next week.",
+    "modified": "2026-03-10",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Java",
+        "exp": "10 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Deep Java expertise"
+      },
+      {
+        "id": 2,
+        "skill": "Kubernetes",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Production cluster management"
+      },
+      {
+        "id": 3,
+        "skill": "CI/CD",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Jenkins, GitHub Actions"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Leadership",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Manages 8-person team"
+      },
+      {
+        "id": 2,
+        "skill": "Communication",
+        "exp": "11 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Executive-level presentations"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Anita_Singh_Resume.pdf",
+        "type": "pdf",
+        "size": "2.0 MB",
+        "color": "#EC4899"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Round",
+        "by": "Ravi",
+        "date": "03/05/2026 10:00 AM",
+        "summary": "Excellent. Moved to client interview."
+      },
+      {
+        "id": 2,
+        "color": "#374151",
+        "title": "Client Interview Scheduled",
+        "by": "Ravi",
+        "date": "03/10/2026 02:00 PM",
+        "summary": "Client interview scheduled for Mar 17, 2026."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical (Strong Hire)",
+          "by": "Ravi",
+          "date": "03/05/2026 10:00 AM",
+          "rating": 4,
+          "description": "Strong systems knowledge.",
+          "tags": [
+            "Senior",
+            "DevOps"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Senior Developer",
+        "clientId": "C1292432",
+        "recruiter": "Ravi",
+        "appliedDate": "03/03/2026",
+        "status": "Client Interview",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1769600000000",
+    "name": "Rohit Desai",
+    "email": "rohit.desai@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500008",
+    "dob": "1996-08-14",
+    "gender": "Male",
+    "location": "Surat, Gujarat",
+    "role": "React Developer",
+    "experience": "3 yrs",
+    "company": "Capgemini",
+    "currentCTC": "8",
+    "expectedCTC": "12",
+    "offersInHand": "",
+    "source": "Naukri",
+    "rating": 2,
+    "stage": "Pre-Screening",
+    "status": "In Progress",
+    "recruiter": "Meena",
+    "score": 60,
+    "remarks": "Basic skills. Needs coding assessment.",
+    "modified": "2026-03-18",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "3 Years",
+        "rating": 2,
+        "lastUsed": "2025",
+        "comments": "Functional components"
+      },
+      {
+        "id": 2,
+        "skill": "JavaScript",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Working knowledge"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "3 Years",
+        "rating": 2,
+        "lastUsed": "2025",
+        "comments": "Needs improvement"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Rohit_Desai_CV.pdf",
+        "type": "pdf",
+        "size": "0.6 MB",
+        "color": "#6B7280"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "Added to Pipeline",
+        "by": "Meena",
+        "date": "03/18/2026 11:00 AM",
+        "summary": "Received from Naukri. Needs pre-screening."
+      }
+    ],
+    "ratings": {
+      "rounds": []
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "React Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "03/17/2026",
+        "status": "Pre-Screening",
+        "hiringManager": "Saravanan"
+      }
+    ]
+  },
+  {
+    "id": "C1770300000000",
+    "name": "Sunita Bhatt",
+    "email": "sunita.bhatt@email.com",
+    "secondaryEmail": "sunita.bhatt.alt@gmail.com",
+    "phone": "+91-9876500009",
+    "dob": "1988-05-30",
+    "gender": "Female",
+    "location": "Jaipur, Rajasthan",
+    "role": "Full Stack Developer",
+    "experience": "12 yrs",
+    "company": "Accenture",
+    "currentCTC": "38",
+    "expectedCTC": "46",
+    "offersInHand": "3",
+    "source": "Resume Inbox",
+    "rating": 5,
+    "stage": "Assessment",
+    "status": "Completed",
+    "recruiter": "Ravi",
+    "score": 96,
+    "remarks": "Senior full-stack. Rare profile. Fast-track.",
+    "modified": "2026-03-28",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "7 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Advanced patterns"
+      },
+      {
+        "id": 2,
+        "skill": "Node.js",
+        "exp": "8 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "High-scale systems"
+      },
+      {
+        "id": 3,
+        "skill": "AWS",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Full AWS architect"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Leadership",
+        "exp": "7 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "CTO-track profile"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Sunita_Bhatt_Resume.pdf",
+        "type": "pdf",
+        "size": "2.3 MB",
+        "color": "#22C55E"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Assessment",
+        "by": "Ravi",
+        "date": "03/25/2026 09:00 AM",
+        "summary": "Top scorer this quarter. Must-hire."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Assessment (Strong Hire)",
+          "by": "Ravi",
+          "date": "03/25/2026 09:00 AM",
+          "rating": 5,
+          "description": "Exceptional across all dimensions.",
+          "tags": [
+            "Full Stack",
+            "Senior"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Full Stack Developer",
+        "clientId": "C1292432",
+        "recruiter": "Ravi",
+        "appliedDate": "03/22/2026",
+        "status": "Assessment",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1771000000000",
+    "name": "Manoj Tiwari",
+    "email": "manoj.tiwari@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500010",
+    "dob": "1993-10-20",
+    "gender": "Male",
+    "location": "Bhopal, Madhya Pradesh",
+    "role": "Backend Developer",
+    "experience": "6 yrs",
+    "company": "Hexaware Technologies",
+    "currentCTC": "16",
+    "expectedCTC": "22",
+    "offersInHand": "",
+    "source": "Seek",
+    "rating": 3,
+    "stage": "Sourced",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 70,
+    "remarks": "Consistent track record. Medium profile.",
+    "modified": "2026-04-05",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Python",
+        "exp": "5 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Django, Flask"
+      },
+      {
+        "id": 2,
+        "skill": "PostgreSQL",
+        "exp": "4 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Database design"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Problem Solving",
+        "exp": "6 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Good analytical skills"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Manoj_Tiwari_Resume.pdf",
+        "type": "pdf",
+        "size": "0.9 MB",
+        "color": "#6366F1"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#3B82F6",
+        "title": "Resume Sourced",
+        "by": "Parthiban",
+        "date": "04/05/2026 10:00 AM",
+        "summary": "Added via Seek. Python backend profile."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "P",
+          "color": "#3B82F6",
+          "title": "Round 1: Sourcing Screen (Consider)",
+          "by": "Parthiban",
+          "date": "04/05/2026 10:00 AM",
+          "rating": 3,
+          "description": "Average Python developer.",
+          "tags": [
+            "Backend",
+            "Python"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Parthiban",
+        "appliedDate": "04/03/2026",
+        "status": "Sourced",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1771700000000",
+    "name": "Kavya Reddy",
+    "email": "kavya.reddy@email.com",
+    "secondaryEmail": "kavya.r@gmail.com",
+    "phone": "+91-9876500011",
+    "dob": "1994-04-12",
+    "gender": "Female",
+    "location": "Bengaluru, Karnataka",
+    "role": "React Developer",
+    "experience": "5 yrs",
+    "company": "Mphasis",
+    "currentCTC": "13",
+    "expectedCTC": "17",
+    "offersInHand": "1",
+    "source": "LinkedIn",
+    "rating": 4,
+    "stage": "Pre-Screening",
+    "status": "In Progress",
+    "recruiter": "Meena",
+    "score": 82,
+    "remarks": "Good React + TypeScript. Strong UI skills.",
+    "modified": "2026-04-12",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Redux Toolkit, React Query"
+      },
+      {
+        "id": 2,
+        "skill": "TypeScript",
+        "exp": "3 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Strict mode expert"
+      },
+      {
+        "id": 3,
+        "skill": "SCSS / CSS",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Component libraries"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Excellent presenter"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Kavya_Reddy_CV.pdf",
+        "type": "pdf",
+        "size": "1.1 MB",
+        "color": "#EC4899"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "HR Screen",
+        "by": "Meena",
+        "date": "04/12/2026 11:00 AM",
+        "summary": "Strong React profile. Moving to pre-screening."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "M",
+          "color": "#4B5563",
+          "title": "Round 1: HR Screening (Hire)",
+          "by": "Meena",
+          "date": "04/12/2026 11:00 AM",
+          "rating": 4,
+          "description": "Excellent UI developer.",
+          "tags": [
+            "Frontend",
+            "React",
+            "TypeScript"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "React Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "04/10/2026",
+        "status": "Pre-Screening",
+        "hiringManager": "Saravanan"
+      }
+    ]
+  },
+  {
+    "id": "C1772400000000",
+    "name": "Arun Kumar",
+    "email": "arun.kumar@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500012",
+    "dob": "1996-01-07",
+    "gender": "Male",
+    "location": "Coimbatore, Tamil Nadu",
+    "role": "Backend Developer",
+    "experience": "3 yrs",
+    "company": "Zoho Corp",
+    "currentCTC": "7",
+    "expectedCTC": "10",
+    "offersInHand": "",
+    "source": "Added by User",
+    "rating": 3,
+    "stage": "Added",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 65,
+    "remarks": "Referred by team. Follow up in 2 weeks.",
+    "modified": "2026-04-20",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Python",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Flask APIs"
+      },
+      {
+        "id": 2,
+        "skill": "MySQL",
+        "exp": "2 Years",
+        "rating": 2,
+        "lastUsed": "2025",
+        "comments": "Basic queries"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Average"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Arun_Kumar_Resume.pdf",
+        "type": "pdf",
+        "size": "0.5 MB",
+        "color": "#6B7280"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "Added by Recruiter",
+        "by": "Parthiban",
+        "date": "04/20/2026 09:00 AM",
+        "summary": "Referred candidate. Added for review."
+      }
+    ],
+    "ratings": {
+      "rounds": []
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Parthiban",
+        "appliedDate": "04/20/2026",
+        "status": "Added",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1773100000000",
+    "name": "Divya Krishnan",
+    "email": "divya.krishnan@email.com",
+    "secondaryEmail": "divyak@hotmail.com",
+    "phone": "+91-9876500013",
+    "dob": "1991-08-19",
+    "gender": "Female",
+    "location": "Thiruvananthapuram, Kerala",
+    "role": "Full Stack Developer",
+    "experience": "8 yrs",
+    "company": "UST Global",
+    "currentCTC": "24",
+    "expectedCTC": "30",
+    "offersInHand": "1",
+    "source": "Naukri",
+    "rating": 4,
+    "stage": "Assessment",
+    "status": "In Progress",
+    "recruiter": "Ravi",
+    "score": 85,
+    "remarks": "Strong Angular + Java stack. Assessment underway.",
+    "modified": "2026-04-28",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Angular",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Angular 17, RxJS"
+      },
+      {
+        "id": 2,
+        "skill": "Java",
+        "exp": "7 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Spring Security, Hibernate"
+      },
+      {
+        "id": 3,
+        "skill": "MySQL",
+        "exp": "6 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Complex stored procedures"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Agile / Scrum",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Scrum Master"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Divya_Krishnan_Resume.pdf",
+        "type": "pdf",
+        "size": "1.4 MB",
+        "color": "#8B5CF6"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Round 1",
+        "by": "Ravi",
+        "date": "04/25/2026 10:00 AM",
+        "summary": "Good technical skills. Assessment test assigned."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical (Hire)",
+          "by": "Ravi",
+          "date": "04/25/2026 10:00 AM",
+          "rating": 4,
+          "description": "Strong full-stack profile.",
+          "tags": [
+            "Full Stack",
+            "Angular"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Full Stack Developer",
+        "clientId": "C1292432",
+        "recruiter": "Ravi",
+        "appliedDate": "04/24/2026",
+        "status": "Assessment",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1773800000000",
+    "name": "Sanjay Gupta",
+    "email": "sanjay.gupta@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500014",
+    "dob": "1990-03-22",
+    "gender": "Male",
+    "location": "Lucknow, Uttar Pradesh",
+    "role": "Backend Developer",
+    "experience": "7 yrs",
+    "company": "Mindtree",
+    "currentCTC": "19",
+    "expectedCTC": "22",
+    "offersInHand": "",
+    "source": "Resume Inbox",
+    "rating": 2,
+    "stage": "Rejected",
+    "status": "Completed",
+    "recruiter": "Meena",
+    "score": 40,
+    "remarks": "Did not clear coding round. Not shortlisted.",
+    "modified": "2026-05-05",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Java",
+        "exp": "5 Years",
+        "rating": 2,
+        "lastUsed": "2024",
+        "comments": "Basic Java only"
+      },
+      {
+        "id": 2,
+        "skill": "MySQL",
+        "exp": "4 Years",
+        "rating": 2,
+        "lastUsed": "2024",
+        "comments": "Limited to CRUD"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "7 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Average"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Sanjay_Gupta_Resume.pdf",
+        "type": "pdf",
+        "size": "0.7 MB",
+        "color": "#EF4444"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#EF4444",
+        "title": "Coding Round Failed",
+        "by": "Meena",
+        "date": "05/05/2026 03:00 PM",
+        "summary": "Did not meet minimum coding bar. Rejected."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "M",
+          "color": "#EF4444",
+          "title": "Round 1: Coding Round (No Hire)",
+          "by": "Meena",
+          "date": "05/05/2026 03:00 PM",
+          "rating": 2,
+          "description": "Below bar performance.",
+          "tags": [
+            "Backend",
+            "Coding"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "05/01/2026",
+        "status": "Rejected",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1774500000000",
+    "name": "Pooja Menon",
+    "email": "pooja.menon@email.com",
+    "secondaryEmail": "poojaM@gmail.com",
+    "phone": "+91-9876500015",
+    "dob": "1992-07-14",
+    "gender": "Female",
+    "location": "Kochi, Kerala",
+    "role": "Lead Developer",
+    "experience": "10 yrs",
+    "company": "Oracle India",
+    "currentCTC": "35",
+    "expectedCTC": "42",
+    "offersInHand": "2",
+    "source": "LinkedIn",
+    "rating": 5,
+    "stage": "Offer",
+    "status": "Completed",
+    "recruiter": "Ravi",
+    "score": 98,
+    "remarks": "Best candidate this quarter. Offer accepted.",
+    "modified": "2026-05-12",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Java",
+        "exp": "10 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "JVM internals expert"
+      },
+      {
+        "id": 2,
+        "skill": "Spring Boot",
+        "exp": "7 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Large-scale enterprise apps"
+      },
+      {
+        "id": 3,
+        "skill": "Kafka",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Event streaming architecture"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Leadership",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Leads 15-person team"
+      },
+      {
+        "id": 2,
+        "skill": "Mentoring",
+        "exp": "4 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Mentors junior engineers"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Pooja_Menon_Resume.pdf",
+        "type": "pdf",
+        "size": "2.2 MB",
+        "color": "#22C55E"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Round",
+        "by": "Ravi",
+        "date": "05/08/2026 10:00 AM",
+        "summary": "Perfect score. Must hire."
+      },
+      {
+        "id": 2,
+        "color": "#22C55E",
+        "title": "Offer Accepted",
+        "by": "Ravi",
+        "date": "05/12/2026 04:00 PM",
+        "summary": "Candidate accepted offer. Joining June 2, 2026."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical (Strong Hire)",
+          "by": "Ravi",
+          "date": "05/08/2026 10:00 AM",
+          "rating": 5,
+          "description": "Best technical interview this year.",
+          "tags": [
+            "Java",
+            "Kafka",
+            "Architecture"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Lead Developer",
+        "clientId": "C1298338",
+        "recruiter": "Ravi",
+        "appliedDate": "05/06/2026",
+        "status": "Offer",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1775200000000",
+    "name": "Nikhil Joshi",
+    "email": "nikhil.joshi@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500016",
+    "dob": "1993-05-11",
+    "gender": "Male",
+    "location": "Nashik, Maharashtra",
+    "role": "Full Stack Developer",
+    "experience": "7 yrs",
+    "company": "Persistent Systems",
+    "currentCTC": "21",
+    "expectedCTC": "27",
+    "offersInHand": "",
+    "source": "Seek",
+    "rating": 3,
+    "stage": "Client Interview",
+    "status": "In Progress",
+    "recruiter": "Parthiban",
+    "score": 76,
+    "remarks": "Client interview next Monday.",
+    "modified": "2026-05-20",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Vue.js",
+        "exp": "4 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Vue 3, Composition API"
+      },
+      {
+        "id": 2,
+        "skill": "Node.js",
+        "exp": "5 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Express, REST"
+      },
+      {
+        "id": 3,
+        "skill": "MongoDB",
+        "exp": "4 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Atlas, aggregations"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Problem Solving",
+        "exp": "7 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Average coder"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Nikhil_Joshi_Resume.pdf",
+        "type": "pdf",
+        "size": "1.0 MB",
+        "color": "#10B981"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Clear",
+        "by": "Parthiban",
+        "date": "05/18/2026 10:00 AM",
+        "summary": "Cleared tech round. Moved to client."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "P",
+          "color": "#7C3AED",
+          "title": "Round 1: Technical (Hire)",
+          "by": "Parthiban",
+          "date": "05/18/2026 10:00 AM",
+          "rating": 3,
+          "description": "Solid Vue.js developer.",
+          "tags": [
+            "Full Stack",
+            "Vue"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Full Stack Developer",
+        "clientId": "C1292432",
+        "recruiter": "Parthiban",
+        "appliedDate": "05/15/2026",
+        "status": "Client Interview",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1775900000000",
+    "name": "Swati Jain",
+    "email": "swati.jain@email.com",
+    "secondaryEmail": "swati.j@yahoo.com",
+    "phone": "+91-9876500017",
+    "dob": "1995-12-03",
+    "gender": "Female",
+    "location": "Indore, Madhya Pradesh",
+    "role": "Backend Developer",
+    "experience": "5 yrs",
+    "company": "L&T Infotech",
+    "currentCTC": "13",
+    "expectedCTC": "17",
+    "offersInHand": "",
+    "source": "Added by User",
+    "rating": 4,
+    "stage": "Pre-Screening",
+    "status": "In Progress",
+    "recruiter": "Meena",
+    "score": 79,
+    "remarks": "Referred by senior dev. Good Python skills.",
+    "modified": "2026-05-28",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Python",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "FastAPI specialist"
+      },
+      {
+        "id": 2,
+        "skill": "Redis",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Caching layer design"
+      },
+      {
+        "id": 3,
+        "skill": "PostgreSQL",
+        "exp": "4 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Schema design"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Communication",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Excellent written"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Swati_Jain_Resume.pdf",
+        "type": "pdf",
+        "size": "0.8 MB",
+        "color": "#A855F7"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#4B5563",
+        "title": "HR Pre-Screen",
+        "by": "Meena",
+        "date": "05/28/2026 02:00 PM",
+        "summary": "Referral candidate. Python backend profile."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "M",
+          "color": "#4B5563",
+          "title": "Round 1: Pre-Screen (Hire)",
+          "by": "Meena",
+          "date": "05/28/2026 02:00 PM",
+          "rating": 4,
+          "description": "Strong FastAPI developer.",
+          "tags": [
+            "Backend",
+            "Python"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Backend Developer",
+        "clientId": "C1298338",
+        "recruiter": "Meena",
+        "appliedDate": "05/27/2026",
+        "status": "Pre-Screening",
+        "hiringManager": "Ravi"
+      }
+    ]
+  },
+  {
+    "id": "C1776600000000",
+    "name": "Deepak Verma",
+    "email": "deepak.verma@email.com",
+    "secondaryEmail": "",
+    "phone": "+91-9876500018",
+    "dob": "1994-02-16",
+    "gender": "Male",
+    "location": "Chandigarh, Punjab",
+    "role": "Senior Developer",
+    "experience": "7 yrs",
+    "company": "Birlasoft",
+    "currentCTC": "20",
+    "expectedCTC": "26",
+    "offersInHand": "",
+    "source": "Naukri",
+    "rating": 3,
+    "stage": "Sourced",
+    "status": "In Progress",
+    "recruiter": "Ravi",
+    "score": 74,
+    "remarks": "Good DevOps background. Screening scheduled.",
+    "modified": "2026-06-05",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "Java",
+        "exp": "7 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Solid Java developer"
+      },
+      {
+        "id": 2,
+        "skill": "Docker",
+        "exp": "4 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Container builds"
+      },
+      {
+        "id": 3,
+        "skill": "Kubernetes",
+        "exp": "3 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "GKE deployments"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Problem Solving",
+        "exp": "7 Years",
+        "rating": 3,
+        "lastUsed": "2025",
+        "comments": "Methodical"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Deepak_Verma_Resume.pdf",
+        "type": "pdf",
+        "size": "1.1 MB",
+        "color": "#0EA5E9"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#3B82F6",
+        "title": "Sourced from Naukri",
+        "by": "Ravi",
+        "date": "06/05/2026 09:00 AM",
+        "summary": "DevOps + Java profile. Added to pipeline."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#3B82F6",
+          "title": "Round 1: Initial Screen (Consider)",
+          "by": "Ravi",
+          "date": "06/05/2026 09:00 AM",
+          "rating": 3,
+          "description": "Decent Java/DevOps mix.",
+          "tags": [
+            "Senior",
+            "DevOps"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Senior Developer",
+        "clientId": "C1298338",
+        "recruiter": "Ravi",
+        "appliedDate": "06/03/2026",
+        "status": "Sourced",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "id": "C1777300000000",
+    "name": "Lakshmi Rao",
+    "email": "lakshmi.rao@email.com",
+    "secondaryEmail": "lrao.alt@gmail.com",
+    "phone": "+91-9876500019",
+    "dob": "1990-09-08",
+    "gender": "Female",
+    "location": "Vijayawada, Andhra Pradesh",
+    "role": "Full Stack Developer",
+    "experience": "11 yrs",
+    "company": "Cyient",
+    "currentCTC": "33",
+    "expectedCTC": "42",
+    "offersInHand": "2",
+    "source": "LinkedIn",
+    "rating": 5,
+    "stage": "Assessment",
+    "status": "Completed",
+    "recruiter": "Ravi",
+    "score": 94,
+    "remarks": "Excellent profile. Fast-track to client.",
+    "modified": "2026-06-10",
+    "primarySkills": [
+      {
+        "id": 1,
+        "skill": "React JS",
+        "exp": "8 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Core team contributor"
+      },
+      {
+        "id": 2,
+        "skill": "Java",
+        "exp": "9 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Spring ecosystem expert"
+      },
+      {
+        "id": 3,
+        "skill": "AWS",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Solutions architect"
+      },
+      {
+        "id": 4,
+        "skill": "MongoDB",
+        "exp": "5 Years",
+        "rating": 4,
+        "lastUsed": "2025",
+        "comments": "Sharded clusters"
+      }
+    ],
+    "secondarySkills": [
+      {
+        "id": 1,
+        "skill": "Leadership",
+        "exp": "6 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "Manages 12-person team"
+      },
+      {
+        "id": 2,
+        "skill": "Agile / Scrum",
+        "exp": "9 Years",
+        "rating": 5,
+        "lastUsed": "2025",
+        "comments": "SAFe certified"
+      }
+    ],
+    "resumes": [
+      {
+        "id": 1,
+        "name": "Lakshmi_Rao_Resume.pdf",
+        "type": "pdf",
+        "size": "2.0 MB",
+        "color": "#F59E0B"
+      }
+    ],
+    "timeline": [
+      {
+        "id": 1,
+        "color": "#7C3AED",
+        "title": "Technical Assessment",
+        "by": "Ravi",
+        "date": "06/08/2026 10:00 AM",
+        "summary": "94% score. Exceptional full-stack skills."
+      }
+    ],
+    "ratings": {
+      "rounds": [
+        {
+          "id": 1,
+          "initial": "R",
+          "color": "#7C3AED",
+          "title": "Round 1: Assessment (Strong Hire)",
+          "by": "Ravi",
+          "date": "06/08/2026 10:00 AM",
+          "rating": 5,
+          "description": "Top-tier full-stack developer.",
+          "tags": [
+            "Full Stack",
+            "Senior",
+            "AWS"
+          ]
+        }
+      ]
+    },
+    "jobApplications": [
+      {
+        "id": "ZR_4_JOB",
+        "title": "Full Stack Developer",
+        "clientId": "C1298338",
+        "recruiter": "Ravi",
+        "appliedDate": "06/06/2026",
+        "status": "Assessment",
+        "hiringManager": "Parthiban"
+      }
+    ]
+  },
+  {
+    "name": "Arun Parthiban",
+    "email": "arun@example.com",
+    "secondaryEmail": "",
+    "phone": "+91-7708870123",
+    "dob": "",
+    "gender": "",
+    "location": "Hyderabad, India",
+    "role": "Lead Backend Engineer",
+    "experience": "7 years",
+    "source": "LinkedIn",
+    "stage": "Added",
+    "status": "In Progress",
+    "company": "TechNova Solutions",
+    "currentCTC": "20",
+    "expectedCTC": "21",
+    "offersInHand": "",
+    "rating": 3,
+    "remarks": "",
+    "summary": "Backend Developer with 7 years of experience building REST APIs and microservices in Python/Django, deployed on AWS. Demonstrated expertise in microservices architecture, cloud migrations, and team mentorship. Proven ability to design scalable backend systems and lead engineering teams.",
+    "primarySkillset": [
+      {
+        "name": "Python",
+        "experience": "7 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Core language used across all three employers for APIs, automation, and batch jobs.",
+        "_id": "mqclck4x9uruupnx4g6"
+      },
+      {
+        "name": "Django / Django REST Framework",
+        "experience": "4+ years",
+        "rating": 4,
+        "lastUsed": "2024",
+        "comments": "Used extensively at TechNova Solutions for microservices and REST API design.",
+        "_id": "mqclck4x6jh4uj46zwn"
+      },
+      {
+        "name": "AWS",
+        "experience": "4+ years",
+        "rating": 4,
+        "lastUsed": "2024",
+        "comments": "Used for ECS container deployments and cloud migrations; holds AWS Solutions Architect certification.",
+        "_id": "mqclck4xlw2emw7d1u"
+      },
+      {
+        "name": "Java",
+        "experience": "5+ years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Used at TechNova (Spring Boot) and Skyline Tech (batch jobs), spanning multiple roles.",
+        "_id": "mqclck4x197uil2fhyg"
+      },
+      {
+        "name": "Flask",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2021",
+        "comments": "Used at Skyline Tech Solutions for REST APIs serving 1M+ requests/day.",
+        "_id": "mqclck4x1v8vdcszo2b"
+      },
+      {
+        "name": "PostgreSQL",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2018",
+        "comments": "Administered PostgreSQL databases at Placeholder Global Systems; likely continued usage.",
+        "_id": "mqclck4xhr1dlo9ckl7"
+      },
+      {
+        "name": "Redis",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2021",
+        "comments": "Implemented caching layer at Skyline Tech to improve API response times.",
+        "_id": "mqclck4xv1qjcdcak6m"
+      },
+      {
+        "name": "Docker",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Used in containerized AWS ECS deployments at TechNova Solutions.",
+        "_id": "mqclck4x3xbb44iqo9g"
+      },
+      {
+        "name": "Kubernetes",
+        "experience": "2+ years",
+        "rating": 2,
+        "lastUsed": "2024",
+        "comments": "Listed as a secondary technical skill; assumed used in cloud infrastructure context.",
+        "_id": "mqclck4xm3vhxfw4sj"
+      },
+      {
+        "name": "Linux",
+        "experience": "5+ years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Foundational skill across all roles spanning 7+ years of backend development.",
+        "_id": "mqclck4xsk0htl9uag"
+      },
+      {
+        "name": "Java Spring Boot",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Used at TechNova Solutions for microservices architecture design.",
+        "_id": "mqclck4x8ujh6saecd5"
+      },
+      {
+        "name": "AWS ECS",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Led migration of monolithic application to AWS ECS, achieving 60% reduction in deployment time.",
+        "_id": "mqclck4xweu3t5edsu"
+      }
+    ],
+    "secondarySkillset": [
+      {
+        "name": "Microservices Architecture",
+        "experience": "4+ years",
+        "rating": 4,
+        "lastUsed": "2024",
+        "comments": "Designed microservices architecture at TechNova Solutions using DRF and Spring Boot.",
+        "_id": "mqclck4xjesot76d22f"
+      },
+      {
+        "name": "Team Mentorship & Leadership",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Mentored a team of 4 backend engineers on coding standards and code review practices.",
+        "_id": "mqclck4x2htks3m0nkt"
+      },
+      {
+        "name": "Code Review Practices",
+        "experience": "3+ years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Established and enforced code review standards at TechNova Solutions.",
+        "_id": "mqclck4x5rbeyrjvap5"
+      },
+      {
+        "name": "Agile / Backend Development Lifecycle",
+        "experience": "5+ years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Implied across all roles through structured delivery and team collaboration.",
+        "_id": "mqclck4xqbfw33x8it"
+      },
+      {
+        "name": "JUnit (Testing)",
+        "experience": "2+ years",
+        "rating": 2,
+        "lastUsed": "2021",
+        "comments": "Listed as a secondary skill; associated with Java-based development at Skyline Tech.",
+        "_id": "mqclck4xlumr4hfu5pf"
+      },
+      {
+        "name": "Database Administration",
+        "experience": "2 years",
+        "rating": 2,
+        "lastUsed": "2018",
+        "comments": "Supported PostgreSQL DBA tasks at Placeholder Global Systems.",
+        "_id": "mqclck4x48lnpcp4kl1"
+      },
+      {
+        "name": "Automation Scripting",
+        "experience": "2 years",
+        "rating": 2,
+        "lastUsed": "2018",
+        "comments": "Developed internal automation scripts using Python at Placeholder Global Systems.",
+        "_id": "mqclck4xw1wgkbi4kba"
+      },
+      {
+        "name": "API Design & Optimization",
+        "experience": "6+ years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Core competency demonstrated across all three roles including high-traffic REST APIs.",
+        "_id": "mqclck4xn5qkvps8nz"
+      }
+    ],
+    "employmentHistory": [
+      {
+        "company": "TechNova Solutions",
+        "designation": "Lead Backend Engineer",
+        "duration": "Mar 2021 – Present",
+        "responsibilities": [
+          "Designed microservices architecture using Django REST Framework and Java Spring Boot.",
+          "Migrated monolithic application to AWS ECS containers, reducing deployment time by 60%.",
+          "Mentored a team of 4 backend engineers on coding standards and code review practices."
+        ],
+        "techStack": [
+          "Python",
+          "Django REST Framework",
+          "Java",
+          "Spring Boot",
+          "AWS",
+          "AWS ECS",
+          "Docker",
+          "Kubernetes",
+          "Linux"
+        ],
+        "_id": "mqclck4xtxpuiseemxi"
+      },
+      {
+        "company": "Skyline Tech Solutions",
+        "designation": "Backend Developer",
+        "duration": "Apr 2018 – Feb 2021",
+        "responsibilities": [
+          "Built and maintained REST APIs in Python/Flask serving 1M+ requests/day.",
+          "Implemented caching layer with Redis to improve API response times.",
+          "Wrote Java-based batch jobs for nightly data processing."
+        ],
+        "techStack": [
+          "Python",
+          "Flask",
+          "Redis",
+          "Java",
+          "PostgreSQL",
+          "Linux",
+          "JUnit"
+        ],
+        "_id": "mqclck4xoxcusk2vfb"
+      },
+      {
+        "company": "Placeholder Global Systems",
+        "designation": "Software Engineer",
+        "duration": "Jun 2016 – Mar 2018",
+        "responsibilities": [
+          "Developed internal automation scripts using Python.",
+          "Supported PostgreSQL database administration tasks."
+        ],
+        "techStack": [
+          "Python",
+          "PostgreSQL",
+          "Linux"
+        ],
+        "_id": "mqclck4x6sivl5m6cyc"
+      }
+    ],
+    "educationHistory": [
+      {
+        "degree": "B.E. in Information Technology",
+        "institution": "Placeholder University",
+        "graduationYear": "2016",
+        "performance": "",
+        "_id": "mqclck4x74ujdl1lyml"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "AWS Certified Solutions Architect – Associate",
+        "organization": "Amazon Web Services",
+        "issueDate": "",
+        "expirationDate": "",
+        "_id": "mqclck4xirwxpdccimf"
+      }
+    ],
+    "candidateScore": {
+      "overall": 75,
+      "skillsMatch": 80,
+      "experienceLevel": 78,
+      "education": 65,
+      "certifications": 60,
+      "projectExperience": 78
+    },
+    "recommendedRoles": [
+      "Senior Backend Engineer",
+      "Lead Python Developer",
+      "Cloud Backend Architect",
+      "Backend Engineering Manager",
+      "Site Reliability Engineer (SRE)"
+    ],
+    "strengths": [
+      "Strong Python and Django expertise spanning 7 years with demonstrated use across multiple production environments.",
+      "Proven cloud migration experience with AWS ECS resulting in measurable deployment efficiency gains (60% reduction).",
+      "Leadership capability evidenced by mentoring a team of 4 engineers and establishing code review standards.",
+      "Broad backend technology stack covering Python, Java, Flask, Redis, Docker, and Kubernetes.",
+      "High-traffic API development experience with systems handling 1M+ requests/day."
+    ],
+    "gaps": [
+      "No mention of formal education performance metrics or GPA, limiting academic assessment.",
+      "Certifications portfolio is limited to a single AWS credential; additional cloud or backend certifications would strengthen the profile.",
+      "No evidence of system design documentation, architectural diagrams, or open-source contributions.",
+      "Limited visibility into frontend or full-stack exposure, which may restrict versatility in smaller team settings."
+    ],
+    "resumeFile": "resume_1781369377132.pdf",
+    "id": "C1781369456588",
+    "modified": "2026-06-13"
+  },
+  {
+    "name": "Saravanan Sundarrajan",
+    "email": "saravanan@example.com",
+    "secondaryEmail": "",
+    "phone": "+91-7708870208",
+    "dob": "",
+    "gender": "",
+    "location": "Bengaluru, India",
+    "role": "Full Stack Developer",
+    "experience": "6 years",
+    "source": "LinkedIn",
+    "stage": "Added",
+    "status": "In Progress",
+    "company": "Sample Innovations Pvt Ltd",
+    "currentCTC": "",
+    "expectedCTC": "",
+    "offersInHand": "",
+    "rating": 3,
+    "remarks": "",
+    "summary": "Full Stack Developer with 6 years of experience designing and building scalable web applications using React, Node.js, and AWS. Proven track record in migrating legacy systems, building reusable component libraries, and integrating cloud services for asynchronous processing pipelines.",
+    "primarySkillset": [
+      {
+        "name": "React JS",
+        "experience": "6 years",
+        "rating": 5,
+        "lastUsed": "2026",
+        "comments": "Core frontend framework used across multiple roles; led legacy jQuery to React migration and built reusable component libraries.",
+        "_id": "mqcks7w6nokvcvyhx6i"
+      },
+      {
+        "name": "JavaScript",
+        "experience": "6 years",
+        "rating": 5,
+        "lastUsed": "2026",
+        "comments": "Foundational language used throughout entire career from junior to senior roles.",
+        "_id": "mqcks7w6blyktnf10xr"
+      },
+      {
+        "name": "Node.js",
+        "experience": "5 years",
+        "rating": 5,
+        "lastUsed": "2026",
+        "comments": "Used in backend API development and integration work across multiple positions.",
+        "_id": "mqcks7w6p4vub83a6qb"
+      },
+      {
+        "name": "AWS",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Integrated AWS S3 and Lambda for file processing pipelines in current role.",
+        "_id": "mqcks7w6c7gakdo3hwr"
+      },
+      {
+        "name": "TypeScript",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2021",
+        "comments": "Used with React for e-commerce platform UI development at Nexus Digital Labs.",
+        "_id": "mqcks7w6a8pxatimbrm"
+      },
+      {
+        "name": "Express.js",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2021",
+        "comments": "Used alongside Node.js for REST API integration at Nexus Digital Labs.",
+        "_id": "mqcks7w6wor3vv5iv6"
+      },
+      {
+        "name": "MongoDB",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Listed as a secondary technical skill with hands-on project usage implied.",
+        "_id": "mqcks7w6mmdssjpld2"
+      },
+      {
+        "name": "Docker",
+        "experience": "2 years",
+        "rating": 2,
+        "lastUsed": "2024",
+        "comments": "Listed in technical skills; depth of usage not explicitly detailed in project work.",
+        "_id": "mqcks7w6mgownlncx0d"
+      },
+      {
+        "name": "REST APIs",
+        "experience": "5 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Consistent API integration work across frontend and backend responsibilities.",
+        "_id": "mqcks7w6etysdp4fw88"
+      },
+      {
+        "name": "Git",
+        "experience": "6 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Version control used throughout career; CI/CD pipelines built with GitHub Actions.",
+        "_id": "mqcks7w6j1conaqybin"
+      },
+      {
+        "name": "CI/CD",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Implemented CI/CD pipelines using GitHub Actions to automate deployments at Nexus Digital Labs.",
+        "_id": "mqcks7w6f6foox0vplt"
+      },
+      {
+        "name": "jQuery",
+        "experience": "2 years",
+        "rating": 2,
+        "lastUsed": "2019",
+        "comments": "Used in junior role for internal tools; subsequently migrated legacy jQuery dashboards to React.",
+        "_id": "mqcks7w63i4tseugx18"
+      }
+    ],
+    "secondarySkillset": [
+      {
+        "name": "Agile/Scrum",
+        "experience": "5 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Consistent methodology across multiple roles; holds Certified Scrum Master credential.",
+        "_id": "mqcks7w6flplimkggnu"
+      },
+      {
+        "name": "Component-Driven Development",
+        "experience": "5 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Built reusable component libraries adopted across 5 internal products.",
+        "_id": "mqcks7w6783j8x7q1qo"
+      },
+      {
+        "name": "Cross-Team Collaboration",
+        "experience": "6 years",
+        "rating": 5,
+        "lastUsed": "2024",
+        "comments": "Collaborated with backend teams on API integration and shared UI module development.",
+        "_id": "mqcks7w65dw02vrwh4t"
+      },
+      {
+        "name": "Performance Optimization",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Achieved 40% page load improvement through React migration initiative.",
+        "_id": "mqcks7w6vwz5gceijl"
+      },
+      {
+        "name": "Technical Documentation",
+        "experience": "4 years",
+        "rating": 4,
+        "lastUsed": "2024",
+        "comments": "Wrote unit tests and documentation for shared UI modules starting from junior role.",
+        "_id": "mqcks7w6p6b5chs4yn9"
+      },
+      {
+        "name": "Unit Testing",
+        "experience": "4 years",
+        "rating": 4,
+        "lastUsed": "2024",
+        "comments": "Practiced from junior level; wrote unit tests for shared UI modules.",
+        "_id": "mqcks7w6m337yuqjwhh"
+      },
+      {
+        "name": "Asynchronous Processing",
+        "experience": "3 years",
+        "rating": 3,
+        "lastUsed": "2024",
+        "comments": "Designed asynchronous file processing pipelines using AWS Lambda and S3.",
+        "_id": "mqcks7w6gekyd5keqjd"
+      },
+      {
+        "name": "Responsive Design",
+        "experience": "4 years",
+        "rating": 4,
+        "lastUsed": "2021",
+        "comments": "Developed responsive UI components for e-commerce platform at Nexus Digital Labs.",
+        "_id": "mqcks7w6nwmyo741c3n"
+      }
+    ],
+    "employmentHistory": [
+      {
+        "company": "Sample Innovations Pvt Ltd",
+        "designation": "Senior Frontend Developer",
+        "duration": "Jan 2022 – Present",
+        "responsibilities": [
+          "Led migration of a legacy jQuery dashboard to React, improving page load time by 40%.",
+          "Built reusable component library adopted across 5 internal products, reducing code duplication.",
+          "Integrated AWS S3 and Lambda for asynchronous file processing pipelines."
+        ],
+        "techStack": [
+          "React",
+          "JavaScript",
+          "AWS S3",
+          "AWS Lambda",
+          "Git"
+        ],
+        "_id": "mqcks7w63jwnc4unk4j"
+      },
+      {
+        "company": "Nexus Digital Labs",
+        "designation": "Frontend Developer",
+        "duration": "Jun 2019 – Dec 2021",
+        "responsibilities": [
+          "Developed responsive UI components with React and TypeScript for an e-commerce platform.",
+          "Collaborated with backend team on Node.js/Express REST API integration.",
+          "Implemented CI/CD pipelines using GitHub Actions to automate deployments."
+        ],
+        "techStack": [
+          "React",
+          "TypeScript",
+          "Node.js",
+          "Express.js",
+          "GitHub Actions",
+          "REST APIs"
+        ],
+        "_id": "mqcks7w6oq5dpg9a0ec"
+      },
+      {
+        "company": "Pioneer IT Services Pvt Ltd",
+        "designation": "Junior Software Engineer",
+        "duration": "Jul 2018 – May 2019",
+        "responsibilities": [
+          "Assisted in building internal tools using JavaScript and jQuery.",
+          "Wrote unit tests and documentation for shared UI modules."
+        ],
+        "techStack": [
+          "JavaScript",
+          "jQuery"
+        ],
+        "_id": "mqcks7w6o5mfre9krxk"
+      }
+    ],
+    "educationHistory": [
+      {
+        "degree": "B.Tech in Computer Science",
+        "institution": "Sample Institute of Technology",
+        "graduationYear": "2018",
+        "performance": "",
+        "_id": "mqcks7w6uhsitz6t1f"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "AWS Certified Developer – Associate",
+        "organization": "Amazon Web Services",
+        "issueDate": "",
+        "expirationDate": "",
+        "_id": "mqcks7w6q6mbrnfinna"
+      },
+      {
+        "name": "Certified Scrum Master",
+        "organization": "Scrum Alliance",
+        "issueDate": "",
+        "expirationDate": "",
+        "_id": "mqcks7w6pu5i3ix5re"
+      }
+    ],
+    "candidateScore": {
+      "overall": 78,
+      "skillsMatch": 82,
+      "experienceLevel": 80,
+      "education": 72,
+      "certifications": 75,
+      "projectExperience": 80
+    },
+    "recommendedRoles": [
+      "Full Stack Developer",
+      "Senior Frontend Developer",
+      "React Developer",
+      "Node.js Developer",
+      "Cloud Application Developer"
+    ],
+    "strengths": [
+      "Strong React expertise with demonstrated impact including a 40% page load improvement through a legacy migration project.",
+      "End-to-end full stack capability spanning React frontend, Node.js/Express backend, and AWS cloud services.",
+      "Solid DevOps awareness with hands-on CI/CD pipeline implementation using GitHub Actions.",
+      "Dual certification in AWS and Scrum Master demonstrating both technical and methodological commitment.",
+      "Proven ability to build scalable, reusable UI components adopted across multiple internal products."
+    ],
+    "gaps": [
+      "Limited visibility into database design and management depth despite MongoDB being listed as a skill.",
+      "No mention of system design, architecture decision-making, or technical leadership beyond team collaboration.",
+      "AWS usage appears narrow (S3 and Lambda only); broader cloud service exposure such as EC2, RDS, or ECS is not evidenced.",
+      "No evidence of open-source contributions, side projects, or portfolio work to further validate technical depth."
+    ],
+    "resumeFile": "resume_1781368429925.docx",
+    "id": "C1781368480316",
+    "modified": "2026-06-14",
+    "auditTrail": [
+      {
+        "date": "2026-06-14T10:07:32.755Z",
+        "action": "Candidate Portal Account Created",
+        "actor": "System"
+      },
+      {
+        "date": "2026-06-14T16:35:37.154Z",
+        "action": "Candidate Portal Login",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-14T16:50:52.848Z",
+        "action": "Document Uploaded: selfie",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-14T16:50:52.866Z",
+        "action": "Document Uploaded: aadhaar_front",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-14T17:07:58.128Z",
+        "action": "Candidate Portal Login",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-14T17:08:27.341Z",
+        "action": "Re-upload Requested",
+        "actor": "Admin User"
+      },
+      {
+        "date": "2026-06-14T17:21:13.492Z",
+        "action": "Document Uploaded: selfie",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-14T17:21:13.504Z",
+        "action": "Document Uploaded: aadhaar_front",
+        "actor": "Candidate"
+      },
+      {
+        "date": "2026-06-15T15:32:48.866Z",
+        "action": "Verification Approved",
+        "actor": "Admin User"
+      },
+      {
+        "date": "2026-06-15T15:38:08.064Z",
+        "action": "Candidate Portal Login",
+        "actor": "Candidate"
+      }
+    ],
+    "verificationStatus": "Approved",
+    "verificationComment": "",
+    "verifiedBy": "Admin User",
+    "verifiedAt": "2026-06-15T15:32:48.863Z"
+  }
+]

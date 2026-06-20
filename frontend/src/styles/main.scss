@@ -1,0 +1,20 @@
+// ════════════════════════════════════════════════════════════
+//  ARROWS — Main SCSS Entry Point
+//
+//  Uses modern Sass @use module system (no @import).
+//
+//  Load order:
+//    1. theme       — :root + [data-theme="dark"] CSS custom props
+//    2. base        — CSS reset + body
+//    3. layout      — sidebar, topbar, content grids
+//    4. components  — all UI components
+//
+//  Variables (_config) and mixins are loaded by each partial
+//  independently via @use, so they're available where needed
+//  without global namespace pollution.
+// ════════════════════════════════════════════════════════════
+
+@use 'theme';
+@use 'base';
+@use 'layout';
+@use 'components';

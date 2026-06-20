@@ -1,0 +1,41 @@
+// ════════════════════════════════════════════════════════════
+//  BASE / RESET
+// ════════════════════════════════════════════════════════════
+@use 'config' as *;
+@use 'mixins' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin:     0;
+  padding:    0;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family:             $font;
+  font-size:               $font-size;
+  line-height:             1.5;
+  background:              var(--bg) opacity(0.95);
+  color:                   var(--text-primary);
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:              background $t-slow, color $t-slow;
+}
+
+button, input, select { font-family: $font; }
+a { text-decoration: none; color: inherit; }
+
+.loading-screen {
+  @include flex-center;
+  height:     100vh;
+  font-size:  $font-size;
+  color:      var(--text-secondary);
+  background: var(--bg);
+}
+
+// Custom scrollbar
+::-webkit-scrollbar           { width: 4px; height: 4px; }
+::-webkit-scrollbar-track     { background: transparent; }
+::-webkit-scrollbar-thumb     { background: var(--border); border-radius: $radius-full; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }

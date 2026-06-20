@@ -1,0 +1,109 @@
+// ════════════════════════════════════════════════════════════
+//  MIXINS  (depends on _config for SCSS vars)
+// ════════════════════════════════════════════════════════════
+@use 'config' as *;
+
+// ── Flex helpers ─────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-row($gap: 0) {
+  display: flex;
+  align-items: center;
+  @if $gap != 0 { gap: $gap; }
+}
+
+@mixin flex-col($gap: 0) {
+  display: flex;
+  flex-direction: column;
+  @if $gap != 0 { gap: $gap; }
+}
+
+// ── Card shell ───────────────────────────────────────────────
+@mixin card($pad: 20px) {
+  background:    var(--card-bg);
+  border-radius: $radius;
+  box-shadow:    var(--shadow);
+  border:        1px solid var(--border);
+  padding:       $pad;
+  transition:    background $t-base, border-color $t-base, box-shadow $t-base;
+}
+
+// ── Button reset ─────────────────────────────────────────────
+@mixin btn-reset {
+  border:      none;
+  background:  transparent;
+  cursor:      pointer;
+  font-family: $font;
+  padding:     0;
+  line-height: 1;
+}
+
+// ── Icon button ──────────────────────────────────────────────
+@mixin icon-btn($size: 38px) {
+  @include btn-reset;
+  @include flex-center;
+  width:         $size;
+  height:        $size;
+  border-radius: $radius-sm;
+  background:    var(--input-bg);
+  color:         var(--text-secondary);
+  transition:    background $t-fast, color $t-fast;
+  flex-shrink:   0;
+
+  &:hover {
+    background: var(--border);
+    color:      var(--text-primary);
+  }
+}
+
+// ── Pill badge ───────────────────────────────────────────────
+@mixin badge($bg, $color, $pad: 3px 9px) {
+  display:       inline-flex;
+  align-items:   center;
+  padding:       $pad;
+  border-radius: $radius-full;
+  background:    $bg;
+  color:         $color;
+  font-size:     11px;
+  font-weight:   600;
+  white-space:   nowrap;
+}
+
+// ── Progress track ───────────────────────────────────────────
+@mixin progress-track($h: 4px) {
+  height:        $h;
+  background:    var(--border);
+  border-radius: $radius-full;
+  overflow:      hidden;
+}
+
+// ── Truncate ─────────────────────────────────────────────────
+@mixin truncate {
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+// ── Smooth transition shorthand ──────────────────────────────
+@mixin trans($props...) {
+  transition: $props;
+}
+
+// ── Avatar / logo circle ─────────────────────────────────────
+@mixin circle($size: 30px) {
+  width:         $size;
+  height:        $size;
+  border-radius: 50%;
+  @include flex-center;
+  flex-shrink:   0;
+}

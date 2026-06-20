@@ -1,0 +1,18 @@
+[
+  {
+    "userId": "candidate_C1781368480316",
+    "candidateId": "C1781368480316",
+    "password": "657zk@5JNz",
+    "email": "saravanan@example.com",
+    "phone": "+91-7708870208",
+    "createdAt": "2026-06-14T10:07:32.754Z"
+  },
+  {
+    "userId": "candidate_C1765040000000",
+    "candidateId": "C1765040000000",
+    "password": "AKtpHSPGY4",
+    "email": "priya.sharma@email.com",
+    "phone": "+91-9876500001",
+    "createdAt": "2026-06-15T15:46:05.704Z"
+  }
+]
