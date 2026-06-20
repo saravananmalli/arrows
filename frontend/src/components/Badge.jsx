@@ -8,7 +8,6 @@ const STATUS_DOT_CLASS = {
   'Completed':   'completed',
   'In Review':   'in-review',
   'Scheduled':   'scheduled',
-  'Offer Sent':  'offer-sent',
   'Closed':      'closed',
   'Failed':      'failed',
   // Sourced sub-statuses
