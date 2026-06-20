@@ -28,7 +28,9 @@ const CustomTooltip = memo(function CustomTooltip({ active, payload, label, colo
 })
 
 const HiringMetrics = memo(function HiringMetrics({ data }) {
-  const [selectedMonth, setSelectedMonth] = useState(data?.selectedMonth || 'Apr')
+  const [selectedMonth, setSelectedMonth] = useState(
+    data?.selectedMonth || MONTHS[new Date().getMonth()]
+  )
   const colors = useChartColors()
 
   const chartData = useMemo(() => data?.data ?? [], [data])
