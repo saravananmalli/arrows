@@ -281,9 +281,9 @@ export default function VerificationPanel({ candidate, onClose, onStatusChanged 
                   {activeDoc && (
                     <div className="vp-lightbox">
                       {activeDoc.filePath.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
-                        <img src={`http://localhost:4000${activeDoc.filePath}`} alt="Document" />
+                        <img src={activeDoc.filePath} alt="Document" />
                       ) : (
-                        <a href={`http://localhost:4000${activeDoc.filePath}`} target="_blank" rel="noreferrer" className="vp-doc-link">
+                        <a href={activeDoc.filePath} target="_blank" rel="noreferrer" className="vp-doc-link">
                           Open document
                         </a>
                       )}
