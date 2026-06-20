@@ -12554,13 +12554,26 @@ tbody {
   }
 
   // ── Page description cards → stack, button full-width ──
+  // Covers: Job Openings (.page-desc-card), Candidates (.cand-desc-top),
+  //         Client (.client-desc-row), and any future page using the same pattern
   .page-desc-card,
-  .cand-desc-top {
+  .cand-desc-top,
+  .cand-desc-section.client-desc-row {
     flex-direction: column;
     align-items:    stretch;
     gap:            12px;
-    button { width: 100%; justify-content: center; }
+    .client-add-btn,
+    > button,
+    > .btn { width: 100%; justify-content: center; }
   }
+
+  // ── User Management search bar → full width on mobile ────
+  .um-search-wrap {
+    min-width: 0;
+    flex:      1 1 100%;
+    width:     100%;
+  }
+  .um-controls { gap: 6px; }
 
   // ── Interview Group → stack left/right panels vertically ─
   .ig-wrap {
