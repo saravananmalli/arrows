@@ -12599,6 +12599,35 @@ tbody {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  // Interview group table: min-width so scroll kicks in
+  .ig-table { min-width: 560px; }
+
+  // ── All tables: min-width so they scroll instead of squish ─
+  // .job-table-wrap already has overflow-x:auto — just need min-width on table
+  .job-table   { min-width: 640px; }
+
+  // Expanded nested rows in job openings
+  .nested-inner { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nested-table { min-width: 480px; }
+
+  // Candidate panel: skill table needs scroll container
+  .cp-skills   { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cp-skill-table { min-width: 500px; }
+
+  // Candidate job-applications table (cp-ja-wrap already overflow:auto)
+  .cp-ja-table { min-width: 620px; }
+
+  // Reports performance table (.rpt-card-body-table already overflow:auto)
+  .rpt-perf-table { min-width: 480px; }
+
+  // Candidate panel skills toolbar: stack radios + button
+  .cp-skills-toolbar {
+    flex-direction: column;
+    align-items:    stretch;
+    gap:            10px;
+    .cp-skills-radios { justify-content: flex-start; }
+    .small-btn { width: 100%; justify-content: center; }
+  }
 
   // ── Pagination compact ───────────────────────────────────
   .pagination { gap: 4px; font-size: 12px; }
