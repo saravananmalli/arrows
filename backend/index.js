@@ -6,9 +6,6 @@ const path      = require('path');
 const multer    = require('multer');
 const { PDFParse } = require('pdf-parse');
 const mammoth   = require('mammoth');
-const Anthropic = require('@anthropic-ai/sdk');
-
-const anthropic = new Anthropic();
 
 const DATA_PATH          = path.join(__dirname, 'sampledata.json');
 const CANDIDATES_PATH    = path.join(__dirname, 'candidates.json');
@@ -835,141 +832,544 @@ app.get('/api/recruiters', (req, res) => {
   res.json(readData().recruiters);
 });
 
-// ── Resume Parsing (AI) ───────────────────────────────────────
+// ── Resume Parsing (code-based – no AI, no tokens) ────────────
 
-async function parseResumeWithClaude(text) {
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 4096,
-    messages: [{
-      role: 'user',
-      content: `You are an intelligent Resume Processing Agent. Analyze the resume thoroughly and return a single comprehensive JSON candidate profile.
-
-Experience Rating Rules — apply per skill based on estimated years of hands-on use:
-  5+ years  → rating: 5
-  4+ years  → rating: 4
-  3+ years  → rating: 3
-  2+ years  → rating: 2
-  < 2 years → rating: 1
-
-Candidate Score Rules (each dimension scored 0–100):
-  skillsMatch       — breadth and depth of technical skills
-  experienceLevel   — total career years and seniority level
-  education         — degree relevance and institution quality
-  certifications    — number and relevance of certifications (0 if none)
-  projectExperience — evidence of real-world project impact
-  overall           — weighted average of all five dimensions
-
-Return ONLY a valid JSON object with this exact structure (no markdown, no code fences, no explanation):
-
-{
-  "firstName": "",
-  "lastName": "",
-  "email": "",
-  "phone": "",
-  "location": "",
-  "role": "",
-  "experience": "",
-  "company": "",
-  "summary": "",
-  "primarySkillset": [
-    { "name": "", "experience": "", "rating": 0, "lastUsed": "", "comments": "" }
-  ],
-  "secondarySkillset": [
-    { "name": "", "experience": "", "rating": 0, "lastUsed": "", "comments": "" }
-  ],
-  "employmentHistory": [
-    {
-      "company": "",
-      "designation": "",
-      "duration": "",
-      "responsibilities": [],
-      "techStack": []
-    }
-  ],
-  "educationHistory": [
-    {
-      "degree": "",
-      "institution": "",
-      "graduationYear": "",
-      "performance": ""
-    }
-  ],
-  "certifications": [
-    {
-      "name": "",
-      "organization": "",
-      "issueDate": "",
-      "expirationDate": ""
-    }
-  ],
-  "candidateScore": {
-    "overall": 0,
-    "skillsMatch": 0,
-    "experienceLevel": 0,
-    "education": 0,
-    "certifications": 0,
-    "projectExperience": 0
-  },
-  "recommendedRoles": [],
-  "strengths": [],
-  "gaps": []
-}
-
-Field rules:
-- primarySkillset: technical skills (languages, frameworks, cloud platforms, databases, tools) — max 12
-- secondarySkillset: soft skills, methodologies, domain knowledge — max 8
-- employmentHistory: all jobs most-recent-first; responsibilities as an array of concise bullet strings; techStack as array of technology names
-- educationHistory: all degrees, most-recent-first
-- certifications: all certifications; expirationDate empty string if perpetual
-- recommendedRoles: 3–5 suitable job titles
-- strengths: 3–5 concrete resume strengths
-- gaps: 2–4 areas where the candidate could improve
-- Use "" for missing strings, [] for missing arrays, 0 for missing numbers
-
-Resume:
-${text}`,
-    }],
-  });
-
-  const textBlock = response.content.find(b => b.type === 'text');
-  if (!textBlock) throw new Error('No text response from Claude');
-
-  const raw   = textBlock.text;
-  const start = raw.indexOf('{');
-  const end   = raw.lastIndexOf('}');
-  if (start === -1 || end === -1) throw new Error('Claude did not return a JSON object');
-
+// Load master skills once from sampledata.json
+let _masterSkills = null;
+function getMasterSkills() {
+  if (_masterSkills) return _masterSkills;
   try {
-    return JSON.parse(raw.slice(start, end + 1));
-  } catch {
-    throw new Error('Claude returned invalid JSON');
-  }
+    const d = readData();
+    _masterSkills = {
+      technical: d.masters?.skills?.technical || [],
+      soft:      d.masters?.skills?.soft      || [],
+    };
+  } catch { _masterSkills = { technical: [], soft: [] }; }
+  return _masterSkills;
 }
+
+// Build a word-boundary-aware, case-insensitive regex for a skill name.
+// Longer skills are tested first so "Spring Boot" matches before "Spring".
+function buildSkillRe(name) {
+  const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+                  .replace(/\\\./g, '\\.?')
+                  .replace(/\s+/g, '[\\s\\-\\.]?');
+  try { return new RegExp(`(?<![A-Za-z0-9])${esc}(?![A-Za-z0-9])`, 'i'); }
+  catch { return null; }
+}
+
+const SECTION_HEADERS = {
+  summary:        ['summary','objective','profile','about','about me','professional summary',
+                   'career objective','professional profile','executive summary','overview',
+                   'professional overview','career summary','professional background'],
+  experience:     ['experience','work experience','employment','employment history','work history',
+                   'professional experience','career history','positions held','career',
+                   'professional history','employment record','work & experience',
+                   'experience & skills','relevant experience','industry experience'],
+  education:      ['education','educational background','academic background','qualifications',
+                   'academic qualifications','educational qualifications','academic history',
+                   'education & training','educational details'],
+  skills:         ['skills','technical skills','core competencies','key skills','competencies',
+                   'expertise','technologies','technical expertise','skills & expertise',
+                   'areas of expertise','technical competencies','skills summary',
+                   'technology stack','tools & technologies','programming languages',
+                   'technical proficiency'],
+  certifications: ['certifications','certificates','professional certifications','licenses',
+                   'credentials','accreditations','awards & certifications',
+                   'certification & awards','professional development','courses & certifications'],
+  primarySkills:   ['primary skills','primary skill set','primary skillset',
+                    'key technical skills','primary technical skills','core technical skills'],
+  secondarySkills: ['secondary skills','secondary skill set','secondary skillset',
+                    'additional skills','other skills','secondary technical skills'],
+};
+
+// Strip lines that are purely decorative (PDF section dividers, underlines, etc.)
+function stripDecorativeLines(lines) {
+  return lines.filter(l => !/^[\s\-=_*#~▬─═▪•·✦|]+$/.test(l));
+}
+
+// Month name → zero-based index
+const MON_IDX = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11 };
+
+const DATE_TOKEN = '(?:(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\.?\\s+)?\\d{4}';
+const DATE_RANGE_RE = new RegExp(
+  `(${DATE_TOKEN})\\s*(?:[-–—]|\\bto\\b)\\s*(${DATE_TOKEN}|present|current|now)`,
+  'i'
+);
+
+// ── 1. Section splitter ──────────────────────────────────────────
+function splitSections(rawLines) {
+  // Remove decorative divider lines before processing
+  const lines = stripDecorativeLines(rawLines);
+  const out = { header: [] };
+  let cur = 'header';
+
+  for (const line of lines) {
+    // Normalize: lowercase, strip leading numbering ("1. ", "3) "), strip trailing punctuation
+    const norm = line.toLowerCase()
+      .replace(/^\d+[\.\)]\s*/, '')
+      .replace(/[:\-_=#*•▪]+$/, '')
+      .trim();
+
+    let found = null;
+    for (const [key, aliases] of Object.entries(SECTION_HEADERS)) {
+      if (aliases.includes(norm)) { found = key; break; }
+    }
+
+    // ALL-CAPS fallback e.g. "WORK EXPERIENCE", "PROFESSIONAL HISTORY"
+    if (!found && line.trim().length > 3 && line.trim().length < 55 &&
+        line.trim() === line.trim().toUpperCase() && /[A-Z]/.test(line) && !/^\d/.test(line)) {
+      for (const [key, aliases] of Object.entries(SECTION_HEADERS)) {
+        if (aliases.some(a => norm.includes(a))) { found = key; break; }
+      }
+    }
+
+    if (found) { cur = found; if (!out[cur]) out[cur] = []; }
+    else { if (!out[cur]) out[cur] = []; out[cur].push(line); }
+  }
+  return out;
+}
+
+// ── 2. Contact info ──────────────────────────────────────────────
+function extractContact(text, lines) {
+  const emailM = text.match(/[\w.+\-]+@[\w\-]+\.[a-zA-Z]{2,}/);
+  const email  = emailM ? emailM[0].toLowerCase() : '';
+
+  const phoneM = text.match(/(\+?[\d][\d\s().\-]{6,}[\d])(?=\s|$)/m);
+  const phone  = phoneM ? phoneM[0].replace(/\s+/g, ' ').trim() : '';
+
+  let firstName = '', lastName = '';
+  for (const line of lines.slice(0, 12)) {
+    if (!line.trim() || line.includes('@') || /^\+?\(?\d/.test(line) || line.length > 70) continue;
+    if (/^(?:linkedin|github|http|www|address|email|phone|mobile|tel|fax|summary|objective)/i.test(line)) continue;
+    const words = line.trim().split(/\s+/).filter(w => /^[A-Za-zÀ-ÖØ-öø-ÿ\-'.]+$/.test(w) && w.length > 1);
+    if (words.length >= 2 && words.length <= 5) { firstName = words[0]; lastName = words.slice(1).join(' '); break; }
+  }
+
+  let location = '';
+
+  // Regex that rejects lines containing tech skill keywords
+  const NOT_LOC_RE = /\b(?:java|javascript|typescript|python|sql|html|css|react|angular|vue|node\.?js|spring|docker|kubernetes|aws|azure|gcp|linux|mysql|postgresql|mongodb|redis|git|jenkins|maven|hibernate|rest|api|soap|xml|json|junit|selenium|excel|sap|oracle|salesforce|tableau|power\s*bi|c\+\+|c#|\.net|php|ruby|golang|kotlin|swift|flutter|android|ios|hibernate|express|django|flask|fastapi|graphql|kafka|rabbitmq|spark|hadoop|pandas|numpy|tensorflow|pytorch|scikit)\b/i;
+
+  // Tier 1 — explicit label like "Location: Hyderabad, India"
+  const LOC_LABEL_RE = /^(?:location|address|city|state|country|place|current\s+location)\s*[:\-]\s*(.+)/i;
+  for (const line of lines.slice(0, 20)) {
+    const lm = line.match(LOC_LABEL_RE);
+    if (lm && lm[1] && !NOT_LOC_RE.test(lm[1])) { location = lm[1].trim(); break; }
+  }
+
+  // Tier 2 — standalone geographic line in the header (contains a known city / country)
+  if (!location) {
+    const GEO_KW_RE = /\b(?:hyderabad|bangalore|bengaluru|mumbai|chennai|pune|delhi|noida|gurugram|ahmedabad|coimbatore|kolkata|india|usa|united states|uk|united kingdom|australia|canada|singapore|germany|france|uae|dubai|netherlands|malaysia|china|japan)\b/i;
+    for (const line of lines.slice(0, 15)) {
+      if (NOT_LOC_RE.test(line)) continue;
+      if (line.includes('@') || /^\+?\(?\d/.test(line)) continue;
+      if (GEO_KW_RE.test(line) && line.length < 70) { location = line.trim(); break; }
+    }
+  }
+
+  // Tier 3 — "City, State/Country" pattern (excludes tech-keyword lines)
+  if (!location) {
+    const locRe = /([A-Z][a-z]+(?:\s[A-Z][a-z]+)*),\s*([A-Z]{2}|[A-Z][a-z]+(?:\s[A-Z][a-z]+){0,2})/;
+    for (const line of lines.slice(0, 15)) {
+      if (NOT_LOC_RE.test(line)) continue;
+      const m = line.match(locRe);
+      if (m && m[0].length < 60 && !line.includes('@')) { location = m[0]; break; }
+    }
+  }
+
+  return { email, phone, firstName, lastName, location };
+}
+
+// ── 3. Skill extraction ──────────────────────────────────────────
+
+// Pulls raw skill names directly from section lines (bullets or comma-separated).
+// Used when the resume has explicit "Primary Skills" / "Secondary Skills" sections
+// so we honour the candidate's own labelling rather than classifying by master list.
+function extractSkillsFromSection(lines) {
+  const skills = [];
+  const seen   = new Set();
+  for (const line of lines) {
+    const clean = line.replace(/^[•\-*▪▸◦➤►→✓\d.):\s]+/, '').trim();
+    if (!clean || clean.length < 2 || clean.length > 100) continue;
+    for (const part of clean.split(/[,;|]/)) {
+      const s = part.trim();
+      if (s.length > 1 && s.length < 60) {
+        const key = s.toLowerCase();
+        if (!seen.has(key)) { seen.add(key); skills.push(s); }
+      }
+    }
+  }
+  return skills;
+}
+
+// ── 3a. Skill matching against master list ───────────────────────
+function matchSkills(text, skills, limit) {
+  // Sort longest-first so multi-word skills win over substrings
+  const matchers = skills
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .map(s => ({ name: s, re: buildSkillRe(s) }))
+    .filter(m => m.re);
+
+  const results = [];
+  const seen    = new Set();
+
+  for (const { name, re } of matchers) {
+    if (results.length >= limit) break;
+    if (!re.test(text)) continue;
+    const key = name.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    // Look for "N years" within ±150 chars of the match
+    const idx      = text.search(re);
+    const window   = text.slice(Math.max(0, idx - 150), idx + 150);
+    const yrsM     = window.match(/(\d+)\+?\s*(?:years?|yrs?)/i);
+    const yrs      = yrsM ? parseInt(yrsM[1]) : 0;
+    const rating   = yrs >= 5 ? 5 : yrs >= 4 ? 4 : yrs >= 3 ? 3 : yrs >= 2 ? 2 : yrs >= 1 ? 1 : 3;
+    const expStr   = yrs > 0 ? `${yrs} year${yrs !== 1 ? 's' : ''}` : '';
+
+    results.push({ name, experience: expStr, rating, lastUsed: '', comments: '' });
+  }
+  return results;
+}
+
+// ── 3b. Enhance skill ratings using employment history durations ──
+// Rating scale (matches user spec):
+//   < 1 yr  → 1   1–2 yrs → 2   2–4 yrs → 3   4–6 yrs → 4   6+ yrs → 5
+function enhanceSkillRatings(skillset, jobs) {
+  return skillset.map(skill => {
+    const skillRe = buildSkillRe(skill.name);
+    let totalMs = 0;
+    for (const job of jobs) {
+      // Accept job if skill appears in techStack OR in any responsibility bullet
+      const inStack = job.techStack.some(t => t.toLowerCase() === skill.name.toLowerCase());
+      const inResp  = skillRe && job.responsibilities.some(r => skillRe.test(r));
+      if (!inStack && !inResp) continue;
+      const parts = job.duration.split(/[-–—]|\bto\b/i).map(s => s.trim());
+      const s = parseYM(parts[0]);
+      const e = /present|current|now/i.test(parts[1] || '') ? new Date() : parseYM(parts[1]);
+      if (s && e && e > s) totalMs += e - s;
+    }
+    if (totalMs === 0) return skill;
+    const yrs = totalMs / (1000 * 60 * 60 * 24 * 365.25);
+    const rating = yrs >= 6 ? 5 : yrs >= 4 ? 4 : yrs >= 2 ? 3 : yrs >= 1 ? 2 : 1;
+    const experience = `${Math.round(yrs * 10) / 10} years`;
+    return { ...skill, rating, experience };
+  });
+}
+
+// ── 4. Employment history ────────────────────────────────────────
+
+// Keywords that strongly indicate a job title / designation
+const ROLE_KW = /\b(?:engineer|developer|architect|analyst|manager|director|designer|lead|senior|junior|head|specialist|consultant|programmer|scientist|officer|vp|cto|ceo|coo|intern|associate|principal|staff|executive|president|founder|devops|fullstack|full.?stack|front.?end|back.?end|qa|sre|site reliability)\b/i;
+
+// Keywords that strongly indicate a company name
+const COMPANY_KW = /\b(?:inc\.?|ltd\.?|llc|corp\.?|company|co\.?|group|solutions|technologies|tech|systems|services|consulting|labs?|international|global|digital|software|studio|ventures|partners|enterprises|holdings|pvt\.?|pte\.?|gmbh|plc|s\.a\.?)\b/i;
+
+// Lines that are purely geographic (city/country) with no company indicator — should not become company names
+const GEO_ONLY_RE = /^[A-Za-z\s,.\-]+(?:india|usa|uk|united states|united kingdom|australia|canada|singapore|germany|france|uae|dubai|netherlands|malaysia|china|japan|hyderabad|bangalore|mumbai|chennai|pune|delhi|kolkata|noida|gurugram|ahmedabad|coimbatore)\s*$/i;
+
+function resolveCompanyAndRole(upper, lower) {
+  // upper = 2 lines above date (prev2), lower = 1 line above date (prev)
+  // Most common resume format: Company → Role → Date Range
+  // so default is upper=company, lower=designation
+  if (!upper && !lower) return { company: '', designation: '' };
+  if (!upper) return ROLE_KW.test(lower) ? { company: '', designation: lower } : { company: lower, designation: '' };
+  if (!lower) return ROLE_KW.test(upper) ? { company: '', designation: upper } : { company: upper, designation: '' };
+
+  const upperIsRole    = ROLE_KW.test(upper);
+  const lowerIsRole    = ROLE_KW.test(lower);
+  const upperIsCompany = COMPANY_KW.test(upper);
+  const lowerIsCompany = COMPANY_KW.test(lower);
+
+  if (lowerIsRole  && !upperIsRole)    return { company: upper, designation: lower };
+  if (upperIsRole  && !lowerIsRole)    return { company: lower, designation: upper };
+  if (upperIsCompany && !lowerIsCompany) return { company: upper, designation: lower };
+  if (lowerIsCompany && !upperIsCompany) return { company: lower, designation: upper };
+
+  // Default: Company (upper, 2 lines above) → Role (lower, 1 line above) → Date
+  return { company: upper, designation: lower };
+}
+
+// Scan backward from startIdx to find first non-empty, non-decorative line
+function findNonEmpty(lines, startIdx) {
+  for (let i = startIdx; i >= 0; i--) {
+    const l = (lines[i] || '').trim();
+    if (l && !/^[\s\-=_*#~▬─═▪•·✦|]+$/.test(l)) return l;
+  }
+  return '';
+}
+
+function extractEmployment(sections, techSkills) {
+  const lines = sections.experience || [];
+  const jobs  = [];
+  let cur     = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line  = lines[i].trim();
+    if (!line) continue;
+    const dateM = line.match(DATE_RANGE_RE);
+
+    if (dateM) {
+      if (cur) jobs.push(cur);
+      // Strip the date from the line — remaining text (if any) is company/role on same line
+      const sameLine = line.replace(dateM[0], '').replace(/[|•·,\-]/g, ' ').trim();
+
+      // Use findNonEmpty to skip decorative/blank lines between company/role and date
+      const prev  = findNonEmpty(lines, i - 1);
+      const prev2 = findNonEmpty(lines, i - 2);
+
+      let company = '', designation = '';
+      if (sameLine) {
+        // Date on same line as company info — role is the nearest non-empty line above
+        company     = sameLine;
+        designation = ROLE_KW.test(prev) ? prev : '';
+      } else {
+        // Date on its own line → classify the two non-empty lines above it
+        ({ company, designation } = resolveCompanyAndRole(prev2, prev));
+      }
+
+      // Discard company if it's purely a geographic location line (e.g. "Hyderabad, India")
+      if (company && GEO_ONLY_RE.test(company) && !COMPANY_KW.test(company)) {
+        // Some resumes: CompanyName → Location → Designation → DateRange
+        // So look one more line up (prev3) for the real company name
+        const prev3 = findNonEmpty(lines, i - 3);
+        company = (prev3 && !GEO_ONLY_RE.test(prev3) && !ROLE_KW.test(prev3)) ? prev3 : '';
+      }
+
+      cur = { company, designation, duration: dateM[0].trim(), responsibilities: [], techStack: [] };
+    } else if (cur) {
+      if (/^[•\-*▪▸◦➤►→]/.test(line) || /^\d+[.)]\s/.test(line)) {
+        const clean = line.replace(/^[•\-*▪▸◦➤►→\d.)]\s*/, '').trim();
+        if (clean) cur.responsibilities.push(clean);
+      }
+    }
+  }
+  if (cur) jobs.push(cur);
+
+  // Derive tech stack from each job's responsibility bullets
+  const techMatchers = techSkills
+    .slice().sort((a, b) => b.length - a.length)
+    .map(s => ({ name: s, re: buildSkillRe(s) }))
+    .filter(m => m.re);
+
+  for (const job of jobs) {
+    const blob = job.responsibilities.join(' ');
+    job.techStack = techMatchers.filter(({ re }) => re.test(blob)).map(({ name }) => name).slice(0, 10);
+  }
+  return jobs;
+}
+
+// ── 5. Education ─────────────────────────────────────────────────
+function extractEducation(sections) {
+  const lines    = sections.education || [];
+  const DEGREE   = /\b(b\.?s\.?c?|b\.?e\.?|b\.?tech\.?|b\.?eng\.?|m\.?s\.?c?|m\.?e\.?|m\.?tech\.?|m\.?eng\.?|mba|ph\.?d\.?|bachelor(?:'s)?|master(?:'s)?|doctor(?:ate)?|associate|diploma|b\.?a\.?|m\.?a\.?|b\.?com|m\.?com)\b/i;
+  const YEAR     = /\b(19|20)\d{2}\b/;
+  const INST     = /university|college|institute|school|academy|polytechnic/i;
+  const PERF     = /\b(?:gpa|cgpa|grade|percentage|%)\b|\b[0-9]\.[0-9]/i;
+
+  const degrees = [];
+  let cur = null;
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    if (DEGREE.test(line)) {
+      if (cur) degrees.push(cur);
+      cur = { degree: line.trim(), institution: '', graduationYear: '', performance: '' };
+    } else if (cur) {
+      if      (INST.test(line) && !cur.institution)    cur.institution    = line.trim();
+      else if (YEAR.test(line) && !cur.graduationYear) cur.graduationYear = (line.match(YEAR) || [])[0] || '';
+      else if (PERF.test(line) && !cur.performance)    cur.performance    = line.trim();
+    }
+  }
+  if (cur) degrees.push(cur);
+  return degrees;
+}
+
+// ── 6. Certifications ────────────────────────────────────────────
+function extractCertifications(sections, text) {
+  const lines    = sections.certifications || [];
+  const CERT_KW  = /\b(?:aws|azure|gcp|google|microsoft|cisco|pmp|cpa|cfa|scrum|agile|comptia|oracle|salesforce|ibm|certified|certification|certificate|credential)\b/i;
+  const DATE_SIM = /\b(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+)?\d{4}\b/gi;
+
+  const certs = [];
+
+  for (const line of lines) {
+    if (!line.trim() || line.length < 5) continue;
+    if (!CERT_KW.test(line)) continue;
+    const dates = [...line.matchAll(DATE_SIM)].map(m => m[0]);
+    const name  = line.replace(DATE_SIM, '').replace(/[-|,]+$/, '').trim();
+    if (name.length > 3) certs.push({ name, organization: '', issueDate: dates[0] || '', expirationDate: dates[1] || '' });
+  }
+
+  // Fallback: scan full text when no cert section exists
+  if (certs.length === 0) {
+    const RE = /^.{0,120}(?:aws certified|azure certified|google certified|pmp certified|scrum master|cissp|ceh|comptia\s+\w+|certified\s+\w+\s+\w+).{0,60}$/gim;
+    for (const m of (text.matchAll(RE) || [])) {
+      certs.push({ name: m[0].trim().slice(0, 120), organization: '', issueDate: '', expirationDate: '' });
+    }
+  }
+  return certs;
+}
+
+// ── 7. Total experience ──────────────────────────────────────────
+function parseYM(str) {
+  if (!str) return null;
+  const yr = str.match(/\d{4}/);
+  const mo = str.match(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i);
+  if (!yr) return null;
+  return new Date(+yr[0], mo ? MON_IDX[mo[0].toLowerCase().slice(0, 3)] : 0, 1);
+}
+
+function computeExperience(jobs, text) {
+  const m = text.match(/(\d+)\+?\s*years?\s+(?:of\s+)?(?:(?:total|overall|professional|industry|work)\s+)?experience/i)
+         || text.match(/(?:over|more\s+than)\s+(\d+)\s*years?\s+(?:of\s+)?experience/i);
+  if (m) return `${m[1]} years`;
+
+  let ms = 0;
+  for (const job of jobs) {
+    const parts = job.duration.split(/[-–—]|\bto\b/i).map(s => s.trim());
+    const s = parseYM(parts[0]);
+    const e = /present|current|now/i.test(parts[1] || '') ? new Date() : parseYM(parts[1]);
+    if (s && e && e > s) ms += e - s;
+  }
+  const yrs = Math.round(ms / (1000 * 60 * 60 * 24 * 365.25));
+  return yrs > 0 ? `${yrs} years` : '';
+}
+
+// ── 8. Candidate score ───────────────────────────────────────────
+function computeScore({ primarySkillset, employmentHistory, educationHistory, certifications, experience }) {
+  const expYrs  = parseInt(experience) || 0;
+  const skillsMatch     = Math.min(100, primarySkillset.length * 7);
+  const experienceLevel = expYrs <= 0 ? 0 : expYrs <= 1 ? 20 : expYrs <= 3 ? 45 : expYrs <= 5 ? 65 : expYrs <= 8 ? 80 : 95;
+  const hasPG           = educationHistory.some(e => /master|m\.s|m\.e|mba|ph\.?d/i.test(e.degree));
+  const hasUG           = educationHistory.some(e => /bachelor|b\.s|b\.e|b\.tech|b\.sc/i.test(e.degree));
+  const education       = educationHistory.length === 0 ? 0 : hasPG ? 90 : hasUG ? 70 : 50;
+  const certsScore      = Math.min(100, certifications.length * 25);
+  const bullets         = employmentHistory.reduce((s, j) => s + j.responsibilities.length, 0);
+  const projectExp      = Math.min(100, bullets * 4);
+  const overall         = Math.round(skillsMatch * 0.30 + experienceLevel * 0.30 + education * 0.20 + certsScore * 0.10 + projectExp * 0.10);
+  return { overall, skillsMatch, experienceLevel, education, certifications: certsScore, projectExperience: projectExp };
+}
+
+// ── 9. Professional title from resume header ─────────────────────
+// Resumes often have a headline/title right below the candidate name.
+// This is the most reliable source for the `role` field.
+function extractTitle(sections) {
+  const headerLines = sections.header || [];
+  for (const line of headerLines.slice(0, 15)) {
+    if (!line || line.length < 5 || line.length > 120) continue;
+    if (line.includes('@') || /^\+?\(?\d/.test(line)) continue;
+    if (/^(?:linkedin|github|http|www|address|email|phone|mobile)/i.test(line)) continue;
+    if (ROLE_KW.test(line)) return line.trim();
+  }
+  return '';
+}
+
+// ── 10. Main parser ───────────────────────────────────────────────
+function parseResumeWithCode(text) {
+  const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const lines    = stripDecorativeLines(rawLines);
+
+  const { email, phone, firstName, lastName, location } = extractContact(text, lines);
+  const sections = splitSections(lines);
+  const summary  = (sections.summary || []).slice(0, 8).join(' ').trim().slice(0, 600);
+
+  const { technical, soft } = getMasterSkills();
+
+  // Extract employment first so durations can be used to rate skills
+  const employmentHistory = extractEmployment(sections, technical);
+
+  // When the resume has explicit "Primary Skills" / "Secondary Skills" sections,
+  // extract skill names directly from those sections (preserving the candidate's
+  // own labelling). Otherwise fall back to matching against the master lists.
+  let primarySkillset, secondarySkillset;
+
+  if ((sections.primarySkills || []).length > 0) {
+    const rawNames = extractSkillsFromSection(sections.primarySkills);
+    primarySkillset = rawNames.map(name => ({ name, experience: '', rating: 3, lastUsed: '', comments: '' }));
+  } else {
+    primarySkillset = matchSkills(text, technical, 12);
+  }
+
+  if ((sections.secondarySkills || []).length > 0) {
+    const rawNames = extractSkillsFromSection(sections.secondarySkills);
+    secondarySkillset = rawNames.map(name => ({ name, experience: '', rating: 3, lastUsed: '', comments: '' }));
+  } else {
+    secondarySkillset = matchSkills(text, soft, 8);
+  }
+
+  // Enhance ratings for both sets using actual employment history durations
+  primarySkillset   = enhanceSkillRatings(primarySkillset,   employmentHistory);
+  secondarySkillset = enhanceSkillRatings(secondarySkillset, employmentHistory);
+  const educationHistory  = extractEducation(sections);
+  const certifications    = extractCertifications(sections, text);
+  const experience        = computeExperience(employmentHistory, text);
+
+  // Role: prefer the professional headline in the resume header (e.g. "Full Stack Java Developer")
+  // Fall back to the designation of the most recent job only if no headline found
+  const professionalTitle = extractTitle(sections);
+  const role              = professionalTitle || employmentHistory[0]?.designation || '';
+  const company           = employmentHistory[0]?.company || '';
+  const candidateScore    = computeScore({ primarySkillset, employmentHistory, educationHistory, certifications, experience });
+
+  return {
+    firstName, lastName, email, phone, location,
+    role, experience, company, summary,
+    primarySkillset, secondarySkillset,
+    employmentHistory, educationHistory, certifications,
+    candidateScore,
+    recommendedRoles: [], strengths: [], gaps: [],
+  };
+}
+
+// Shared text extraction — used by both /parse and /debug routes
+async function extractTextFromFile(file) {
+  const mime     = file.mimetype;
+  const filePath = file.path;
+
+  if (mime === 'application/pdf') {
+    const parser = new PDFParse({ url: `file://${filePath}` });
+    const result = await parser.getText();
+    return result.text;
+  }
+  if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    const result = await mammoth.extractRawText({ path: filePath });
+    return result.value;
+  }
+  if (mime === 'text/plain') {
+    return fs.readFileSync(filePath, 'utf8');
+  }
+  fs.unlinkSync(filePath);
+  throw new Error('Unsupported file type. Please upload PDF or DOCX.');
+}
+
+// Debug endpoint — returns raw extracted text + detected sections (no parsing side-effects)
+app.post('/api/resume/debug', uploadToDisk.single('resume'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    const rawText = await extractTextFromFile(req.file);
+    const lines   = stripDecorativeLines(rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean));
+    const sections = splitSections(lines);
+    res.json({ rawText, lineCount: lines.length, sections });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.post('/api/resume/parse', uploadToDisk.single('resume'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-    const mime     = req.file.mimetype;
-    const filePath = req.file.path;
-    let text = '';
+    const text = await extractTextFromFile(req.file);
 
-    if (mime === 'application/pdf') {
-      const parser = new PDFParse({ url: `file://${filePath}` });
-      const result = await parser.getText();
-      text = result.text;
-    } else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-      const result = await mammoth.extractRawText({ path: filePath });
-      text = result.value;
-    } else if (mime === 'text/plain') {
-      text = fs.readFileSync(filePath, 'utf8');
-    } else {
-      fs.unlinkSync(filePath);
-      return res.status(400).json({ error: 'Unsupported file type. Please upload PDF, DOCX, or TXT.' });
+    if (!text.trim()) {
+      fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: 'Could not extract text from the uploaded file.' });
     }
 
-    const parsed = await parseResumeWithClaude(text);
+    const parsed = parseResumeWithCode(text);
     res.json({ ...parsed, resumeFile: req.file.filename, resumeOriginalName: req.file.originalname });
   } catch (err) {
     console.error('Resume parse error:', err.message);
