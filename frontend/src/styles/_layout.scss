@@ -779,12 +779,12 @@
 @include mobile {
   // Sidebar becomes a fixed overlay drawer
   .sidebar {
-    position:  fixed;
-    left:      0;
-    top:       0;
-    height:    100vh;
-    z-index:   1000;
-    transform: translateX(-100%);
+    position:   fixed;
+    left:       0;
+    top:        0;
+    height:     100vh;
+    z-index:    1000;
+    transform:  translateX(-100%);
     transition: transform $t-slow;
 
     &--open {
@@ -822,18 +822,38 @@
     gap:     8px;
   }
 
-  // Hide search bar on mobile (not enough space)
+  // Hide search bar (too narrow on mobile)
   .topbar-search { display: none; }
 
-  // Title fills remaining space
-  .topbar-spacer { display: none; }
-  .topbar-title-wrap { flex: 1; }
+  // Title group fills remaining space
+  .topbar-spacer    { display: none; }
+  .topbar-title-wrap { flex: 1; min-width: 0; }
+  .topbar-title     { font-size: 17px; @include truncate; }
 
-  // Content padding tighter on small screens
+  // Content padding
   .content { padding: 10px 12px; }
 
-  // Dashboard grids — single column
+  // Dashboard grids
   .dash-kpi-row    { grid-template-columns: repeat(2, 1fr); }
   .dash-mid-row    { grid-template-columns: 1fr; }
   .dash-bottom-row { grid-template-columns: 1fr; }
+
+  // Table containers — horizontal scroll, never break page layout
+  .table-scroll,
+  .job-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  // Logout modal full-width on mobile
+  .logout-modal { width: calc(100vw - 32px); max-width: 100%; }
+}
+
+// ── Extra small (<480px) ─────────────────────────────────────
+@include xs {
+  .content { padding: 8px 10px; }
+
+  // Single KPI column on very small phones
+  .dash-kpi-row { grid-template-columns: 1fr; }
+
+  // Topbar
+  .topbar { padding: 0 10px; gap: 6px; }
+  .topbar-title { font-size: 15px; }
 }

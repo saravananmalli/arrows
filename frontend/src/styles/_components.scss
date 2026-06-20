@@ -12472,23 +12472,94 @@ tbody {
 // ════════════════════════════════════════════════════════════
 
 // ── Tablet ───────────────────────────────────────────────────
+// ── Tablet (768 – 1024px) ────────────────────────────────────
 @include tablet {
-  // Form grids collapse to single column
-  .form-grid { grid-template-columns: 1fr; }
+  // Form grids → single column
+  .form-grid  { grid-template-columns: 1fr; }
+
+  // 3-column content grids → 2 columns
+  .cjob-grid  { grid-template-columns: repeat(2, 1fr); }
+  .cr-grid    { grid-template-columns: repeat(2, 1fr); }
+  .jdd-grid   { grid-template-columns: repeat(2, 1fr); }
+  .cp-grid    { grid-template-columns: repeat(2, 1fr); }
+
+  // Cap very wide side panels on tablet
+  .jdd-panel   { width: min(92vw, 680px); }
+  .cp-panel    { width: min(94vw, 720px); }
+  .cmdd-drawer { width: min(96vw, 680px); }
+  .drawer-panel { width: min(100vw, 560px); }
+  .vp-panel    { width: min(96vw, 580px); }
 }
 
-// ── Mobile ───────────────────────────────────────────────────
+// ── Mobile (<768px) ──────────────────────────────────────────
 @include mobile {
-  // Drawers go full-width
-  .drawer { width: 100vw !important; max-width: 100vw; }
+  // ── Slide-in panels & drawers → full width ──────────────
+  .drawer       { width: 100vw !important; max-width: 100vw; }
+  .drawer-panel { width: 100vw; max-width: 100vw; }
+  .jdd-panel    { width: 100vw; max-width: 100vw; }
+  .cp-panel     { width: 100vw; max-width: 100vw; }
+  .cmdd-drawer  { width: 100vw; max-width: 100vw; }
+  .vp-panel     { width: 100vw; max-width: 100vw; }
+  .cg-drawer    { width: 100vw; max-width: 100vw; }
 
-  // Form grids single column
-  .form-grid { grid-template-columns: 1fr; }
+  // ── Notification panel → fluid width, stay below topbar ─
+  .notif-panel {
+    width: calc(100vw - 16px);
+    right: 8px;
+    left:  8px;
+  }
 
-  // Pagination: tighter spacing
+  // ── Modals → fluid + scrollable on short screens ─────────
+  .emp-modal {
+    width: calc(100vw - 32px);
+    max-height: calc(100dvh - 48px);
+    top: 24px;
+    transform: translateX(-50%);
+    overflow-y: auto;
+  }
+
+  // ── Form grids → single column ───────────────────────────
+  .form-grid    { grid-template-columns: 1fr; }
+  .cjob-grid    { grid-template-columns: 1fr; }
+  .cr-grid      { grid-template-columns: 1fr; }
+  .jdd-grid     { grid-template-columns: 1fr; }
+  .cp-grid      { grid-template-columns: 1fr; }
+  .ud-info-grid { grid-template-columns: 1fr; }
+
+  // ── Team-member table (fixed-px grid) → horizontal scroll
+  .tm-table {
+    overflow-x: auto;
+    .tm-thead,
+    .tm-row { min-width: 520px; }
+  }
+
+  // ── Calendar → horizontal scroll inside card ─────────────
+  .cal-grid {
+    overflow-x: auto;
+    .cal-grid-head,
+    .cal-grid-body { min-width: 480px; }
+  }
+  .cal-week {
+    overflow-x: auto;
+    .cal-week-header,
+    .cal-week-body  { min-width: 480px; }
+  }
+
+  // ── Candidate-portal login → stacked ─────────────────────
+  .cp-login-root { flex-direction: column; }
+  .cp-login-left {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 20px;
+  }
+
+  // ── Pagination compact ───────────────────────────────────
   .pagination { gap: 4px; font-size: 12px; }
 
-  // Login page: hide left panel, card takes full width
+  // ── Filter bar always wraps ──────────────────────────────
+  .filter-bar { flex-wrap: wrap; }
+
+  // ── Login page ───────────────────────────────────────────
   .lp-root  { flex-direction: column; height: auto; }
   .lp-left  { display: none; }
   .lp-right {
@@ -12498,4 +12569,19 @@ tbody {
     align-items: center;
   }
   .lp-card  { max-width: 100%; padding: 36px 24px; }
+}
+
+// ── Extra small (<480px) ─────────────────────────────────────
+@include xs {
+  // Content padding tighter on very small screens
+  .content { padding: 8px 10px; }
+
+  // KPI cards: 2→1 on very small phones
+  .dash-kpi-row { grid-template-columns: 1fr; }
+
+  // Topbar title truncate to prevent overflow
+  .topbar-title { font-size: 16px; }
+
+  // Cards: reduce internal padding
+  .kpi-card { padding: 14px; }
 }
