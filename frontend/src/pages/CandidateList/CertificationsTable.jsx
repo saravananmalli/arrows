@@ -33,13 +33,13 @@ function renderCertForm(form, setField) {
           <label className="skt-label">Issue Date</label>
           <input className="form-input" value={form.issueDate}
             onChange={e => setField('issueDate', e.target.value)}
-            placeholder="e.g. Mar 2023" />
+            placeholder={`e.g. Jan ${new Date().getFullYear() - 1}`} />
         </div>
         <div className="skt-field">
           <label className="skt-label">Expiration Date</label>
           <input className="form-input" value={form.expirationDate}
             onChange={e => setField('expirationDate', e.target.value)}
-            placeholder="e.g. Mar 2026 (or blank)" />
+            placeholder={`e.g. Jan ${new Date().getFullYear() + 1} (or blank)`} />
         </div>
       </div>
     </>

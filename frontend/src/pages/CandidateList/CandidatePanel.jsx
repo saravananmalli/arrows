@@ -10,7 +10,8 @@ const PANEL_TABS = ['Basic Info', 'Skills', 'Resume', 'Timeline', 'Rating', 'Att
 const PRIMARY_SKILLS   = masters.skills.technical
 const SECONDARY_SKILLS = masters.skills.soft
 const EXP_OPTIONS      = ['< 1 Year', '1 Year', '2 Years', '3 Years', '4 Years', '5 Years', '6+ Years']
-const YEAR_OPTIONS     = ['2019', '2020', '2021', '2022', '2023', '2024', '2025']
+const _cy = new Date().getFullYear()
+const YEAR_OPTIONS = Array.from({ length: 8 }, (_, i) => String(_cy - 6 + i))
 
 
 // ── Custom dropdown ───────────────────────────────────────────
@@ -140,7 +141,7 @@ function normalizeSkill(r, idx) {
 }
 
 // ── Skills tab ────────────────────────────────────────────────
-const BLANK_ROW = { skill: '', exp: '1 Year', rating: 0, lastUsed: '2025', comments: '' }
+const BLANK_ROW = { skill: '', exp: '1 Year', rating: 0, lastUsed: String(new Date().getFullYear()), comments: '' }
 
 function SkillsTab({ candidate }) {
   const [skillType, setSkillType] = useState('primary')

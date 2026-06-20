@@ -64,7 +64,7 @@ function renderSkillForm(form, setField) {
           <label className="skt-label">Last Used</label>
           <input className="form-input" value={form.lastUsed}
             onChange={e => setField('lastUsed', e.target.value)}
-            placeholder="e.g. 2025" />
+            placeholder={`e.g. ${new Date().getFullYear()}`} />
         </div>
       </div>
 

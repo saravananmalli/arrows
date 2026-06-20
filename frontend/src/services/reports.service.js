@@ -43,7 +43,10 @@ export const getReportData = async () => {
   })
 
   // ── Monthly + Weekly Trends ───────────────────────────────────────────────────
-  const monthlyTrend = [
+  // Only show data up to the current month — future months are zeroed out
+  const _now = new Date()
+  const _curMonth = _now.getMonth() // 0-based
+  const ALL_MONTHLY = [
     { month: 'Jan', interviews: 8,  offers: 5,  hires: 4  },
     { month: 'Feb', interviews: 12, offers: 7,  hires: 6  },
     { month: 'Mar', interviews: 15, offers: 9,  hires: 7  },
@@ -57,6 +60,9 @@ export const getReportData = async () => {
     { month: 'Nov', interviews: 25, offers: 17, hires: 14 },
     { month: 'Dec', interviews: 21, offers: 14, hires: 11 },
   ]
+  const monthlyTrend = ALL_MONTHLY.map((m, i) =>
+    i <= _curMonth ? m : { month: m.month, interviews: 0, offers: 0, hires: 0 }
+  )
   const weeklyActivity = [
     { week: 'W1', applications: 24, interviews: 8,  offers: 3 },
     { week: 'W2', applications: 31, interviews: 12, offers: 5 },

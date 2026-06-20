@@ -266,7 +266,10 @@ app.get('/api/dashboard/tasks', async (req, res) => {
 app.get('/api/dashboard/hiring-metrics', async (req, res) => {
   try {
     const d = await Dashboard.findOne({}, PROJ).lean();
-    res.json(d?.hiringMetrics || {});
+    const metrics = d?.hiringMetrics || {};
+    const MONTH_LABELS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const currentMonth = MONTH_LABELS[new Date().getMonth()];
+    res.json({ ...metrics, selectedMonth: currentMonth });
   } catch (err) { console.error('[API]', err.message); res.status(500).json({ error: 'Internal server error' }); }
 });
 
