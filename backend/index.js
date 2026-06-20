@@ -20,9 +20,14 @@ if (!fs.existsSync(UPLOADS_DOCS_DIR)) fs.mkdirSync(UPLOADS_DOCS_DIR, { recursive
 // ── MongoDB / Mongoose ───────────────────────────────────────────
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  console.error('FATAL: MONGO_URI environment variable is not set. Add it in your Render/Vercel environment settings.');
+  process.exit(1);
+}
+
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected:', MONGO_URI))
-  .catch(err => { console.error('MongoDB connection error:', err); process.exit(1); });
+  .catch(err => { console.error('MongoDB connection error:', err.message); process.exit(1); });
 
 const flex = { strict: false, versionKey: false };
 
