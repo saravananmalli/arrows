@@ -12563,7 +12563,40 @@ tbody {
   // ── Pagination compact ───────────────────────────────────
   .pagination { gap: 4px; font-size: 12px; }
 
-  // ── Filter bar always wraps ──────────────────────────────
+  // ── Filter bar (job-filter) ──────────────────────────────
+  .job-filter {
+    padding: 10px 12px;
+    gap:     6px;
+  }
+
+  // Search: own full-width row
+  .job-filter-search {
+    flex:  1 1 100%;
+    width: 100%;
+  }
+
+  // Dropdowns: expand to fill their row evenly
+  .filter-dropdown {
+    flex: 1 1 auto;
+
+    &-trigger {
+      width:           100%;
+      justify-content: space-between;
+    }
+
+    &-panel {
+      max-width: calc(100vw - 24px);
+    }
+  }
+
+  // Actions: own row, pinned right, no auto margin gap
+  .job-filter-actions {
+    width:       100%;
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+
+  // Legacy .filter-bar alias
   .filter-bar { flex-wrap: wrap; }
 
   // ── Login page ───────────────────────────────────────────
