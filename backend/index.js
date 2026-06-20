@@ -1,56 +1,102 @@
 require('dotenv').config();
-const express   = require('express');
-const cors      = require('cors');
-const fs        = require('fs');
-const path      = require('path');
-const multer    = require('multer');
+const express    = require('express');
+const cors       = require('cors');
+const fs         = require('fs');
+const path       = require('path');
+const multer     = require('multer');
 const { PDFParse } = require('pdf-parse');
-const mammoth   = require('mammoth');
+const mammoth    = require('mammoth');
 const Anthropic  = require('@anthropic-ai/sdk');
+const mongoose   = require('mongoose');
+
 const anthropic  = new Anthropic();
 
-const DATA_PATH          = path.join(__dirname, 'sampledata.json');
-const CANDIDATES_PATH    = path.join(__dirname, 'candidates.json');
-const PORTAL_USERS_PATH  = path.join(__dirname, 'candidatePortalUsers.json');
-const DOCUMENTS_PATH     = path.join(__dirname, 'candidateDocuments.json');
-const NOTIFICATIONS_PATH = path.join(__dirname, 'notifications.json');
-const UPLOADS_DIR        = path.join(__dirname, 'uploads', 'resumes');
-const UPLOADS_DOCS_DIR   = path.join(__dirname, 'uploads', 'documents');
+const UPLOADS_DIR      = path.join(__dirname, 'uploads', 'resumes');
+const UPLOADS_DOCS_DIR = path.join(__dirname, 'uploads', 'documents');
 
-const readData        = () => JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-const writeData       = (data) => fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
-const readCandidates  = () => {
-  if (!fs.existsSync(CANDIDATES_PATH)) return [];
-  return JSON.parse(fs.readFileSync(CANDIDATES_PATH, 'utf8'));
-};
-const writeCandidates = (list) => fs.writeFileSync(CANDIDATES_PATH, JSON.stringify(list, null, 2));
-
-const readPortalUsers  = () => { try { return JSON.parse(fs.readFileSync(PORTAL_USERS_PATH, 'utf8')); } catch { return []; } };
-const writePortalUsers = (l) => fs.writeFileSync(PORTAL_USERS_PATH, JSON.stringify(l, null, 2));
-const readDocuments    = () => { try { return JSON.parse(fs.readFileSync(DOCUMENTS_PATH, 'utf8')); } catch { return []; } };
-const writeDocuments   = (l) => fs.writeFileSync(DOCUMENTS_PATH, JSON.stringify(l, null, 2));
-const readNotifications  = () => { try { return JSON.parse(fs.readFileSync(NOTIFICATIONS_PATH, 'utf8')); } catch { return []; } };
-const writeNotifications = (l) => fs.writeFileSync(NOTIFICATIONS_PATH, JSON.stringify(l, null, 2));
-
-if (!fs.existsSync(UPLOADS_DIR))     fs.mkdirSync(UPLOADS_DIR,     { recursive: true });
+if (!fs.existsSync(UPLOADS_DIR))      fs.mkdirSync(UPLOADS_DIR,      { recursive: true });
 if (!fs.existsSync(UPLOADS_DOCS_DIR)) fs.mkdirSync(UPLOADS_DOCS_DIR, { recursive: true });
+
+// ── MongoDB / Mongoose ───────────────────────────────────────────
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/arrows';
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('MongoDB connected:', MONGO_URI))
+  .catch(err => { console.error('MongoDB connection error:', err); process.exit(1); });
+
+const flex = { strict: false, versionKey: false };
+
+const Job              = mongoose.model('Job',              new mongoose.Schema({}, { ...flex, collection: 'jobs' }));
+const Candidate        = mongoose.model('Candidate',        new mongoose.Schema({}, { ...flex, collection: 'candidates' }));
+const Client           = mongoose.model('Client',           new mongoose.Schema({}, { ...flex, collection: 'clients' }));
+const User             = mongoose.model('User',             new mongoose.Schema({}, { ...flex, collection: 'users' }));
+const Interview        = mongoose.model('Interview',        new mongoose.Schema({}, { ...flex, collection: 'interviews' }));
+const Interviewer      = mongoose.model('Interviewer',      new mongoose.Schema({}, { ...flex, collection: 'interviewers' }));
+const InterviewGroup   = mongoose.model('InterviewGroup',   new mongoose.Schema({}, { ...flex, collection: 'interviewgroups' }));
+const Recruiter        = mongoose.model('Recruiter',        new mongoose.Schema({}, { ...flex, collection: 'recruiters' }));
+const DashboardCandidate = mongoose.model('DashboardCandidate', new mongoose.Schema({}, { ...flex, collection: 'dashboardcandidates' }));
+const PortalUser       = mongoose.model('PortalUser',       new mongoose.Schema({}, { ...flex, collection: 'portalusers' }));
+const Document         = mongoose.model('Document',         new mongoose.Schema({}, { ...flex, collection: 'documents' }));
+const Notification     = mongoose.model('Notification',     new mongoose.Schema({}, { ...flex, collection: 'notifications' }));
+const Masters          = mongoose.model('Masters',          new mongoose.Schema({}, { ...flex, collection: 'masters' }));
+const Dashboard        = mongoose.model('Dashboard',        new mongoose.Schema({}, { ...flex, collection: 'dashboard' }));
+
+// Projection that strips MongoDB _id from all query results
+const PROJ = { _id: 0 };
+
+// ── Master skills cache ──────────────────────────────────────────
+// Populated async when DB connects; getMasterSkills() stays synchronous
+// so the regex-based fallback parser can call it without await.
+let _masterSkills = { technical: [], soft: [] };
+
+mongoose.connection.once('open', async () => {
+  try {
+    const m = await Masters.findOne({}, PROJ).lean();
+    _masterSkills = {
+      technical: m?.skills?.technical || [],
+      soft:      m?.skills?.soft      || [],
+    };
+    console.log(`[masters] cached ${_masterSkills.technical.length} technical, ${_masterSkills.soft.length} soft skills`);
+  } catch (e) {
+    console.warn('[masters] skill cache failed:', e.message);
+  }
+});
+
+function getMasterSkills() {
+  return _masterSkills;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────
 
 function generatePassword() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#!';
   return Array.from({ length: 10 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
 
-function appendAuditTrail(candidateId, action, actor) {
-  const list = readCandidates();
-  const idx  = list.findIndex(c => String(c.id) === String(candidateId));
-  if (idx === -1) return;
-  if (!list[idx].auditTrail) list[idx].auditTrail = [];
-  list[idx].auditTrail.push({ date: new Date().toISOString(), action, actor });
-  writeCandidates(list);
+// Compute next string ID (e.g. "CL004") by reading all existing ids from a collection.
+async function nextId(prefix, Model, idKey = 'id') {
+  const items = await Model.find({}, { [idKey]: 1, _id: 0 }).lean();
+  const nums  = items.map(i => parseInt((i[idKey] || '').replace(/\D/g, '')) || 0);
+  const n     = Math.max(0, ...nums) + 1;
+  return `${prefix}${String(n).padStart(3, '0')}`;
 }
 
-function createNotification(type, candidateId, message) {
-  const notifs = readNotifications();
+// Strip _id / __v from a freshly saved Mongoose document before sending as JSON.
+function stripMeta(doc) {
+  const obj = typeof doc.toObject === 'function' ? doc.toObject() : { ...doc };
+  delete obj._id;
+  delete obj.__v;
+  return obj;
+}
+
+async function appendAuditTrail(candidateId, action, actor) {
+  await Candidate.updateOne(
+    { id: String(candidateId) },
+    { $push: { auditTrail: { date: new Date().toISOString(), action, actor } } }
+  );
+}
+
+async function createNotification(type, candidateId, message) {
   const notif = {
     id: `N${Date.now()}`,
     type,
@@ -59,89 +105,47 @@ function createNotification(type, candidateId, message) {
     read: false,
     createdAt: new Date().toISOString(),
   };
-  notifs.unshift(notif);
-  writeNotifications(notifs);
+  await new Notification(notif).save();
   return notif;
 }
 
-const resumeStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
-  filename:    (_req, file,  cb) => cb(null, `resume_${Date.now()}${path.extname(file.originalname)}`),
-});
+// ── Express app ───────────────────────────────────────────────────
+const app = express();
 
-const app          = express();
-const upload       = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
-const uploadToDisk = multer({ storage: resumeStorage,         limits: { fileSize: 5 * 1024 * 1024 } });
+const uploadToDisk = multer({
+  storage: multer.diskStorage({
+    destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
+    filename:    (_req, file,  cb) => cb(null, `resume_${Date.now()}${path.extname(file.originalname)}`),
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
 
 app.use(cors());
 app.use(express.json());
 
-// ── Helpers ───────────────────────────────────────────────────
+// ── Pipeline helpers ──────────────────────────────────────────────
 
-function saveCollection(key, items) {
-  const data = readData();
-  data[key] = items;
-  writeData(data);
-}
-
-function nextId(prefix, items, idKey = 'id') {
-  const nums = items.map(i => parseInt((i[idKey] || '').replace(/\D/g, '')) || 0);
-  const n    = Math.max(0, ...nums) + 1;
-  return `${prefix}${String(n).padStart(3, '0')}`;
-}
-
-// ── Masters (reference / lookup data) ────────────────────────
-
-app.get('/api/masters', (req, res) => {
-  res.json(readData().masters);
-});
-
-// ── Dashboard ─────────────────────────────────────────────────
-
-app.get('/api/dashboard/stats', (req, res) => {
-  res.json(readData().dashboard.stats);
-});
-
-app.get('/api/dashboard/recruitment', (req, res) => {
-  res.json(readData().dashboard.recruitment);
-});
-
-app.get('/api/dashboard/tasks', (req, res) => {
-  res.json(readData().dashboard.tasks);
-});
-
-app.get('/api/dashboard/hiring-metrics', (req, res) => {
-  res.json(readData().dashboard.hiringMetrics);
-});
-
-app.get('/api/dashboard/candidates', (req, res) => {
-  const page  = parseInt(req.query.page) || 1;
-  const size  = parseInt(req.query.size) || 7;
-  const list  = readData().dashboardCandidates;
-  const start = (page - 1) * size;
-  res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
-});
-
-// ── Jobs ──────────────────────────────────────────────────────
-
-// Tab order used to resolve duplicates: later index = more advanced stage.
 const PIPELINE_TAB_ORDER = ['Map Candidates', 'Sourced', 'Pre-Screening', 'Assessment', 'Client Interview', 'Offer'];
 
-// Builds a map of candidateId → { stage, status, subStatus } from all job pipelines.
-// Uses the most advanced tab when a candidate appears in multiple jobs/tabs.
-function buildPipelineStageMap() {
-  const map = {};
-  const jobs = readData().jobs;
+// Builds candidateId → { stage, status, subStatus } from all job pipelines.
+// Uses the most advanced tab when a candidate appears in multiple jobs.
+async function buildPipelineStageMap() {
+  const map  = {};
+  const jobs = await Job.find({}, PROJ).lean();
   for (const job of jobs) {
     if (!job.pipeline) continue;
     for (const tab of PIPELINE_TAB_ORDER) {
       const tabIdx = PIPELINE_TAB_ORDER.indexOf(tab);
       for (const entry of (job.pipeline[tab] || [])) {
-        const cid = String(entry.id);
-        const existing = map[cid];
-        const existingIdx = existing ? PIPELINE_TAB_ORDER.indexOf(
-          existing.stage === 'Sourced' && existing._tab === 'Map Candidates' ? 'Map Candidates' : existing.stage
-        ) : -1;
+        const cid         = String(entry.id);
+        const existing    = map[cid];
+        const existingIdx = existing
+          ? PIPELINE_TAB_ORDER.indexOf(
+              existing.stage === 'Sourced' && existing._tab === 'Map Candidates'
+                ? 'Map Candidates'
+                : existing.stage
+            )
+          : -1;
         if (!existing || tabIdx > existingIdx) {
           map[cid] = {
             _tab:      tab,
@@ -156,23 +160,20 @@ function buildPipelineStageMap() {
   return map;
 }
 
-// Merges fresh verificationStatus/auditTrail from candidates.json and removes
-// any candidate that appears in more than one tab (keeps the most advanced stage).
+// Merge verificationStatus/auditTrail from candidates collection into pipeline entries.
+// Also deduplicates: keeps each candidate only in their most advanced tab.
 function enrichPipelineCandidates(pipeline, candMap) {
   if (!pipeline) return pipeline;
-
-  // Determine the most advanced tab for each candidate ID.
   const bestTab = {};
   for (const tab of PIPELINE_TAB_ORDER) {
     for (const c of (pipeline[tab] || [])) {
       if (c?.id) bestTab[String(c.id)] = tab;
     }
   }
-
   const result = {};
   for (const [tab, cands] of Object.entries(pipeline)) {
     result[tab] = (cands || [])
-      .filter(c => c?.id && bestTab[String(c.id)] === tab)   // deduplicate: keep only in best tab
+      .filter(c => c?.id && bestTab[String(c.id)] === tab)
       .map(c => {
         const fresh = candMap[String(c.id)];
         if (!fresh) return c;
@@ -186,22 +187,75 @@ function enrichPipelineCandidates(pipeline, candMap) {
   return result;
 }
 
-app.get('/api/jobs', (req, res) => {
-  const candidates = readCandidates();
-  const candMap    = Object.fromEntries(candidates.map(c => [String(c.id), c]));
-  const jobs = readData().jobs.map(j => ({
-    ...j,
-    pipeline: enrichPipelineCandidates(j.pipeline, candMap),
-  }));
-  res.json(jobs);
+// ── Masters ───────────────────────────────────────────────────────
+
+app.get('/api/masters', async (req, res) => {
+  try {
+    res.json(await Masters.findOne({}, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.get('/api/jobs/:id', (req, res) => {
-  const candidates = readCandidates();
-  const candMap    = Object.fromEntries(candidates.map(c => [String(c.id), c]));
-  const job = readData().jobs.find(j => j.id === req.params.id);
-  if (!job) return res.status(404).json({ error: 'Job not found' });
-  res.json({ ...job, pipeline: enrichPipelineCandidates(job.pipeline, candMap) });
+// ── Dashboard ─────────────────────────────────────────────────────
+
+app.get('/api/dashboard/stats', async (req, res) => {
+  try {
+    const d = await Dashboard.findOne({}, PROJ).lean();
+    res.json(d?.stats || {});
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/dashboard/recruitment', async (req, res) => {
+  try {
+    const d = await Dashboard.findOne({}, PROJ).lean();
+    res.json(d?.recruitment || {});
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/dashboard/tasks', async (req, res) => {
+  try {
+    const d = await Dashboard.findOne({}, PROJ).lean();
+    res.json(d?.tasks || []);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/dashboard/hiring-metrics', async (req, res) => {
+  try {
+    const d = await Dashboard.findOne({}, PROJ).lean();
+    res.json(d?.hiringMetrics || {});
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/dashboard/candidates', async (req, res) => {
+  try {
+    const page  = parseInt(req.query.page) || 1;
+    const size  = parseInt(req.query.size) || 7;
+    const list  = await DashboardCandidate.find({}, PROJ).lean();
+    const start = (page - 1) * size;
+    res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── Jobs ──────────────────────────────────────────────────────────
+
+app.get('/api/jobs', async (req, res) => {
+  try {
+    const candidates = await Candidate.find({}, PROJ).lean();
+    const candMap    = Object.fromEntries(candidates.map(c => [String(c.id), c]));
+    const jobs = (await Job.find({}, PROJ).lean()).map(j => ({
+      ...j, pipeline: enrichPipelineCandidates(j.pipeline, candMap),
+    }));
+    res.json(jobs);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/jobs/:id', async (req, res) => {
+  try {
+    const candidates = await Candidate.find({}, PROJ).lean();
+    const candMap    = Object.fromEntries(candidates.map(c => [String(c.id), c]));
+    const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
+    if (!job) return res.status(404).json({ error: 'Job not found' });
+    res.json({ ...job, pipeline: enrichPipelineCandidates(job.pipeline, candMap) });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Normalize a skill string for comparison (strip spaces/dots, lowercase)
@@ -244,8 +298,8 @@ function scoreCandidate(candidate, job) {
   const jobSecondary = (job.secondarySkills  || []).map(normalizeSkill);
 
   // Hit counts against full candidate pool
-  const primaryHits   = jobPrimary.filter(js   => skillHit(js, allCandSkills)).length;
-  const secondaryHits = jobSecondary.filter(js  => skillHit(js, allCandSkills)).length;
+  const primaryHits    = jobPrimary.filter(js  => skillHit(js, allCandSkills)).length;
+  const secondaryHits  = jobSecondary.filter(js => skillHit(js, allCandSkills)).length;
   const totalSkillHits = primaryHits + secondaryHits;
 
   // Primary skills score (70 pts)
@@ -266,22 +320,18 @@ function scoreCandidate(candidate, job) {
   };
 }
 
-app.post('/api/jobs', (req, res) => {
+app.post('/api/jobs', async (req, res) => {
   try {
-    const data  = readData();
-    const jobId = req.body.jobPositionId && req.body.jobPositionId.trim()
-      ? req.body.jobPositionId.trim()
-      : (() => {
-          const nums = data.jobs.map(j => parseInt(j.id.match(/\d+/)?.[0] ?? 0));
-          return `ZR_${Math.max(0, ...nums) + 1}_JOB`;
-        })();
+    let jobId = req.body.jobPositionId?.trim();
+    if (!jobId) {
+      const jobs = await Job.find({}, { id: 1, _id: 0 }).lean();
+      const nums = jobs.map(j => parseInt((j.id || '').match(/\d+/)?.[0] ?? 0));
+      jobId = `ZR_${Math.max(0, ...nums) + 1}_JOB`;
+    }
     const newJob = { id: jobId, ...req.body, status: req.body.status || 'Active', candidates: [] };
-    data.jobs.unshift(newJob);
-    writeData(data);
-    res.status(201).json(newJob);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const saved  = await new Job(newJob).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Parse "8 yrs", "5 Years", "10 years", "7 yr", "3" → number (null if unparseable)
@@ -291,34 +341,33 @@ function parseExpYrs(str) {
   return m ? parseFloat(m[1]) : null;
 }
 
-app.get('/api/jobs/:id/candidates/match', (req, res) => {
+app.get('/api/jobs/:id/candidates/match', async (req, res) => {
   try {
-    const data = readData();
-    const job  = data.jobs.find(j => j.id === req.params.id);
+    const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
     if (!job) return res.status(404).json({ error: 'Job not found' });
 
-    const expMin = parseFloat(job.experienceMin) || 0;
-    const expMax = job.experienceMax ? parseFloat(job.experienceMax) : Infinity;
+    const expMin      = parseFloat(job.experienceMin) || 0;
+    const expMax      = job.experienceMax ? parseFloat(job.experienceMax) : Infinity;
     const hasExpFilter = !!(job.experienceMin || job.experienceMax);
 
-    const candidates = readCandidates();
+    const candidates = await Candidate.find({}, PROJ).lean();
 
     const scored = candidates
-      // ── Step 1: Experience gate — must fall within JD min/max ─────────────
+      // ── Step 1: Experience gate ───────────────────────────────────
       .filter(c => {
         if (!hasExpFilter) return true;
         const yrs = parseExpYrs(c.experience);
         if (yrs === null) return false;
         return yrs >= expMin && yrs <= expMax;
       })
-      // ── Step 2: Score against JD primary + secondary skills ───────────────
+      // ── Step 2: Score against JD primary + secondary skills ───────
       .map(c => {
         const meta = scoreCandidate(c, job);
         return { ...c, matchScore: meta.matchScore, _meta: meta };
       })
-      // ── Step 3: Skill gate — at least one JD skill (primary or secondary) must match
+      // ── Step 3: Skill gate — at least one JD skill must match ─────
       .filter(c => c._meta.totalSkillHits > 0)
-      // ── Step 4: Sort: overall score → primary hits → secondary hits ────────
+      // ── Step 4: Sort ──────────────────────────────────────────────
       .sort((a, b) => {
         if (b.matchScore              !== a.matchScore)              return b.matchScore              - a.matchScore;
         if (b._meta.primaryHits       !== a._meta.primaryHits)       return b._meta.primaryHits       - a._meta.primaryHits;
@@ -327,54 +376,40 @@ app.get('/api/jobs/:id/candidates/match', (req, res) => {
       .map(({ _meta, ...c }) => c);
 
     res.json(scored);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/jobs/:id', (req, res) => {
+app.put('/api/jobs/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.jobs.findIndex(j => j.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Job not found' });
-    data.jobs[idx] = { ...data.jobs[idx], ...req.body, id: data.jobs[idx].id };
-    writeData(data);
-    res.json(data.jobs[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
+    if (!job) return res.status(404).json({ error: 'Job not found' });
+    const { id: _keep, ...updates } = req.body;
+    await Job.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await Job.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/jobs/:id', (req, res) => {
+app.delete('/api/jobs/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.jobs.findIndex(j => j.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Job not found' });
-    const [deleted] = data.jobs.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
+    if (!job) return res.status(404).json({ error: 'Job not found' });
+    await Job.deleteOne({ id: req.params.id });
+    res.json(job);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/jobs/:id/pipeline', (req, res) => {
+app.put('/api/jobs/:id/pipeline', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.jobs.findIndex(j => j.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Job not found' });
+    const job = await Job.findOne({ id: req.params.id }, PROJ).lean();
+    if (!job) return res.status(404).json({ error: 'Job not found' });
 
-    const job     = data.jobs[idx];
     const pipeline = req.body.pipeline || {};
 
-    // ── Enforce experience gate on Map Candidates only ──────────────────────
-    // Candidates in later stages (Sourced onward) were moved there deliberately
-    // by a recruiter, so we never retroactively strip them.
+    // Enforce experience gate on Map Candidates only
     if (pipeline['Map Candidates']) {
-      const expMin = parseFloat(job.experienceMin) || 0;
-      const expMax = job.experienceMax ? parseFloat(job.experienceMax) : Infinity;
+      const expMin      = parseFloat(job.experienceMin) || 0;
+      const expMax      = job.experienceMax ? parseFloat(job.experienceMax) : Infinity;
       const hasExpFilter = !!(job.experienceMin || job.experienceMax);
-
       if (hasExpFilter) {
         pipeline['Map Candidates'] = pipeline['Map Candidates'].filter(c => {
           const yrs = parseExpYrs(c.experience);
@@ -384,471 +419,422 @@ app.put('/api/jobs/:id/pipeline', (req, res) => {
       }
     }
 
-    data.jobs[idx].pipeline = pipeline;
+    const jobSetOp = { $set: { pipeline } };
     if (req.body.historyEntry) {
-      if (!data.jobs[idx].stageHistory) data.jobs[idx].stageHistory = [];
-      data.jobs[idx].stageHistory.push(req.body.historyEntry);
+      jobSetOp.$push = { stageHistory: req.body.historyEntry };
     }
-    writeData(data);
+    await Job.updateOne({ id: req.params.id }, jobSetOp);
 
-    // Sync stage/status/subStatus back to candidates.json so Candidate List stays accurate.
-    const candidates = readCandidates();
-    let changed = false;
+    // Sync stage/status/subStatus back to candidates collection
     for (const tab of PIPELINE_TAB_ORDER) {
       for (const entry of (pipeline[tab] || [])) {
-        const ci = candidates.findIndex(c => String(c.id) === String(entry.id));
-        if (ci === -1) continue;
+        const cand = await Candidate.findOne({ id: String(entry.id) }, PROJ).lean();
+        if (!cand) continue;
         const newStage     = tab === 'Map Candidates' ? 'Sourced' : tab;
-        const newStatus    = entry.status    ?? candidates[ci].status;
-        const newSubStatus = entry.subStatus ?? candidates[ci].subStatus;
-        if (
-          candidates[ci].stage     !== newStage  ||
-          candidates[ci].status    !== newStatus  ||
-          candidates[ci].subStatus !== newSubStatus
-        ) {
-          candidates[ci].stage     = newStage;
-          candidates[ci].status    = newStatus;
-          candidates[ci].subStatus = newSubStatus;
-          changed = true;
+        const newStatus    = entry.status    ?? cand.status;
+        const newSubStatus = entry.subStatus ?? cand.subStatus;
+        if (cand.stage !== newStage || cand.status !== newStatus || cand.subStatus !== newSubStatus) {
+          await Candidate.updateOne(
+            { id: String(entry.id) },
+            { $set: { stage: newStage, status: newStatus, subStatus: newSubStatus } }
+          );
         }
       }
     }
-    if (changed) writeCandidates(candidates);
 
     res.json({ ok: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Candidates ────────────────────────────────────────────────
+// ── Candidates ────────────────────────────────────────────────────
 
-app.get('/api/candidates/list', (req, res) => {
-  const page   = parseInt(req.query.page)   || 1;
-  const size   = parseInt(req.query.size)   || 10;
-  const search = (req.query.search  || '').toLowerCase();
-  const source = req.query.source || '';
-  const rating = req.query.rating || '';
-  const stage  = req.query.stage  || '';
-  const status = req.query.status || '';
-
-  const pipelineMap = buildPipelineStageMap();
-  let list = readCandidates().map(c => {
-    const p = pipelineMap[String(c.id)];
-    return p ? { ...c, stage: p.stage, status: p.status, subStatus: p.subStatus } : c;
-  });
-
-  list = list.filter(c => {
-    if (source && c.source !== source)           return false;
-    if (rating && c.rating !== parseInt(rating)) return false;
-    if (stage  && c.stage  !== stage)            return false;
-    if (status && c.status !== status)           return false;
-    if (search && !Object.values(c).some(v => String(v).toLowerCase().includes(search))) return false;
-    return true;
-  });
-
-  const total = list.length;
-  const start = (page - 1) * size;
-  res.json({ total, page, size, data: list.slice(start, start + size) });
-});
-
-app.get('/api/candidates/list/:id', (req, res) => {
-  const pipelineMap = buildPipelineStageMap();
-  const raw = readCandidates().find(c => String(c.id) === String(req.params.id));
-  if (!raw) return res.status(404).json({ error: 'Candidate not found' });
-  const p = pipelineMap[String(raw.id)];
-  res.json(p ? { ...raw, stage: p.stage, status: p.status, subStatus: p.subStatus } : raw);
-});
-
-app.post('/api/candidates', (req, res) => {
+app.get('/api/candidates/list', async (req, res) => {
   try {
-    const list         = readCandidates();
-    const newCandidate = { ...req.body, id: `C${Date.now()}`, modified: new Date().toISOString().split('T')[0] };
-    list.unshift(newCandidate);
-    writeCandidates(list);
-    res.status(201).json(newCandidate);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const page   = parseInt(req.query.page)  || 1;
+    const size   = parseInt(req.query.size)  || 10;
+    const search = (req.query.search || '').toLowerCase();
+    const source = req.query.source || '';
+    const rating = req.query.rating || '';
+    const stage  = req.query.stage  || '';
+    const status = req.query.status || '';
+
+    const pipelineMap = await buildPipelineStageMap();
+    let list = (await Candidate.find({}, PROJ).lean()).map(c => {
+      const p = pipelineMap[String(c.id)];
+      return p ? { ...c, stage: p.stage, status: p.status, subStatus: p.subStatus } : c;
+    });
+
+    list = list.filter(c => {
+      if (source && c.source !== source)           return false;
+      if (rating && c.rating !== parseInt(rating)) return false;
+      if (stage  && c.stage  !== stage)            return false;
+      if (status && c.status !== status)           return false;
+      if (search && !Object.values(c).some(v => String(v).toLowerCase().includes(search))) return false;
+      return true;
+    });
+
+    const total = list.length;
+    const start = (page - 1) * size;
+    res.json({ total, page, size, data: list.slice(start, start + size) });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/candidates/:id', (req, res) => {
+app.get('/api/candidates/list/:id', async (req, res) => {
   try {
-    const list = readCandidates();
-    const idx  = list.findIndex(c => String(c.id) === String(req.params.id));
-    if (idx === -1) return res.status(404).json({ error: 'Candidate not found' });
-    list[idx] = { ...list[idx], ...req.body, id: list[idx].id, modified: new Date().toISOString().split('T')[0] };
-    writeCandidates(list);
-    res.json(list[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const pipelineMap = await buildPipelineStageMap();
+    const raw = await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean();
+    if (!raw) return res.status(404).json({ error: 'Candidate not found' });
+    const p = pipelineMap[String(raw.id)];
+    res.json(p ? { ...raw, stage: p.stage, status: p.status, subStatus: p.subStatus } : raw);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/candidates/:id', (req, res) => {
+app.post('/api/candidates', async (req, res) => {
   try {
-    const list = readCandidates();
-    const idx  = list.findIndex(c => String(c.id) === String(req.params.id));
-    if (idx === -1) return res.status(404).json({ error: 'Candidate not found' });
-    const [deleted] = list.splice(idx, 1);
-    writeCandidates(list);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const newCandidate = {
+      ...req.body,
+      id:       `C${Date.now()}`,
+      modified: new Date().toISOString().split('T')[0],
+    };
+    const saved = await new Candidate(newCandidate).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.put('/api/candidates/:id', async (req, res) => {
+  try {
+    const cand = await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean();
+    if (!cand) return res.status(404).json({ error: 'Candidate not found' });
+    const { id: _keep, ...updates } = req.body;
+    await Candidate.updateOne(
+      { id: String(req.params.id) },
+      { $set: { ...updates, modified: new Date().toISOString().split('T')[0] } }
+    );
+    res.json(await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/candidates/:id', async (req, res) => {
+  try {
+    const cand = await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean();
+    if (!cand) return res.status(404).json({ error: 'Candidate not found' });
+    await Candidate.deleteOne({ id: String(req.params.id) });
+    res.json(cand);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Legacy dashboard widget endpoint
-app.get('/api/candidates', (req, res) => {
-  const list  = readCandidates();
-  const page  = parseInt(req.query.page) || 1;
-  const size  = parseInt(req.query.size) || 7;
-  const start = (page - 1) * size;
-  res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
-});
-
-// ── Clients ───────────────────────────────────────────────────
-
-app.get('/api/clients', (req, res) => {
-  const { search = '', status = '' } = req.query;
-  let list = readData().clients;
-  if (status) list = list.filter(c => c.status === status);
-  if (search) {
-    const q = search.toLowerCase();
-    list = list.filter(c =>
-      (c.clientName   || '').toLowerCase().includes(q) ||
-      (c.companyName  || '').toLowerCase().includes(q) ||
-      (c.industry     || '').toLowerCase().includes(q) ||
-      (c.contactPerson|| '').toLowerCase().includes(q)
-    );
-  }
-  res.json(list);
-});
-
-app.get('/api/clients/:id', (req, res) => {
-  const client = readData().clients.find(c => c.id === req.params.id);
-  if (!client) return res.status(404).json({ error: 'Client not found' });
-  res.json(client);
-});
-
-app.post('/api/clients', (req, res) => {
+app.get('/api/candidates', async (req, res) => {
   try {
-    const data      = readData();
-    const id        = nextId('CL', data.clients);
+    const page  = parseInt(req.query.page) || 1;
+    const size  = parseInt(req.query.size) || 7;
+    const list  = await Candidate.find({}, PROJ).lean();
+    const start = (page - 1) * size;
+    res.json({ total: list.length, page, size, data: list.slice(start, start + size) });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── Clients ───────────────────────────────────────────────────────
+
+app.get('/api/clients', async (req, res) => {
+  try {
+    const { search = '', status = '' } = req.query;
+    let list = await Client.find({}, PROJ).lean();
+    if (status) list = list.filter(c => c.status === status);
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(c =>
+        (c.clientName    || '').toLowerCase().includes(q) ||
+        (c.companyName   || '').toLowerCase().includes(q) ||
+        (c.industry      || '').toLowerCase().includes(q) ||
+        (c.contactPerson || '').toLowerCase().includes(q)
+      );
+    }
+    res.json(list);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/clients/:id', async (req, res) => {
+  try {
+    const client = await Client.findOne({ id: req.params.id }, PROJ).lean();
+    if (!client) return res.status(404).json({ error: 'Client not found' });
+    res.json(client);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/clients', async (req, res) => {
+  try {
+    const id        = await nextId('CL', Client);
     const newClient = { id, ...req.body };
-    data.clients.push(newClient);
-    writeData(data);
-    res.status(201).json(newClient);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const saved     = await new Client(newClient).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/clients/:id', (req, res) => {
+app.put('/api/clients/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.clients.findIndex(c => c.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Client not found' });
-    data.clients[idx] = { ...data.clients[idx], ...req.body, id: data.clients[idx].id };
-    writeData(data);
-    res.json(data.clients[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const client = await Client.findOne({ id: req.params.id }, PROJ).lean();
+    if (!client) return res.status(404).json({ error: 'Client not found' });
+    const { id: _keep, ...updates } = req.body;
+    await Client.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await Client.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/clients/:id', (req, res) => {
+app.delete('/api/clients/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.clients.findIndex(c => c.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Client not found' });
-    const [deleted] = data.clients.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const client = await Client.findOne({ id: req.params.id }, PROJ).lean();
+    if (!client) return res.status(404).json({ error: 'Client not found' });
+    await Client.deleteOne({ id: req.params.id });
+    res.json(client);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Users ─────────────────────────────────────────────────────
+// ── Users ─────────────────────────────────────────────────────────
 
-app.get('/api/users', (req, res) => {
-  const { search = '', role = '', department = '', status = '' } = req.query;
-  let list = readData().users;
-  if (status)     list = list.filter(u => u.status === status);
-  if (role)       list = list.filter(u => u.role   === role);
-  if (department) list = list.filter(u => u.department === department);
-  if (search) {
-    const q = search.toLowerCase();
-    list = list.filter(u =>
-      (u.name       || '').toLowerCase().includes(q) ||
-      (u.email      || '').toLowerCase().includes(q) ||
-      (u.role       || '').toLowerCase().includes(q) ||
-      (u.department || '').toLowerCase().includes(q)
-    );
-  }
-  res.json(list);
-});
-
-app.get('/api/users/meta/roles', (req, res) => {
-  const users = readData().users;
-  res.json([...new Set(users.map(u => u.role).filter(Boolean))].sort());
-});
-
-app.get('/api/users/meta/departments', (req, res) => {
-  const users = readData().users;
-  res.json([...new Set(users.map(u => u.department).filter(Boolean))].sort());
-});
-
-app.get('/api/users/:id', (req, res) => {
-  const user = readData().users.find(u => u.id === req.params.id);
-  if (!user) return res.status(404).json({ error: 'User not found' });
-  res.json(user);
-});
-
-app.post('/api/users', (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
-    const data    = readData();
-    const nums    = data.users.map(u => parseInt((u.employeeId || '').replace(/\D/g, '')) || 0);
-    const empNum  = Math.max(0, ...nums) + 1;
+    const { search = '', role = '', department = '', status = '' } = req.query;
+    let list = await User.find({}, PROJ).lean();
+    if (status)     list = list.filter(u => u.status === status);
+    if (role)       list = list.filter(u => u.role   === role);
+    if (department) list = list.filter(u => u.department === department);
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(u =>
+        (u.name       || '').toLowerCase().includes(q) ||
+        (u.email      || '').toLowerCase().includes(q) ||
+        (u.role       || '').toLowerCase().includes(q) ||
+        (u.department || '').toLowerCase().includes(q)
+      );
+    }
+    res.json(list);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/users/meta/roles', async (req, res) => {
+  try {
+    const users = await User.find({}, { role: 1, _id: 0 }).lean();
+    res.json([...new Set(users.map(u => u.role).filter(Boolean))].sort());
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/users/meta/departments', async (req, res) => {
+  try {
+    const users = await User.find({}, { department: 1, _id: 0 }).lean();
+    res.json([...new Set(users.map(u => u.department).filter(Boolean))].sort());
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const user = await User.findOne({ id: req.params.id }, PROJ).lean();
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json(user);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const existing = await User.find({}, { id: 1, employeeId: 1, _id: 0 }).lean();
+    const idNum  = Math.max(0, ...existing.map(u => parseInt((u.id         || '').replace(/\D/g, '')) || 0)) + 1;
+    const empNum = Math.max(0, ...existing.map(u => parseInt((u.employeeId || '').replace(/\D/g, '')) || 0)) + 1;
     const newUser = {
       ...req.body,
-      id:         nextId('U', data.users),
+      id:         `U${String(idNum).padStart(3, '0')}`,
       employeeId: `EMP${String(empNum).padStart(3, '0')}`,
     };
-    data.users.push(newUser);
-    writeData(data);
-    res.status(201).json(newUser);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const saved = await new User(newUser).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/users/:id', (req, res) => {
+app.put('/api/users/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.users.findIndex(u => u.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'User not found' });
-    data.users[idx] = { ...data.users[idx], ...req.body, id: data.users[idx].id, employeeId: data.users[idx].employeeId };
-    writeData(data);
-    res.json(data.users[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const user = await User.findOne({ id: req.params.id }, PROJ).lean();
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    // Preserve id and employeeId — never overwrite from request body
+    const { id: _id, employeeId: _eid, ...updates } = req.body;
+    await User.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await User.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/users/:id', (req, res) => {
+app.delete('/api/users/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.users.findIndex(u => u.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'User not found' });
-    const [deleted] = data.users.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const user = await User.findOne({ id: req.params.id }, PROJ).lean();
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    await User.deleteOne({ id: req.params.id });
+    res.json(user);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Interviews ────────────────────────────────────────────────
+// ── Interviews ────────────────────────────────────────────────────
 
-app.get('/api/interviews', (req, res) => {
-  const { search = '', role = '', type = '', status = '', dateFrom = '', dateTo = '' } = req.query;
-  let list = readData().interviews;
-  if (status) list = list.filter(i => i.status === status);
-  if (role)   list = list.filter(i => (i.role || '').toLowerCase() === role.toLowerCase());
-  if (type)   list = list.filter(i => i.interviewType === type);
-  if (search) {
-    const q = search.toLowerCase();
-    list = list.filter(i =>
-      (i.candidateName || '').toLowerCase().includes(q) ||
-      (i.role          || '').toLowerCase().includes(q) ||
-      (i.company       || '').toLowerCase().includes(q)
-    );
-  }
-  res.json(list);
-});
-
-app.get('/api/interviews/:id', (req, res) => {
-  const interview = readData().interviews.find(i => i.id === req.params.id);
-  if (!interview) return res.status(404).json({ error: 'Interview not found' });
-  res.json(interview);
-});
-
-app.post('/api/interviews', (req, res) => {
+app.get('/api/interviews', async (req, res) => {
   try {
-    const data         = readData();
-    const id           = nextId('IV', data.interviews);
+    const { search = '', role = '', type = '', status = '' } = req.query;
+    let list = await Interview.find({}, PROJ).lean();
+    if (status) list = list.filter(i => i.status === status);
+    if (role)   list = list.filter(i => (i.role || '').toLowerCase() === role.toLowerCase());
+    if (type)   list = list.filter(i => i.interviewType === type);
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(i =>
+        (i.candidateName || '').toLowerCase().includes(q) ||
+        (i.role          || '').toLowerCase().includes(q) ||
+        (i.company       || '').toLowerCase().includes(q)
+      );
+    }
+    res.json(list);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/interviews/:id', async (req, res) => {
+  try {
+    const interview = await Interview.findOne({ id: req.params.id }, PROJ).lean();
+    if (!interview) return res.status(404).json({ error: 'Interview not found' });
+    res.json(interview);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/interviews', async (req, res) => {
+  try {
+    const id           = await nextId('IV', Interview);
     const newInterview = { id, ...req.body };
-    data.interviews.push(newInterview);
-    writeData(data);
-    res.status(201).json(newInterview);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const saved        = await new Interview(newInterview).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/interviews/:id', (req, res) => {
+app.put('/api/interviews/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviews.findIndex(i => i.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interview not found' });
-    data.interviews[idx] = { ...data.interviews[idx], ...req.body, id: data.interviews[idx].id };
-    writeData(data);
-    res.json(data.interviews[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const interview = await Interview.findOne({ id: req.params.id }, PROJ).lean();
+    if (!interview) return res.status(404).json({ error: 'Interview not found' });
+    const { id: _keep, ...updates } = req.body;
+    await Interview.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await Interview.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/interviews/:id', (req, res) => {
+app.delete('/api/interviews/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviews.findIndex(i => i.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interview not found' });
-    const [deleted] = data.interviews.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const interview = await Interview.findOne({ id: req.params.id }, PROJ).lean();
+    if (!interview) return res.status(404).json({ error: 'Interview not found' });
+    await Interview.deleteOne({ id: req.params.id });
+    res.json(interview);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Interviewers ──────────────────────────────────────────────
+// ── Interviewers ──────────────────────────────────────────────────
 
-app.get('/api/interviewers', (req, res) => {
-  const { search = '', skill = '', available = '' } = req.query;
-  let list = readData().interviewers;
-  if (available === 'true') list = list.filter(i => i.available);
-  if (skill)  list = list.filter(i => i.primarySkill === skill || (i.skills || []).includes(skill));
-  if (search) {
-    const q = search.toLowerCase();
-    list = list.filter(i =>
-      (i.name        || '').toLowerCase().includes(q) ||
-      (i.email       || '').toLowerCase().includes(q) ||
-      (i.primarySkill|| '').toLowerCase().includes(q)
-    );
-  }
-  res.json(list);
-});
-
-app.get('/api/interviewers/:id', (req, res) => {
-  const iv = readData().interviewers.find(i => i.id === req.params.id);
-  if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
-  res.json(iv);
-});
-
-app.post('/api/interviewers', (req, res) => {
+app.get('/api/interviewers', async (req, res) => {
   try {
-    const data = readData();
-    const id   = nextId('IV', data.interviewers);
-    const item = { id, ...req.body };
-    data.interviewers.push(item);
-    writeData(data);
-    res.status(201).json(item);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const { search = '', skill = '', available = '' } = req.query;
+    let list = await Interviewer.find({}, PROJ).lean();
+    if (available === 'true') list = list.filter(i => i.available);
+    if (skill)  list = list.filter(i => i.primarySkill === skill || (i.skills || []).includes(skill));
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(i =>
+        (i.name         || '').toLowerCase().includes(q) ||
+        (i.email        || '').toLowerCase().includes(q) ||
+        (i.primarySkill || '').toLowerCase().includes(q)
+      );
+    }
+    res.json(list);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/interviewers/:id', (req, res) => {
+app.get('/api/interviewers/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviewers.findIndex(i => i.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interviewer not found' });
-    data.interviewers[idx] = { ...data.interviewers[idx], ...req.body, id: data.interviewers[idx].id };
-    writeData(data);
-    res.json(data.interviewers[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const iv = await Interviewer.findOne({ id: req.params.id }, PROJ).lean();
+    if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
+    res.json(iv);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/interviewers/:id', (req, res) => {
+app.post('/api/interviewers', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviewers.findIndex(i => i.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interviewer not found' });
-    const [deleted] = data.interviewers.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const id    = await nextId('IV', Interviewer);
+    const item  = { id, ...req.body };
+    const saved = await new Interviewer(item).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Interview Groups ──────────────────────────────────────────
-
-app.get('/api/interview-groups', (req, res) => {
-  res.json(readData().interviewGroups);
-});
-
-app.get('/api/interview-groups/:id', (req, res) => {
-  const group = readData().interviewGroups.find(g => g.id === req.params.id);
-  if (!group) return res.status(404).json({ error: 'Interview group not found' });
-  res.json(group);
-});
-
-app.post('/api/interview-groups', (req, res) => {
+app.put('/api/interviewers/:id', async (req, res) => {
   try {
-    const data = readData();
-    const id   = nextId('IG', data.interviewGroups);
-    const item = { id, createdDate: new Date().toISOString().split('T')[0], ...req.body };
-    data.interviewGroups.push(item);
-    writeData(data);
-    res.status(201).json(item);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const iv = await Interviewer.findOne({ id: req.params.id }, PROJ).lean();
+    if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
+    const { id: _keep, ...updates } = req.body;
+    await Interviewer.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await Interviewer.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/interview-groups/:id', (req, res) => {
+app.delete('/api/interviewers/:id', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviewGroups.findIndex(g => g.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interview group not found' });
-    data.interviewGroups[idx] = { ...data.interviewGroups[idx], ...req.body, id: data.interviewGroups[idx].id };
-    writeData(data);
-    res.json(data.interviewGroups[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const iv = await Interviewer.findOne({ id: req.params.id }, PROJ).lean();
+    if (!iv) return res.status(404).json({ error: 'Interviewer not found' });
+    await Interviewer.deleteOne({ id: req.params.id });
+    res.json(iv);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/interview-groups/:id', (req, res) => {
+// ── Interview Groups ──────────────────────────────────────────────
+
+app.get('/api/interview-groups', async (req, res) => {
   try {
-    const data = readData();
-    const idx  = data.interviewGroups.findIndex(g => g.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Interview group not found' });
-    const [deleted] = data.interviewGroups.splice(idx, 1);
-    writeData(data);
-    res.json(deleted);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    res.json(await InterviewGroup.find({}, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Recruiters ────────────────────────────────────────────────
-
-app.get('/api/recruiters', (req, res) => {
-  res.json(readData().recruiters);
-});
-
-// ── Resume Parsing (code-based – no AI, no tokens) ────────────
-
-// Load master skills once from sampledata.json
-let _masterSkills = null;
-function getMasterSkills() {
-  if (_masterSkills) return _masterSkills;
+app.get('/api/interview-groups/:id', async (req, res) => {
   try {
-    const d = readData();
-    _masterSkills = {
-      technical: d.masters?.skills?.technical || [],
-      soft:      d.masters?.skills?.soft      || [],
-    };
-  } catch { _masterSkills = { technical: [], soft: [] }; }
-  return _masterSkills;
-}
+    const group = await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean();
+    if (!group) return res.status(404).json({ error: 'Interview group not found' });
+    res.json(group);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/interview-groups', async (req, res) => {
+  try {
+    const id    = await nextId('IG', InterviewGroup);
+    const item  = { id, createdDate: new Date().toISOString().split('T')[0], ...req.body };
+    const saved = await new InterviewGroup(item).save();
+    res.status(201).json(stripMeta(saved));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.put('/api/interview-groups/:id', async (req, res) => {
+  try {
+    const group = await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean();
+    if (!group) return res.status(404).json({ error: 'Interview group not found' });
+    const { id: _keep, ...updates } = req.body;
+    await InterviewGroup.updateOne({ id: req.params.id }, { $set: updates });
+    res.json(await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/interview-groups/:id', async (req, res) => {
+  try {
+    const group = await InterviewGroup.findOne({ id: req.params.id }, PROJ).lean();
+    if (!group) return res.status(404).json({ error: 'Interview group not found' });
+    await InterviewGroup.deleteOne({ id: req.params.id });
+    res.json(group);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── Recruiters ────────────────────────────────────────────────────
+
+app.get('/api/recruiters', async (req, res) => {
+  try {
+    res.json(await Recruiter.find({}, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── Resume Parsing ────────────────────────────────────────────────
 
 // Build a word-boundary-aware, case-insensitive regex for a skill name.
 // Longer skills are tested first so "Spring Boot" matches before "Spring".
@@ -1703,10 +1689,10 @@ app.post('/api/resume/parse', uploadToDisk.single('resume'), async (req, res) =>
   }
 });
 
-app.use('/uploads/resumes', express.static(UPLOADS_DIR));
+app.use('/uploads/resumes',   express.static(UPLOADS_DIR));
 app.use('/uploads/documents', express.static(UPLOADS_DOCS_DIR));
 
-// ── Candidate Portal ──────────────────────────────────────────
+// ── Candidate Portal ──────────────────────────────────────────────
 
 const docStorage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS_DOCS_DIR),
@@ -1715,49 +1701,40 @@ const docStorage = multer.diskStorage({
 const uploadDoc = multer({ storage: docStorage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 // Create portal account when candidate moves to Pre-Screening
-app.post('/api/candidate-portal/create-account', (req, res) => {
+app.post('/api/candidate-portal/create-account', async (req, res) => {
   try {
     const { candidateId } = req.body;
     if (!candidateId) return res.status(400).json({ error: 'candidateId required' });
 
-    const portalUsers = readPortalUsers();
-    const existing    = portalUsers.find(u => u.candidateId === String(candidateId));
-    if (existing) {
-      return res.json({ userId: existing.userId, alreadyExists: true });
-    }
+    const existing = await PortalUser.findOne({ candidateId: String(candidateId) }, PROJ).lean();
+    if (existing) return res.json({ userId: existing.userId, alreadyExists: true });
 
-    const candidates = readCandidates();
-    const candidate  = candidates.find(c => String(c.id) === String(candidateId));
+    const candidate = await Candidate.findOne({ id: String(candidateId) }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
 
     const userId   = `candidate_${candidateId}`;
     const password = generatePassword();
-
-    portalUsers.push({
+    await new PortalUser({
       userId,
       candidateId: String(candidateId),
       password,
-      email: candidate.email || '',
-      phone: candidate.phone || '',
+      email:     candidate.email || '',
+      phone:     candidate.phone || '',
       createdAt: new Date().toISOString(),
-    });
-    writePortalUsers(portalUsers);
+    }).save();
 
-    appendAuditTrail(candidateId, 'Candidate Portal Account Created', 'System');
-    createNotification('account_created', String(candidateId),
+    await appendAuditTrail(candidateId, 'Candidate Portal Account Created', 'System');
+    await createNotification('account_created', String(candidateId),
       `Portal account created for candidate ${candidateId}. Credentials sent via email/SMS.`);
 
     res.json({ userId, password, email: candidate.email, phone: candidate.phone });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Get portal credentials for a candidate (recruiter view)
-app.get('/api/candidate-portal/credentials/:candidateId', (req, res) => {
+app.get('/api/candidate-portal/credentials/:candidateId', async (req, res) => {
   try {
-    const portalUsers = readPortalUsers();
-    const account = portalUsers.find(u => u.candidateId === String(req.params.candidateId));
+    const account = await PortalUser.findOne({ candidateId: String(req.params.candidateId) }, PROJ).lean();
     if (!account) return res.status(404).json({ error: 'No portal account found' });
     res.json({
       userId:    account.userId,
@@ -1766,46 +1743,39 @@ app.get('/api/candidate-portal/credentials/:candidateId', (req, res) => {
       phone:     account.phone,
       createdAt: account.createdAt,
     });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Candidate portal login
-app.post('/api/candidate-portal/login', (req, res) => {
+app.post('/api/candidate-portal/login', async (req, res) => {
   try {
     const { userId, password } = req.body;
-    const portalUsers = readPortalUsers();
-    const user = portalUsers.find(u => u.userId === userId && u.password === password);
+    const user = await PortalUser.findOne({ userId, password }, PROJ).lean();
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
 
-    const candidates = readCandidates();
-    const candidate  = candidates.find(c => String(c.id) === user.candidateId);
+    const candidate = await Candidate.findOne({ id: user.candidateId }, PROJ).lean();
 
-    appendAuditTrail(user.candidateId, 'Candidate Portal Login', 'Candidate');
+    await appendAuditTrail(user.candidateId, 'Candidate Portal Login', 'Candidate');
     const candidateName = candidate?.name || user.candidateId;
-    createNotification('candidate_login', user.candidateId,
+    await createNotification('candidate_login', user.candidateId,
       `${candidateName} logged into the candidate portal.`);
     res.json({ userId: user.userId, candidateId: user.candidateId, candidate });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Get candidate portal data
-app.get('/api/candidate-portal/me/:candidateId', (req, res) => {
+app.get('/api/candidate-portal/me/:candidateId', async (req, res) => {
   try {
-    const cid        = String(req.params.candidateId);
-    const candidates = readCandidates();
-    const candidate  = candidates.find(c => String(c.id) === cid);
+    const cid       = String(req.params.candidateId);
+    const candidate = await Candidate.findOne({ id: cid }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
 
     // The job pipeline is the source of truth for stage, status and subStatus.
-    // The standalone candidate record may hold stale values from before placement.
     const PIPELINE_STAGE_ORDER = ['Sourced', 'Pre-Screening', 'Assessment', 'Client Interview', 'Offer'];
     let pipelineEntry = null;
     let pipelineStage = null;
-    outer: for (const job of readData().jobs) {
+    const jobs = await Job.find({}, PROJ).lean();
+    outer: for (const job of jobs) {
       if (!job.pipeline) continue;
       for (const stage of PIPELINE_STAGE_ORDER) {
         const entry = (job.pipeline[stage] || []).find(c => String(c.id) === cid);
@@ -1813,266 +1783,222 @@ app.get('/api/candidate-portal/me/:candidateId', (req, res) => {
       }
     }
 
-    const docs = readDocuments().filter(d => d.candidateId === cid);
+    const docs = await Document.find({ candidateId: cid }, PROJ).lean();
     const overrides = pipelineStage ? {
       stage:     pipelineStage,
       status:    pipelineEntry.status    ?? candidate.status,
       subStatus: pipelineEntry.subStatus ?? candidate.subStatus,
     } : {};
     res.json({ candidate: { ...candidate, ...overrides }, documents: docs });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Upload identity document
-app.post('/api/candidate-portal/documents', uploadDoc.single('file'), (req, res) => {
+app.post('/api/candidate-portal/documents', uploadDoc.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
     const { candidateId, docType } = req.body;
     if (!candidateId || !docType) return res.status(400).json({ error: 'candidateId and docType required' });
 
-    const docs    = readDocuments();
-    const existing = docs.findIndex(d => d.candidateId === candidateId && d.docType === docType);
     const docEntry = {
-      id:          `DOC_${Date.now()}`,
+      id:           `DOC_${Date.now()}`,
       candidateId,
       docType,
-      fileName:    req.file.filename,
+      fileName:     req.file.filename,
       originalName: req.file.originalname,
-      filePath:    `/uploads/documents/${req.file.filename}`,
-      uploadedAt:  new Date().toISOString(),
-      status:      'Pending Verification',
-      comment:     '',
+      filePath:     `/uploads/documents/${req.file.filename}`,
+      uploadedAt:   new Date().toISOString(),
+      status:       'Pending Verification',
+      comment:      '',
     };
-    if (existing !== -1) docs[existing] = docEntry;
-    else docs.push(docEntry);
-    writeDocuments(docs);
+    // Upsert: replace existing doc of same type, or insert new
+    await Document.replaceOne({ candidateId, docType }, docEntry, { upsert: true });
+    await appendAuditTrail(candidateId, `Document Uploaded: ${docType}`, 'Candidate');
 
-    appendAuditTrail(candidateId, `Document Uploaded: ${docType}`, 'Candidate');
-
-    const allDocs = docs.filter(d => d.candidateId === candidateId);
-    // Notification fires when selfie + at least one identity document is present.
-    // Candidates may upload aadhaar, pan, or a generic id — any counts as identity proof.
+    const allDocs = await Document.find({ candidateId }, PROJ).lean();
     const IDENTITY_TYPES = ['aadhaar_front', 'pan_front', 'id_front'];
     const hasSelfie   = allDocs.some(d => d.docType === 'selfie');
     const hasIdentity = allDocs.some(d => IDENTITY_TYPES.includes(d.docType));
-    const allSubmitted = hasSelfie && hasIdentity;
-    if (allSubmitted) {
-      const candidates = readCandidates();
-      const cIdx = candidates.findIndex(c => String(c.id) === candidateId);
-      const candidateName = cIdx !== -1 ? (candidates[cIdx].name || candidateId) : candidateId;
-      const isReupload = cIdx !== -1 && candidates[cIdx].verificationStatus === 'Re-upload Required';
-      if (cIdx !== -1 && candidates[cIdx].verificationStatus !== 'Approved') {
-        candidates[cIdx].verificationStatus = 'Pending Verification';
-        writeCandidates(candidates);
+    if (hasSelfie && hasIdentity) {
+      const cand          = await Candidate.findOne({ id: candidateId }, PROJ).lean();
+      const candidateName = cand?.name || candidateId;
+      const isReupload    = cand?.verificationStatus === 'Re-upload Required';
+      if (cand && cand.verificationStatus !== 'Approved') {
+        await Candidate.updateOne({ id: candidateId }, { $set: { verificationStatus: 'Pending Verification' } });
       }
       const notifType = isReupload ? 'documents_resubmitted' : 'documents_submitted';
       const notifMsg  = isReupload
         ? `${candidateName} has re-submitted identity verification documents for review.`
         : `${candidateName} has submitted identity verification documents and is awaiting approval.`;
-      createNotification(notifType, candidateId, notifMsg);
-      appendAuditTrail(candidateId, isReupload ? 'Identity Documents Re-submitted' : 'Identity Documents Submitted', 'Candidate');
+      await createNotification(notifType, candidateId, notifMsg);
+      await appendAuditTrail(candidateId,
+        isReupload ? 'Identity Documents Re-submitted' : 'Identity Documents Submitted', 'Candidate');
     }
 
     res.status(201).json(docEntry);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Get documents for a candidate
-app.get('/api/candidate-portal/documents/:candidateId', (req, res) => {
+app.get('/api/candidate-portal/documents/:candidateId', async (req, res) => {
   try {
-    const docs = readDocuments().filter(d => d.candidateId === String(req.params.candidateId));
+    const docs = await Document.find({ candidateId: String(req.params.candidateId) }, PROJ).lean();
     res.json(docs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Admin: verify a document
-app.put('/api/candidate-portal/documents/:docId/verify', (req, res) => {
+app.put('/api/candidate-portal/documents/:docId/verify', async (req, res) => {
   try {
     const { action, comment, adminName } = req.body;
-    const docs = readDocuments();
-    const idx  = docs.findIndex(d => d.id === req.params.docId);
-    if (idx === -1) return res.status(404).json({ error: 'Document not found' });
+    const doc = await Document.findOne({ id: req.params.docId }, PROJ).lean();
+    if (!doc) return res.status(404).json({ error: 'Document not found' });
 
     const statusMap = {
-      approved:        'Approved',
-      rejected:        'Rejected',
+      approved:         'Approved',
+      rejected:         'Rejected',
       request_reupload: 'Re-upload Required',
     };
-    docs[idx].status     = statusMap[action] || action;
-    docs[idx].comment    = comment || '';
-    docs[idx].reviewedAt = new Date().toISOString();
-    docs[idx].reviewedBy = adminName || 'Admin';
-    writeDocuments(docs);
-    res.json(docs[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    await Document.updateOne({ id: req.params.docId }, {
+      $set: {
+        status:     statusMap[action] || action,
+        comment:    comment || '',
+        reviewedAt: new Date().toISOString(),
+        reviewedBy: adminName || 'Admin',
+      },
+    });
+    res.json(await Document.findOne({ id: req.params.docId }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Admin: set overall verification status for a candidate
-app.put('/api/candidate-portal/verification/:candidateId', (req, res) => {
+app.put('/api/candidate-portal/verification/:candidateId', async (req, res) => {
   try {
     const { status, comment, adminName } = req.body;
-    const candidates = readCandidates();
-    const idx = candidates.findIndex(c => String(c.id) === String(req.params.candidateId));
-    if (idx === -1) return res.status(404).json({ error: 'Candidate not found' });
+    const cand = await Candidate.findOne({ id: String(req.params.candidateId) }, PROJ).lean();
+    if (!cand) return res.status(404).json({ error: 'Candidate not found' });
 
-    candidates[idx].verificationStatus  = status;
-    candidates[idx].verificationComment = comment || '';
-    candidates[idx].verifiedBy          = adminName || 'Admin';
-    candidates[idx].verifiedAt          = new Date().toISOString();
-    writeCandidates(candidates);
+    await Candidate.updateOne({ id: String(req.params.candidateId) }, {
+      $set: {
+        verificationStatus:  status,
+        verificationComment: comment || '',
+        verifiedBy:          adminName || 'Admin',
+        verifiedAt:          new Date().toISOString(),
+      },
+    });
 
     const actionMap = {
-      'Approved':          'Verification Approved',
-      'Rejected':          'Verification Rejected',
+      'Approved':           'Verification Approved',
+      'Rejected':           'Verification Rejected',
       'Re-upload Required': 'Re-upload Requested',
     };
-    appendAuditTrail(req.params.candidateId, actionMap[status] || status, adminName || 'Admin');
+    await appendAuditTrail(req.params.candidateId, actionMap[status] || status, adminName || 'Admin');
 
     if (status === 'Rejected' || status === 'Re-upload Required') {
-      createNotification('verification_update', String(req.params.candidateId),
+      await createNotification('verification_update', String(req.params.candidateId),
         `Verification for candidate ${req.params.candidateId} was updated to: ${status}. ${comment || ''}`);
     }
 
-    res.json(candidates[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    res.json(await Candidate.findOne({ id: String(req.params.candidateId) }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Save pre-screening interview schedule and create portal account
-app.post('/api/candidate-portal/schedule-interview', (req, res) => {
+app.post('/api/candidate-portal/schedule-interview', async (req, res) => {
   try {
     const { candidateId, jobId, scheduleMode, dateTime, teamId, teamName, comments, platform, meetingLink, meetingPassword } = req.body;
     if (!candidateId || !dateTime || !teamId || !platform || !meetingLink) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Ensure portal account exists (idempotent)
-    let portalUsers = readPortalUsers();
-    let existing    = portalUsers.find(u => String(u.candidateId) === String(candidateId));
+    let existing = await PortalUser.findOne({ candidateId: String(candidateId) }, PROJ).lean();
     let accountCreated = false;
     let userId, tempPassword;
 
     if (!existing) {
-      const candidates = readCandidates();
-      const candidate  = candidates.find(c => String(c.id) === String(candidateId));
+      const candidate = await Candidate.findOne({ id: String(candidateId) }, PROJ).lean();
       userId       = `USR${candidateId}`;
       tempPassword = generatePassword();
-      existing = {
+      await new PortalUser({
         candidateId: String(candidateId),
         userId,
         password:    tempPassword,
         createdAt:   new Date().toISOString(),
-        name:        candidate?.name || '',
+        name:        candidate?.name  || '',
         email:       candidate?.email || '',
-      };
-      portalUsers.push(existing);
-      writePortalUsers(portalUsers);
+      }).save();
       accountCreated = true;
-      appendAuditTrail(candidateId, 'Portal account created', 'System');
+      await appendAuditTrail(candidateId, 'Portal account created', 'System');
     } else {
       userId       = existing.userId;
       tempPassword = existing.password;
     }
 
-    // Save interview schedule on candidate record
-    const candidates = readCandidates();
-    const idx        = candidates.findIndex(c => String(c.id) === String(candidateId));
-    if (idx !== -1) {
-      candidates[idx].interviewSchedule = {
-        jobId:           jobId || null,
-        scheduleMode:    scheduleMode || 'manual',
-        scheduledAt:     dateTime,
-        teamId:          teamId,
-        team:            teamName || teamId,
-        comments:        comments || '',
-        platform,
-        meetingLink,
-        meetingPassword: meetingPassword || '',
-        createdAt:       new Date().toISOString(),
-      };
-      writeCandidates(candidates);
-      appendAuditTrail(candidateId, `Interview scheduled via ${platform} on ${dateTime} with ${teamName || teamId}`, 'Admin');
-    }
-
-    // Notify candidate
-    createNotification('account_created', String(candidateId),
+    const interviewSchedule = {
+      jobId:           jobId || null,
+      scheduleMode:    scheduleMode || 'manual',
+      scheduledAt:     dateTime,
+      teamId,
+      team:            teamName || teamId,
+      comments:        comments || '',
+      platform,
+      meetingLink,
+      meetingPassword: meetingPassword || '',
+      createdAt:       new Date().toISOString(),
+    };
+    await Candidate.updateOne({ id: String(candidateId) }, { $set: { interviewSchedule } });
+    await appendAuditTrail(candidateId,
+      `Interview scheduled via ${platform} on ${dateTime} with ${teamName || teamId}`, 'Admin');
+    await createNotification('account_created', String(candidateId),
       `Portal account created for candidate ${candidateId}. Interview scheduled on ${dateTime} via ${platform}.`);
 
-    res.json({
-      ok:            true,
-      userId,
-      password:      tempPassword,
-      accountCreated,
-      interviewSchedule: candidates[idx]?.interviewSchedule,
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const updated = await Candidate.findOne({ id: String(candidateId) }, PROJ).lean();
+    res.json({ ok: true, userId, password: tempPassword, accountCreated, interviewSchedule: updated?.interviewSchedule });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // Get interview schedule for a candidate (used by portal)
-app.get('/api/candidate-portal/interview/:candidateId', (req, res) => {
+app.get('/api/candidate-portal/interview/:candidateId', async (req, res) => {
   try {
-    const candidate = readCandidates().find(c => String(c.id) === String(req.params.candidateId));
+    const candidate = await Candidate.findOne({ id: String(req.params.candidateId) }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
     res.json(candidate.interviewSchedule || null);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Notifications ─────────────────────────────────────────────
+// ── Notifications ─────────────────────────────────────────────────
 
-app.get('/api/notifications', (req, res) => {
+app.get('/api/notifications', async (req, res) => {
   try {
-    res.json(readNotifications());
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    // Newest first
+    res.json(await Notification.find({}, PROJ).sort({ createdAt: -1 }).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/notifications/:id/read', (req, res) => {
+app.put('/api/notifications/:id/read', async (req, res) => {
   try {
-    const notifs = readNotifications();
-    const idx    = notifs.findIndex(n => n.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Not found' });
-    notifs[idx].read = true;
-    writeNotifications(notifs);
-    res.json(notifs[idx]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const notif = await Notification.findOne({ id: req.params.id }, PROJ).lean();
+    if (!notif) return res.status(404).json({ error: 'Not found' });
+    await Notification.updateOne({ id: req.params.id }, { $set: { read: true } });
+    res.json(await Notification.findOne({ id: req.params.id }, PROJ).lean());
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/notifications/read-all', (req, res) => {
+app.put('/api/notifications/read-all', async (req, res) => {
   try {
-    const notifs = readNotifications().map(n => ({ ...n, read: true }));
-    writeNotifications(notifs);
+    await Notification.updateMany({}, { $set: { read: true } });
     res.json({ ok: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── Audit Trail ───────────────────────────────────────────────
+// ── Audit Trail ───────────────────────────────────────────────────
 
-app.get('/api/candidates/:id/audit-trail', (req, res) => {
+app.get('/api/candidates/:id/audit-trail', async (req, res) => {
   try {
-    const candidate = readCandidates().find(c => String(c.id) === String(req.params.id));
+    const candidate = await Candidate.findOne({ id: String(req.params.id) }, PROJ).lean();
     if (!candidate) return res.status(404).json({ error: 'Candidate not found' });
     res.json(candidate.auditTrail || []);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 const port = process.env.PORT || 4000;
