@@ -107,3 +107,8 @@
   @include flex-center;
   flex-shrink:   0;
 }
+
+// ── Responsive breakpoint helpers ────────────────────────────
+@mixin tablet { @media (max-width: #{$bp-tablet}) { @content; } }
+@mixin mobile { @media (max-width: #{$bp-mobile}) { @content; } }
+@mixin xs     { @media (max-width: #{$bp-xs})     { @content; } }

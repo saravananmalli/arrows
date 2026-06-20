@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSidebar } from '../contexts/SidebarContext'
 
 const NAV = [
   { id: 'dashboard',    label: 'Dashboard',                    path: '/'              },
@@ -13,33 +14,43 @@ const NAV = [
 ]
 
 export default function Sidebar() {
-  return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <img src="/logo.png" alt="Arrows" className="sidebar-logo-img" style={{ width: '40px', height: '46px' }} />
-      </div>
+  const { isOpen, close } = useSidebar()
 
-      <nav className="sidebar-nav">
-        {NAV.map(({ id, label, path }) => (
-          <NavLink
-            key={id}
-            to={path}
-            end={path === '/'}
-            className={({ isActive }) => `sidebar-item${isActive ? ' active' : ''}`}
-            title={id}
-          >
-            <div className="sidebar-item-icon-wrap">
-              <img
-                className="sidebar-item-icon"
-                src={`/icons/${id}.svg`}
-                alt=""
-                aria-hidden="true"
-              />
-            </div>
-            <div className="sidebar-item-text">{label}</div>
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+  return (
+    <>
+      <div
+        className={`sidebar-backdrop${isOpen ? ' sidebar-backdrop--open' : ''}`}
+        onClick={close}
+        aria-hidden="true"
+      />
+      <aside className={`sidebar${isOpen ? ' sidebar--open' : ''}`}>
+        <div className="sidebar-logo">
+          <img src="/logo.png" alt="Arrows" className="sidebar-logo-img" style={{ width: '40px', height: '46px' }} />
+        </div>
+
+        <nav className="sidebar-nav">
+          {NAV.map(({ id, label, path }) => (
+            <NavLink
+              key={id}
+              to={path}
+              end={path === '/'}
+              className={({ isActive }) => `sidebar-item${isActive ? ' active' : ''}`}
+              title={id}
+              onClick={close}
+            >
+              <div className="sidebar-item-icon-wrap">
+                <img
+                  className="sidebar-item-icon"
+                  src={`/icons/${id}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="sidebar-item-text">{label}</div>
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+    </>
   )
 }

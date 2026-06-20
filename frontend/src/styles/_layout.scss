@@ -736,3 +736,104 @@
   gap:                   $content-gap;
   align-items:           stretch;
 }
+
+
+// ════════════════════════════════════════════════════════════
+//  RESPONSIVE — tablet & mobile overrides
+// ════════════════════════════════════════════════════════════
+
+// ── Hamburger (hidden on desktop/tablet) ──────────────────────
+.topbar-hamburger {
+  display:         none;
+  align-items:     center;
+  justify-content: center;
+  width:           38px;
+  height:          38px;
+  background:      none;
+  border:          none;
+  cursor:          pointer;
+  color:           var(--text-secondary);
+  flex-shrink:     0;
+  border-radius:   $radius-sm;
+  transition:      background $t-fast, color $t-fast;
+
+  &:hover {
+    background: var(--border);
+    color:      var(--text-primary);
+  }
+}
+
+// ── Sidebar backdrop (mobile overlay) ────────────────────────
+.sidebar-backdrop {
+  display: none;
+}
+
+// ── Tablet (768 – 1024px) ────────────────────────────────────
+@include tablet {
+  .dash-kpi-row    { grid-template-columns: repeat(2, 1fr); }
+  .dash-mid-row    { grid-template-columns: 1fr 1fr; }
+  .dash-bottom-row { grid-template-columns: 1fr; }
+}
+
+// ── Mobile (< 768px) ─────────────────────────────────────────
+@include mobile {
+  // Sidebar becomes a fixed overlay drawer
+  .sidebar {
+    position:  fixed;
+    left:      0;
+    top:       0;
+    height:    100vh;
+    z-index:   1000;
+    transform: translateX(-100%);
+    transition: transform $t-slow;
+
+    &--open {
+      transform:  translateX(0);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  // Semi-transparent backdrop behind open sidebar
+  .sidebar-backdrop {
+    display:        block;
+    position:       fixed;
+    inset:          0;
+    background:     rgba(0, 0, 0, 0.5);
+    z-index:        999;
+    opacity:        0;
+    pointer-events: none;
+    transition:     opacity $t-slow;
+
+    &--open {
+      opacity:        1;
+      pointer-events: all;
+    }
+  }
+
+  // Main area takes full width (sidebar is out of flow)
+  .main { width: 100%; }
+
+  // Show hamburger button
+  .topbar-hamburger { display: flex; }
+
+  // Topbar adjustments
+  .topbar {
+    padding: 0 12px;
+    gap:     8px;
+  }
+
+  // Hide search bar on mobile (not enough space)
+  .topbar-search { display: none; }
+
+  // Title fills remaining space
+  .topbar-spacer { display: none; }
+  .topbar-title-wrap { flex: 1; }
+
+  // Content padding tighter on small screens
+  .content { padding: 10px 12px; }
+
+  // Dashboard grids — single column
+  .dash-kpi-row    { grid-template-columns: repeat(2, 1fr); }
+  .dash-mid-row    { grid-template-columns: 1fr; }
+  .dash-bottom-row { grid-template-columns: 1fr; }
+}

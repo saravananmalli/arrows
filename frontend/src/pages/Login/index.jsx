@@ -49,53 +49,8 @@ function SignInIcon() {
   )
 }
 
-function DashboardPreview() {
-  return (
-    <div className="lp-preview-card">
-      <div className="lp-preview-header">
-        <div className="lp-preview-logo">
-          <img src="/logo.png" alt="Arrows" style={{ width: 20, height: 20, objectFit: 'contain' }} />
-        </div>
-        <span className="lp-preview-title">Candidate List</span>
-        <div className="lp-preview-breadcrumb">
-          <span>Dashboard</span>
-          <span> / </span>
-          <span className="lp-preview-breadcrumb-active">Candidate List</span>
-        </div>
-      </div>
-
-      <div className="lp-preview-sidebar">
-        {['dashboard', 'job-openings', 'candidates', 'interviews', 'client', 'reports'].map((icon, i) => (
-          <div key={icon} className={`lp-preview-nav-item${i === 2 ? ' active' : ''}`}>
-            <div className="lp-preview-nav-icon" />
-            <div className="lp-preview-nav-label" />
-          </div>
-        ))}
-      </div>
-
-      <div className="lp-preview-content">
-        <div className="lp-preview-filterbar">
-          <div className="lp-preview-search" />
-          {[1,2,3].map(k => <div key={k} className="lp-preview-select" />)}
-        </div>
-        <div className="lp-preview-table">
-          <div className="lp-preview-thead">
-            {[1,2,3,4,5].map(k => <div key={k} className="lp-preview-th" />)}
-          </div>
-          {[1,2,3,4,5,6,7,8].map(row => (
-            <div key={row} className="lp-preview-row">
-              <div className="lp-preview-check" />
-              {[1,2,3,4].map(c => <div key={c} className="lp-preview-cell" style={{ width: `${[80,60,50,40][c-1]}px` }} />)}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate  = useNavigate()
   const { login } = useAuth()
   const [email,    setEmail]    = useState('')
   const [password, setPassword] = useState('')
@@ -119,49 +74,49 @@ export default function Login() {
 
   return (
     <div className="lp-root">
-      {/* ── Left panel ── */}
+
+      {/* ── Left panel ─────────────────────────────────────── */}
       <div className="lp-left">
         <div className="lp-left-stripe lp-left-stripe--1" />
         <div className="lp-left-stripe lp-left-stripe--2" />
 
-        <div className="lp-left-content">
-          <div className="lp-headline">
-            <h1 className="lp-headline-text">
-              Welcome Back!&nbsp;<strong>Sign In</strong>
-            </h1>
-            <p className="lp-headline-sub">Access Your Account</p>
-            <p className="lp-headline-desc">
-              Please enter your email and password to continue.<br />
-              If you've forgotten your password, use the "Forgot Password" option<br />
-              to reset it. Make sure your login details are secure and up to date.
-            </p>
-            <div className="lp-dots">
-              <span className="lp-dot lp-dot--active" />
-              <span className="lp-dot" />
-              <span className="lp-dot" />
-            </div>
+        <div className="lp-left-text">
+          <h1 className="lp-headline-text">
+            Welcome Back!&nbsp;<strong>Sign In</strong>
+          </h1>
+          <p className="lp-headline-sub">Access Your Account</p>
+          <p className="lp-headline-desc">
+            Please enter your email and password to continue.<br />
+            If you've forgotten your password, use the "Forgot Password" option<br />
+            to reset it. Make sure your login details are secure and up to date.
+          </p>
+          <div className="lp-dots">
+            <span className="lp-dot lp-dot--active" />
+            <span className="lp-dot" />
+            <span className="lp-dot" />
           </div>
+        </div>
 
-          <div className="lp-preview-wrap">
-            <div className="lp-avatar lp-avatar--top">
-              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" />
-            </div>
-            <DashboardPreview />
-            <div className="lp-avatar lp-avatar--bottom">
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
-            </div>
-          </div>
+        <div className="lp-banner-wrap">
+          <img
+            src="/login-banner.png"
+            className="lp-banner-img"
+            alt=""
+            aria-hidden="true"
+          />
         </div>
       </div>
 
-      {/* ── Right panel ── */}
+      {/* ── Right panel ────────────────────────────────────── */}
       <div className="lp-right">
-        <div className="lp-form-wrap">
+        <div className="lp-card">
+
           <div className="lp-logo">
-            <img src="/logo.png" alt="Arrows" className="lp-logo-img" />
+            <img src="/login-logo.png" alt="Arrows" className="lp-logo-img" />
           </div>
 
           <form className="lp-form" onSubmit={handleSubmit} noValidate>
+
             <div className="lp-field">
               <label className="lp-label" htmlFor="lp-email">Email Address</label>
               <div className="lp-input-wrap">
@@ -198,6 +153,7 @@ export default function Login() {
                   className="lp-eye-btn"
                   onClick={() => setShowPw(p => !p)}
                   tabIndex={-1}
+                  aria-label={showPw ? 'Hide password' : 'Show password'}
                 >
                   {showPw ? <EyeIcon /> : <EyeOffIcon />}
                 </button>
@@ -222,14 +178,12 @@ export default function Login() {
               <SignInIcon />
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
+
           </form>
 
-          <p className="lp-signup-row">
-            Don't have an account?&nbsp;
-            <button type="button" className="lp-signup-link">Sign Up</button>
-          </p>
         </div>
       </div>
+
     </div>
   )
 }

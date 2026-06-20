@@ -1,5 +1,6 @@
 import React from 'react'
 import { useThemeContext } from '../contexts/ThemeContext'
+import { useSidebar } from '../contexts/SidebarContext'
 import ProfileMenu from './profile/ProfileMenu'
 import NotificationCenter from './NotificationCenter'
 
@@ -20,12 +21,31 @@ function MoonIcon() {
   )
 }
 
+function HamburgerIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <line x1="2" y1="5" x2="18" y2="5"/>
+      <line x1="2" y1="10" x2="18" y2="10"/>
+      <line x1="2" y1="15" x2="18" y2="15"/>
+    </svg>
+  )
+}
+
 export default function TopBar({ title = 'Dashboard', subtitle, onBack }) {
   const { theme, toggle } = useThemeContext()
+  const { toggle: toggleSidebar } = useSidebar()
   const isDark = theme === 'dark'
 
   return (
     <header className="topbar">
+      <button
+        className="topbar-hamburger"
+        onClick={toggleSidebar}
+        aria-label="Open navigation menu"
+      >
+        <HamburgerIcon />
+      </button>
+
       <div className="topbar-title-wrap">
         {onBack && (
           <button className="topbar-back-btn" onClick={onBack} title="Go back" aria-label="Go back">

@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { ToastProvider } from './contexts/ToastContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { CandidateAuthProvider } from './contexts/CandidateAuthContext'
+import { SidebarProvider } from './contexts/SidebarContext'
 import { initMasters } from './services/masters.service'
 import './styles/main.scss'
 
@@ -34,7 +35,9 @@ initMasters().finally(() => {
               <AuthProvider>
                 <CandidateAuthProvider>
                   <ToastProvider>
-                    <App />
+                    <SidebarProvider>
+                      <App />
+                    </SidebarProvider>
                   </ToastProvider>
                 </CandidateAuthProvider>
               </AuthProvider>
