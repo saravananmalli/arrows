@@ -1,5 +1,9 @@
 {
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "echo 'install handled in build step'"
+  "installCommand": "echo 'install handled in build step'",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://arrows-26a1.onrender.com/api/$1" },
+    { "source": "/uploads/(.*)", "destination": "https://arrows-26a1.onrender.com/uploads/$1" }
+  ]
 }
